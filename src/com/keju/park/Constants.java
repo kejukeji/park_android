@@ -1,0 +1,32 @@
+package com.keju.park;
+
+import android.os.Environment;
+
+
+/**
+ * 常量类
+ * @author Zhoujun
+ * 说明：	1、一些应用常量在此定义
+ * 		2、常量包括：一些类型的定义，在其他程序中不能够出现1 2 3之类的值。
+ */
+public class Constants {
+	/**
+	 * 应用文件存放目录
+	 */
+	public static final String APP_DIR_NAME = "neitui";
+	//图片目录
+	public static final String IMAGE_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/image/";
+	//日志目录
+	public static final String LOG_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/log/";
+	//文件目录
+	public static final String FILE_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/file/";
+	/**
+	 * 网络请求状态
+	 */
+	public static final String REQUEST_SUCCESS = "success";//表示成功
+	public static final String REQUEST_FAILED = "failed";//表示失败
+	public static final String REQUEST_TOKEN_INVALID = "auth is no exist";
+	public static final String CONNECT_SERVER_FAILED = "服务器连接失败";
+	public static final String JSON_EXCEPTION = "json解析错误";
+	
+}
