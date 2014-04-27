@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <TextView android:id="@+id/tvTest" android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView android:id="@+id/tvTest" android:layout_width="match_parent" android:layout_height="wrap_content">
         
     </TextView>
-
+	<EditText android:id="@+id/etSearch" android:layout_width="match_parent" android:layout_height="wrap_content"
+	    android:layout_below="@id/tvTest" android:inputType="text" android:imeOptions="actionSearch"
+	    android:singleLine="true"/>
+    <ListView android:id="@+id/listView1" android:layout_width="match_parent" android:layout_height="wrap_content"
+        style="@style/listviewStyle" android:layout_below="@id/etSearch">
+        
+    </ListView>
 </RelativeLayout>
