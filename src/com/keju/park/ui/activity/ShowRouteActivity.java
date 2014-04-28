@@ -51,9 +51,10 @@ public class ShowRouteActivity extends Activity {
 		setContentView(R.layout.activity_show_route);
 		// 初始化地图
 		mMapView = (MapView) findViewById(R.id.bmapView);
-		mMapView.setBuiltInZoomControls(false);
-		mMapView.getController().setZoom(12);
+		mMapView.setBuiltInZoomControls(true);
+		mMapView.getController().setZoom(14);
 		mMapView.getController().enableClick(true);
+		mMapView.getController().setCenter(new GeoPoint((int) (31.217899 * 1E6), (int) (121.53427 * 1E6)));
 		
 		 // 初始化搜索模块，注册事件监听
 		mMKSearch = new MKSearch();
