@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Park</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+	<string name="app_name">Park</string>
+	<string name="action_settings">Settings</string>
+	<string name="hello_world">Hello world!</string>
 
+	<string name="look_parking">寻找车位</string>
+
+	<!-- 科大讯飞的 后续修改 -->
+	<string name="app_id">53591207</string>
+	<string name="text_iat">开始</string>
+	<string name="text_isr">识别</string>
+	<string name="text_iat_begin">请开始说话...</string>
+	<string name="text_iat_stop">停止</string>
+	<string name="text_iat_cancel">取消</string>
+	<string name="text_iat_demo">语音听写</string>
+	<string name="text_login_fail">登录失败</string>
+	<string name="title_isr_warning">警告</string>
+	<!-- iat -->
+	<string name="preference_key_iat_engine">iat_engine</string>
+	<string name="preference_default_iat_engine">iat</string>
+	<string name="preference_key_poi_province">poi_province</string>
+	<string name="preference_default_poi_province">全选</string>
+	<string name="preference_dialog_title_poi_province">选择地图搜索省份</string>
+	<string name="preference_key_poi_city">poi_city</string>
+	<string name="preference_title_poi_city">地图搜索城市</string>
+	<string name="preference_default_poi_city">全选</string>
+	<string name="preference_dialog_title_poi_city">选择地图搜索城市</string>
+	<string name="preference_key_iat_rate">iat_rate</string>
+	<string-array name="preference_entries_iat_rate">
+		<item>8K</item>
+		<item>16K</item>
+	</string-array>
+	<string name="preference_default_iat_rate">rate16k</string>
+	<string name="preference_key_iat_vad">iat_vad</string>
+	<string name="preference_key_iat_show">iat_show</string>
+	<string name="preference_default_isr_engine">iat</string>
 </resources>
