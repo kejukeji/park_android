@@ -26,7 +26,7 @@ import com.keju.park.util.LogUtil;
  */
 public class BaseActivity extends Activity {
 	//公用的头标题栏  控件
-	protected TextView tvLeft,tvTitle;
+	protected TextView tvLeft,tvTitle,tvRight;
     
 	private static final String TAG = "BaseActivity";
 
@@ -47,6 +47,7 @@ public class BaseActivity extends Activity {
 	protected void initBar () {
 		
 		tvLeft = (TextView) findViewById(R.id.tvLeft);
+		tvRight = (TextView) findViewById(R.id.tvRight);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		
 	}

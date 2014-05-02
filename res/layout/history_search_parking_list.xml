@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<include android:id="@+id/bar" layout="@layout/common_title_bar" />
+	<RelativeLayout android:id="@+id/llSearch"
+		android:layout_width="match_parent" android:layout_height="70dp"
+		android:background="@color/common_bar" android:layout_below="@+id/bar"
+		android:gravity="center_vertical">
+
+		<AutoCompleteTextView android:id="@+id/edSearch"
+			android:layout_width="match_parent" android:layout_height="47dp"
+			android:background="@drawable/bg_input_lookl_parking"
+			android:layout_margin="5dp" android:hint="请输入目的地" />
+
+		<ImageView android:id="@+id/lvSearch" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignRight="@+id/edSearch"
+			android:layout_alignTop="@+id/edSearch" android:src="@drawable/ic_search"
+			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
+	</RelativeLayout>
+
+	<ListView android:id="@+id/lvSearchHistory" style="@style/listviewStyle"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:layout_below="@+id/llSearch"></ListView>
+
+</RelativeLayout>

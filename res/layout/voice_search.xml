@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent" android:background="@color/bg_comment">
+
+	<include android:id="@+id/rlVoiceSearch" layout="@layout/common_title_bar" />
+
+	<TextView android:id="@+id/tvSpeak" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_below="@+id/rlVoiceSearch"
+		android:layout_centerHorizontal="true" android:gravity="center_vertical"
+		android:text="@string/speak" android:textColor="@color/common_bar"
+		android:textSize="18sp" android:layout_marginTop="35dp" />
+
+	<TextView android:id="@+id/tvPosition" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_below="@+id/tvSpeak"
+		android:layout_centerHorizontal="true" android:gravity="center_vertical"
+		android:text="@string/position" android:textColor="@color/common_bar"
+		android:layout_marginTop="10dp" android:textSize="18sp" />
+
+
+	<RelativeLayout android:id="@+id/rlErroeOrRight"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:layout_above="@+id/btnVoiceSearch"
+		android:layout_marginBottom="80dp" android:gravity="clip_vertical"
+		android:visibility="gone">
+
+		<Button android:id="@+id/btnError" android:layout_width="80dp"
+			android:layout_height="80dp" android:background="@drawable/bg_error_or_right"
+			android:layout_centerVertical="true" android:gravity="center"
+			android:layout_marginLeft="20dp" />
+
+
+		<ImageView android:id="@+id/ivError" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignLeft="@+id/btnError"
+			android:layout_alignRight="@+id/btnError"
+			android:layout_centerVertical="true" android:gravity="center"
+			android:src="@drawable/ic_error" />
+
+		<Button android:id="@+id/btnRight" android:layout_width="80dp"
+			android:layout_height="80dp" android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true" android:background="@drawable/bg_error_or_right"
+			android:layout_centerVertical="true" android:gravity="center"
+			android:layout_marginRight="20dp" />
+
+		<ImageView android:id="@+id/ivRight" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignLeft="@+id/btnRight"
+			android:layout_alignRight="@+id/btnRight"
+			android:layout_centerVertical="true" android:gravity="center"
+			android:src="@drawable/ic_right" />
+
+
+	</RelativeLayout>
+
+	<Button android:id="@+id/btnVoiceSearch" android:layout_width="match_parent"
+		android:layout_height="102dp" android:layout_above="@+id/textView"
+		android:layout_alignParentLeft="true" android:background="@drawable/bg_voice_search_btn"
+		android:textColor="@color/white" android:textSize="20sp"
+		android:layout_margin="5dp" />
+
+
+	<ImageView android:id="@+id/ivVoice" android:layout_width="wrap_content"
+		android:layout_height="100dp" android:layout_alignTop="@+id/btnVoiceSearch"
+		android:layout_centerHorizontal="true" android:src="@drawable/ic_voice_search" />
+
+	<TextView android:id="@+id/textView" android:layout_width="match_parent"
+		android:layout_height="1dp" android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

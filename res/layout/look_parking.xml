@@ -9,9 +9,8 @@
 		android:background="@color/common_bar" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
-		<AutoCompleteTextView android:id="@+id/edSearch"
-			android:layout_width="match_parent" android:layout_height="47dp"
-			android:background="@drawable/bg_input_lookl_parking"
+		<EditText android:id="@+id/edSearch" android:layout_width="match_parent"
+			android:layout_height="47dp" android:background="@drawable/bg_input_lookl_parking"
 			android:layout_margin="5dp" android:hint="请输入目的地" />
 
 		<ImageView android:id="@+id/lvSearch" android:layout_width="wrap_content"
@@ -20,17 +19,13 @@
 			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
 	</RelativeLayout>
 
-	<ListView android:id="@+id/lvHoistory" android:layout_width="match_parent"
-		android:layout_height="wrap_content" android:layout_below="@+id/llSearch"
-		android:visibility="gone">
-	</ListView>
 	<RelativeLayout android:id="@+id/llnearbyOrVoice"
 		android:layout_width="match_parent" android:layout_height="match_parent"
-		android:background="#F2F2F2" android:layout_below="@+id/llSearch"
+		android:background="@color/bg_comment" android:layout_below="@+id/llSearch"
 		android:padding="10dp">
 
 		<Button android:id="@+id/btnLookNearby" android:layout_width="match_parent"
-			android:layout_height="100dp" android:background="@drawable/bg_nearby_look_parink_btn"
+			android:layout_height="102dp" android:background="@drawable/bg_nearby_look_parink_btn"
 			android:layout_marginTop="55dp" android:text="                找附近"
 			android:textColor="@color/white" android:textSize="20sp" />
 
@@ -41,7 +36,7 @@
 
 
 		<Button android:id="@+id/btnVoice" android:layout_width="match_parent"
-			android:layout_height="100dp" android:background="@drawable/bg_voice_look_parink_btn"
+			android:layout_height="102dp" android:background="@drawable/bg_voice_look_parink_btn"
 			android:layout_marginTop="65dp" android:text="                语     音"
 			android:textColor="@color/white" android:textSize="20sp"
 			android:layout_below="@+id/ivLookNearby" />
@@ -50,8 +45,6 @@
 			android:layout_below="@+id/btnLookNearby" android:layout_marginTop="25dp"
 			android:src="@drawable/ic_voice" />
 
-		<EditText android:id="@+id/tvVoice" android:layout_width="match_parent"
-			android:layout_height="60dp" android:layout_below="@+id/ivVoice" />
 
 	</RelativeLayout>
 
