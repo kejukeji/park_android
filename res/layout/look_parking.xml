@@ -50,6 +50,9 @@
 			android:layout_below="@+id/btnLookNearby" android:layout_marginTop="25dp"
 			android:src="@drawable/ic_voice" />
 
+		<EditText android:id="@+id/tvVoice" android:layout_width="match_parent"
+			android:layout_height="60dp" android:layout_below="@+id/ivVoice" />
+
 	</RelativeLayout>
 
 </RelativeLayout>

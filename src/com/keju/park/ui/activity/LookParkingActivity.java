@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.iflytek.cloud.speech.RecognizerListener;
 import com.iflytek.cloud.speech.RecognizerResult;
@@ -15,6 +15,7 @@ import com.iflytek.cloud.speech.SpeechListener;
 import com.iflytek.cloud.speech.SpeechRecognizer;
 import com.iflytek.cloud.speech.SpeechUser;
 import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keju.park.R;
 import com.keju.park.ui.activity.base.BaseActivity;
 import com.keju.park.util.JsonParser;
@@ -26,6 +27,7 @@ import com.keju.park.util.JsonParser;
  */
 public class LookParkingActivity extends BaseActivity implements OnClickListener {
 	private Button btnNearby, btnVoice;
+	private EditText tvVoice;
 	// 识别对象
 	private SpeechRecognizer iatRecognizer;
 	// 识别窗口
@@ -56,6 +58,9 @@ public class LookParkingActivity extends BaseActivity implements OnClickListener
 
 		btnVoice = (Button) findViewById(R.id.btnVoice);
 		btnVoice.setOnClickListener(this);
+		
+	    tvVoice = (EditText) findViewById(R.id.tvVoice);
+	    
 		
 		//用户登录
 		 SpeechUser.getUser().login(LookParkingActivity.this, null, null
@@ -186,26 +191,26 @@ public class LookParkingActivity extends BaseActivity implements OnClickListener
 		tvVoice.setText(null);
 		// 显示听写对话框
 		iatRecognizer.startListening(recognizerListener);
-		showTip(getString(R.string.text_iat_begin));
+		showShortToast(getString(R.string.text_iat_begin));
 	}
 
 	RecognizerListener recognizerListener = new RecognizerListener() {
 
 		@Override
 		public void onBeginOfSpeech() {
-			showTip("开始说话");
+			showShortToast("开始说话");
 		}
 
 		@Override
 		public void onError(SpeechError err) {
-			showTip(err.getPlainDescription(true));
-			((Button) findViewById(android.R.id.button1)).setText(VoiceLookCarport.this.getString(R.string.text_iat));
+			showShortToast(err.getPlainDescription(true));
+			((Button) findViewById(android.R.id.button1)).setText(LookParkingActivity.this.getString(R.string.text_iat));
 			((Button) findViewById(android.R.id.button1)).setEnabled(true);
 		}
 
 		@Override
 		public void onEndOfSpeech() {
-			showTip("结束说话");
+			showShortToast("结束说话");
 		}
 
 		@Override
@@ -219,7 +224,7 @@ public class LookParkingActivity extends BaseActivity implements OnClickListener
 			tvVoice.append(text);
 			tvVoice.setSelection(tvVoice.length());
 			if (isLast) {
-				((Button) findViewById(android.R.id.button1)).setText(VoiceLookCarport.this
+				((Button) findViewById(android.R.id.button1)).setText(LookParkingActivity.this
 						.getString(R.string.text_iat));
 				((Button) findViewById(android.R.id.button1)).setEnabled(true);
 			}
@@ -227,7 +232,27 @@ public class LookParkingActivity extends BaseActivity implements OnClickListener
 
 		@Override
 		public void onVolumeChanged(int volume) {
-			showTip("当前正在说话，音量大小：" + volume);
+			showShortToast("当前正在说话，音量大小：" + volume);
+		}
+
+	};
+	
+	/**
+	 * 识别回调监听器
+	 */
+	RecognizerDialogListener recognizerDialogListener = new RecognizerDialogListener() {
+		@Override
+		public void onResult(RecognizerResult results, boolean isLast) {
+			String text = JsonParser.parseIatResult(results.getResultString());
+			tvVoice.append(text);
+			tvVoice.setSelection(tvVoice.length());
+		}
+
+		/**
+		 * 识别回调错误.
+		 */
+		public void onError(SpeechError error) {
+
 		}
 
 	};
