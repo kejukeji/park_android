@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/rg_main_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/orange"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_home"
+            android:padding="6dp" />
+
+        <RadioButton
+            android:id="@+id/rb_collection"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_collection"
+            android:padding="6dp" />
+
+        <RadioButton
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_voice"
+            android:padding="6dp"
+            android:visibility="invisible" />
+
+        <RadioButton
+            android:id="@+id/rb_store"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_store"
+            android:padding="6dp" />
+
+        <RadioButton
+            android:id="@+id/rb_personal_center"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_personal_center"
+            android:padding="6dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/viewVoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@drawable/tab_semicircle"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/tab_voice" />
+    </LinearLayout>
+
+</FrameLayout>

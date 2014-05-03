@@ -4,16 +4,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <TextView android:id="@+id/tvTest" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout android:id="@+id/mainLayout" android:layout_width="match_parent" android:layout_height="match_parent" 
+        android:layout_above="@+id/footLayout">
         
-    </TextView>
-	<EditText android:id="@+id/etSearch" android:layout_width="200dp" android:layout_height="wrap_content"
-	    android:layout_below="@id/tvTest" android:inputType="text" android:imeOptions="actionSearch"
-	    android:singleLine="true" />
-	<Button android:id="@+id/btnRoute" android:layout_width="wrap_content" android:layout_height="wrap_content"
-	    android:text="路线" android:layout_below="@id/tvTest" android:layout_toRightOf="@id/etSearch"/>
-    <ListView android:id="@+id/listView1" android:layout_width="match_parent" android:layout_height="wrap_content"
-        style="@style/listviewStyle" android:layout_below="@id/etSearch">
+    </RelativeLayout>
+    <FrameLayout android:id="@+id/footLayout" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:layout_marginTop="-10dp">
         
-    </ListView>
+    </FrameLayout>
 </RelativeLayout>

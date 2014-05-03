@@ -13,13 +13,21 @@ public class Constants {
 	/**
 	 * 应用文件存放目录
 	 */
-	public static final String APP_DIR_NAME = "neitui";
+	public static final String APP_DIR_NAME = "park";
 	//图片目录
 	public static final String IMAGE_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/image/";
 	//日志目录
 	public static final String LOG_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/log/";
 	//文件目录
 	public static final String FILE_DIR = Environment.getExternalStorageDirectory()+ "/"+APP_DIR_NAME+"/file/";
+	/**
+	 * activity 定义的id,fragment间切换;
+	 */
+	public static final int FRAGMENT_HOME = 1;//主页
+	public static final int FRAGMENT_COLLECTION = 2;//收藏界面
+	public static final int FRAGMENT_VOICE = 3;//语音界面
+	public static final int FRAGMENT_STORE = 4;//商店界面
+	public static final int FRAGMENT_PERSONAL_CENTER = 5;//个人中心
 	/**
 	 * 网络请求状态
 	 */
