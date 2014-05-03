@@ -6,4 +6,5 @@
 	<color name="common_bar">#e76b2b</color>
 	<color name="white">#ffffff</color>
 	<color name="orange">#e76b2b</color>
+	<color name="bg_comment">#F2F2F2</color>
 </resources>

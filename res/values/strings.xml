@@ -6,6 +6,8 @@
 	<string name="hello_world">Hello world!</string>
 
 	<string name="look_parking">寻找车位</string>
+	<string name="speak">请大声说出</string>
+ 	<string name="position">你要查找的位置</string>
 
 	<!-- 科大讯飞的 后续修改 -->
 	<string name="app_id">53591207</string>

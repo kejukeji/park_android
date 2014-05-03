@@ -11,6 +11,7 @@ import android.view.View;
 import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.listener.ActivityClickListener;
+import com.keju.park.ui.activity.lookparking.VoiceSearchActivity;
 import com.keju.park.ui.fragment.FootFragment;
 import com.keju.park.ui.fragment.HomeFragment;
 
@@ -36,7 +37,7 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 		switch (activityId) {
 		case Constants.FRAGMENT_VOICE:
 //			hideFootLayout();
-			Intent intent = new Intent(this, VoiceLookCarport.class);
+			Intent intent = new Intent(this, VoiceSearchActivity.class);
 			startActivity(intent);
 			break;
 

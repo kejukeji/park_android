@@ -47,7 +47,7 @@
 
 		<activity android:name=".ui.activity.LookParkingActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
-		<activity android:name=".ui.activity.VoiceLookCarport"
+		<activity android:name=".ui.activity.lookparking.VoiceSearchActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 
 		<!-- 定位服务 -->
