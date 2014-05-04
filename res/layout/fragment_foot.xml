@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/rg_main_btns"
@@ -47,7 +46,7 @@
     <LinearLayout
         android:id="@+id/viewVoice"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@drawable/tab_semicircle"
         android:clickable="true"

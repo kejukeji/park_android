@@ -46,6 +46,7 @@ import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
+import com.keju.park.ui.searchparking.ShowRouteActivity;
 import com.keju.park.util.NetUtil;
 
 public class CopyOfMainActivity extends FragmentActivity {

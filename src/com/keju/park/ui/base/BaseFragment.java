@@ -1,4 +1,4 @@
-package com.keju.park.ui.fragment;
+package com.keju.park.ui.base;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import android.widget.Toast;
  * @version 创建时间：2014-5-2 下午3:31:52
  */
 public class BaseFragment extends Fragment {
+	
 	protected AlertDialog mAlertDialog;
 	/**
 	 * 显示下一个fragment

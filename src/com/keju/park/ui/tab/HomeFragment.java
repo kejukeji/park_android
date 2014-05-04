@@ -1,22 +1,21 @@
-package com.keju.park.ui.fragment;
+package com.keju.park.ui.tab;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.keju.park.R;
-import com.keju.park.ui.activity.lookparking.LookParkingActivity;
+import com.keju.park.ui.base.BaseFragment;
+import com.keju.park.ui.searchparking.SearchParkingActivity;
 
 /**
  * 首页
  * @author Zhoujun
  * @version 创建时间：2014-5-2 下午3:32:30
  */
-public class HomeFragment extends Fragment implements OnClickListener{
+public class HomeFragment extends BaseFragment implements OnClickListener{
 	private View viewSearchPark;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,11 +32,9 @@ public class HomeFragment extends Fragment implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.viewSearchPark:
-			intent = new Intent(getActivity(), LookParkingActivity.class);
-			startActivity(intent);
+			openActivity(SearchParkingActivity.class);
 			break;
 
 		default:

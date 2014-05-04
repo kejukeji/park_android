@@ -1,4 +1,4 @@
-package com.keju.park.ui.activity.lookparking;
+package com.keju.park.ui.searchparking;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.iflytek.cloud.speech.SpeechUser;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.keju.park.R;
-import com.keju.park.ui.activity.base.BaseActivity;
+import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.JsonParser;
 
 /**

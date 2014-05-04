@@ -1,4 +1,4 @@
-package com.keju.park.ui.activity;
+package com.keju.park.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.View;
 import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.listener.ActivityClickListener;
-import com.keju.park.ui.activity.lookparking.VoiceSearchActivity;
-import com.keju.park.ui.fragment.FootFragment;
-import com.keju.park.ui.fragment.HomeFragment;
+import com.keju.park.ui.searchparking.VoiceSearchActivity;
+import com.keju.park.ui.tab.FootFragment;
+import com.keju.park.ui.tab.HomeFragment;
 
 public class MainActivity extends FragmentActivity implements ActivityClickListener{
 	private View footLayout;

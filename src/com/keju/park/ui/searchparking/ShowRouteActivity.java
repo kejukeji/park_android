@@ -1,4 +1,4 @@
-package com.keju.park.ui.activity;
+package com.keju.park.ui.searchparking;
 
 import android.app.Activity;
 import android.os.Bundle;

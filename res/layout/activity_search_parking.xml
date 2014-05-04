@@ -9,14 +9,14 @@
 		android:background="@color/common_bar" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
-		<AutoCompleteTextView android:id="@+id/edSearch"
+		<TextView android:id="@+id/tvSearch"
 			android:layout_width="match_parent" android:layout_height="47dp"
-			android:background="@drawable/bg_input_lookl_parking"
+			android:background="@drawable/bg_input_search_parking"
 			android:layout_margin="5dp" android:hint="请输入目的地" />
 
-		<ImageView android:id="@+id/lvSearch" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignRight="@+id/edSearch"
-			android:layout_alignTop="@+id/edSearch" android:src="@drawable/ic_search"
+		<ImageView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignRight="@+id/tvSearch"
+			android:layout_alignTop="@+id/tvSearch" android:src="@drawable/ic_search"
 			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
 	</RelativeLayout>
 
@@ -49,9 +49,6 @@
 			android:layout_height="100dp" android:layout_alignLeft="@+id/btnVoice"
 			android:layout_below="@+id/btnLookNearby" android:layout_marginTop="25dp"
 			android:src="@drawable/ic_voice" />
-
-		<EditText android:id="@+id/tvVoice" android:layout_width="match_parent"
-			android:layout_height="60dp" android:layout_below="@+id/ivVoice" />
 
 	</RelativeLayout>
 

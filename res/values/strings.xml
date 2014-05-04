@@ -2,10 +2,9 @@
 <resources>
 
 	<string name="app_name">Park</string>
-	<string name="action_settings">Settings</string>
-	<string name="hello_world">Hello world!</string>
+	<string name="NoSignalException">无法连接到网络，请检查网络配置</string>
 
-	<string name="look_parking">寻找车位</string>
+	<string name="search_parking">寻找车位</string>
 	<string name="speak">请大声说出</string>
  	<string name="position">你要查找的位置</string>
 

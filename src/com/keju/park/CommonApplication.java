@@ -18,6 +18,10 @@ import com.baidu.mapapi.map.MKEvent;
  */
 public class CommonApplication extends Application {
 	/**
+	 * 定位的城市；
+	 */
+	private String city = "";
+	/**
 	 * Singleton pattern
 	 */
 	private static CommonApplication instance;
@@ -85,5 +89,11 @@ public class CommonApplication extends Application {
 	public void addActivity(Activity mActivity) {
 		activities.add(mActivity);
 	}
-
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
 }

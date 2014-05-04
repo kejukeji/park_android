@@ -1,4 +1,4 @@
-package com.keju.park.ui.fragment;
+package com.keju.park.ui.tab;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.listener.ActivityClickListener;
+import com.keju.park.ui.base.BaseFragment;
 
 /**
  * 底部菜单fragment

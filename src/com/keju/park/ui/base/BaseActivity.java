@@ -1,4 +1,4 @@
-package com.keju.park.ui.activity.base;
+package com.keju.park.ui.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
