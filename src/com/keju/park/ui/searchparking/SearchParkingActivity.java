@@ -163,7 +163,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
         public void onGetAddrResult(MKAddrInfo result, int iError) {  
                //返回地址信息搜索结果  
         	MKGeocoderAddressComponent kk=result.addressComponents; 
-        	app.setCity(kk.city);
+//        	app.setCity(kk.city);
         }  
         @Override  
         public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {  

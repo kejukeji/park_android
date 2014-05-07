@@ -1,10 +1,22 @@
 package com.keju.park.ui.searchparking;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseActivity;
@@ -18,6 +30,9 @@ import com.keju.park.ui.base.BaseActivity;
 public class ParkingListActivity extends BaseActivity implements OnClickListener {
 	private CommonApplication app;
 	private TextView tvLocation;
+
+	private ListView lvlocationList;
+	private NearbyParkAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +53,33 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvLocation.setText(app.getCity());
+
+		lvlocationList = (ListView) findViewById(R.id.lvlocationList);
+
+		getData(app.getLastLocation().getLongitude(), app.getLastLocation().getLatitude());
+	}
+
+	/**
+	 * 
+	 */
+	private void getData(Double longitude, Double Latitude) {
+		RequestQueue mQueue = Volley.newRequestQueue(this);
+		mQueue.add(new JsonObjectRequest(Method.GET,
+				"http://park.kejukeji.com/ssbusy/carbarn/latitude-longitude?latitude=" + longitude + "&longitude="
+						+ Latitude, null, new Listener<JSONObject>() {
+
+					@Override
+					public void onResponse(JSONObject arg0) {
+                    
+					}
+
+				}, new ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+					}
+				}));
+		mQueue.start();
 	}
 
 	/**
@@ -57,5 +99,37 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 附近停车场适配器
+	 * 
+	 * */
+
+	private class NearbyParkAdapter extends BaseAdapter {
+		@Override
+		public int getCount() {
+
+			return 0;
+		}
+
+		@Override
+		public Object getItem(int position) {
+
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			return null;
+		}
+
 	}
 }

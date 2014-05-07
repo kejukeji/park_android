@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--复制线条 -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+	android:src="@drawable/bg_location_line" android:tileMode="repeat">
+
+</bitmap>
