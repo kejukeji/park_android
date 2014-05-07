@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:background="@drawable/bg_nearby_park_item">
+
+	<RelativeLayout android:id="@+id/relativeLayout"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:gravity="center">
+
+		<ImageView android:id="@+id/ivLocation"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:src="@drawable/ic_orange_location" />
+
+		<ImageView android:id="@+id/oneLine" android:layout_width="2dp"
+			android:layout_height="wrap_content" android:layout_below="@+id/ivLocation"
+			android:layout_centerHorizontal="true" android:src="@drawable/bg_location_line" />
+
+		<ImageView android:id="@+id/noeDot" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@drawable/ic_location_dot"
+			android:layout_below="@+id/oneLine" android:layout_marginLeft="3dp" />
+
+
+		<ImageView android:id="@+id/towLine" android:layout_width="2dp"
+			android:layout_height="wrap_content" android:layout_below="@+id/noeDot"
+			android:layout_centerHorizontal="true" android:src="@drawable/bg_location_line" />
+
+		<ImageView android:id="@+id/towDot" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@drawable/ic_location_dot"
+			android:layout_below="@+id/towLine" android:layout_marginLeft="3dp" />
+
+
+		<ImageView android:id="@+id/threeLine" android:layout_width="2dp"
+			android:layout_height="wrap_content" android:layout_below="@+id/towDot"
+			android:layout_centerHorizontal="true" android:src="@drawable/bg_location_line" />
+
+		<ImageView android:id="@+id/threeDot" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@drawable/ic_location_dot"
+			android:layout_below="@+id/threeLine" android:layout_marginLeft="3dp" />
+
+	</RelativeLayout>
+
+
+
+</RelativeLayout>

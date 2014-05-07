@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.keju.park.CommonApplication;
 import com.keju.park.R;
+import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseFragment;
 import com.keju.park.ui.searchparking.SearchParkingActivity;
 
@@ -17,6 +19,12 @@ import com.keju.park.ui.searchparking.SearchParkingActivity;
  */
 public class HomeFragment extends BaseFragment implements OnClickListener{
 	private View viewSearchPark;
+	
+	/**
+	 * 数据库操作对象
+	 */
+	private DataBaseAdapter dba;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_home, container, false);
@@ -27,8 +35,14 @@ public class HomeFragment extends BaseFragment implements OnClickListener{
 		initView();
 	}
 	private void initView(){
+		dba = ((CommonApplication) getActivity().getApplicationContext()).getDbAdapter();
+		
 		viewSearchPark = getActivity().findViewById(R.id.viewSearchPark);
 		viewSearchPark.setOnClickListener(this);
+		
+		
+		
+		
 	}
 	@Override
 	public void onClick(View v) {

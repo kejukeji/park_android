@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent" android:background="#F2F2F2">
+
+	<include android:id="@+id/rlnearby" layout="@layout/common_title_bar" />
+
+	<RelativeLayout android:id="@+id/rlLocation"
+		android:layout_width="match_parent" android:layout_height="40dp"
+		android:background="@color/common_bar" android:layout_below="@+id/rlnearby"
+		android:gravity="center_vertical">
+
+		<TextView android:id="@+id/ivLocation" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:drawableLeft="@drawable/ic_while_location"
+			android:text="  您当前的位置：" android:textColor="@color/white"
+			android:layout_marginLeft="12dp" android:textSize="16sp" />
+
+		<TextView android:id="@+id/tvLocation" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="上海体育馆"
+			android:textColor="@color/white" android:layout_toRightOf="@+id/ivLocation"
+			android:layout_marginLeft="5dp" android:textSize="16sp" />
+
+	</RelativeLayout>
+
+	<ListView android:id="@+id/lvlocationList"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:layout_below="@+id/rlLocation" style="@style/listviewStyle" />
+
+</RelativeLayout>

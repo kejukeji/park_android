@@ -8,9 +8,28 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKGeneralListener;
+import com.baidu.mapapi.map.LocationData;
 import com.baidu.mapapi.map.MKEvent;
+import com.baidu.mapapi.search.MKAddrInfo;
+import com.baidu.mapapi.search.MKBusLineResult;
+import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKGeocoderAddressComponent;
+import com.baidu.mapapi.search.MKPoiResult;
+import com.baidu.mapapi.search.MKSearch;
+import com.baidu.mapapi.search.MKSearchListener;
+import com.baidu.mapapi.search.MKShareUrlResult;
+import com.baidu.mapapi.search.MKSuggestionResult;
+import com.baidu.mapapi.search.MKTransitRouteResult;
+import com.baidu.mapapi.search.MKWalkingRouteResult;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.keju.park.db.DataBaseAdapter;
 /**
  * 应用全局变量
  * @author Zhoujun
@@ -26,6 +45,21 @@ public class CommonApplication extends Application {
 	 */
 	private static CommonApplication instance;
 	public BMapManager mBMapManager = null;
+	public MyLocationListenner myListener = new MyLocationListenner();
+	public LocationClient mLocationClient = null;
+	private BDLocation lastLocation;// 位置
+	LocationData locData = null;
+	
+	private MKSearch mSearch; // 搜索定位
+	private MKSearchListener mSearchListener;
+	
+	/**
+	 * 数据库操作类
+	 * 
+	 * @return
+	 */
+	private DataBaseAdapter dataBaseAdapter;
+
 	
 	public static CommonApplication getInstance() {
 		return instance;
@@ -33,12 +67,45 @@ public class CommonApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		initBMapInfo();
+		dataBaseAdapter = new DataBaseAdapter(this);
+		dataBaseAdapter.open();
+		
 //		//捕获系统异常
 //		CrashHandler crashHandler = CrashHandler.getInstance();
 //		crashHandler.init(getApplicationContext());
 		instance = this;
 		initEngineManager(this);
 	}
+	
+	
+	/**
+	 * 初始化地图信息
+	 */
+	public void initBMapInfo() {
+		if (mBMapManager == null) {
+			mBMapManager = new BMapManager(this);
+		}
+		mLocationClient = new LocationClient(getApplicationContext());
+		
+		locData = new LocationData();
+		mLocationClient.registerLocationListener(myListener);
+		LocationClientOption option = new LocationClientOption();
+		option.setLocationMode(LocationMode.Hight_Accuracy);//设置定位模式
+		option.setPriority(LocationClientOption.NetWorkFirst);// 网络优先
+		option.setOpenGps(false);
+		option.setScanSpan(500);// 设置定位模式，小于1秒则一次定位;大于等于1秒则定时定位
+		option.disableCache(true);
+		option.setCoorType("bd09ll"); // 设置坐标类型
+		mLocationClient.setLocOption(option);
+
+		mSearch = new MKSearch();
+		mSearchListener = new MySearchListener();
+		mSearch.init(mBMapManager, mSearchListener);
+
+		mLocationClient.start();
+	}
+	
 	public void initEngineManager(Context context) {
         if (mBMapManager == null) {
             mBMapManager = new BMapManager(context);
@@ -79,6 +146,111 @@ public class CommonApplication extends Application {
             }
         }
     }
+    
+	/**
+	 * 监听函数，有更新位置的时候，格式化成字符串，输出到屏幕中
+	 */
+	public class MyLocationListenner implements BDLocationListener {
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+			if (location == null) {
+				return;
+			}
+			lastLocation = location;
+			locData.latitude = location.getLatitude();
+			locData.longitude = location.getLongitude();
+			mSearch.reverseGeocode(new GeoPoint((int) (locData.latitude * 1e6), (int) (locData.longitude * 1e6)));
+			mLocationClient.stop();
+
+		}
+
+		public void onReceivePoi(BDLocation poiLocation) {
+			if (poiLocation == null) {
+				return;
+			}
+
+		}
+	}
+	
+	class MySearchListener implements MKSearchListener {
+		/**
+		 * 根据经纬度搜索地址信息结果
+		 * 
+		 * @param result搜索结果
+		 * @param iError 错误号（0表示正确返回）
+		 * 
+		 */
+		@Override
+		public void onGetAddrResult(MKAddrInfo result, int error) {
+			MKGeocoderAddressComponent kk = result.addressComponents;
+			city = kk.district + kk.street + kk.streetNumber;
+			if(city.equals("")){
+				setCity(null);
+			}else{
+				setCity(city);
+			}
+
+		}
+
+		@Override
+		public void onGetBusDetailResult(MKBusLineResult arg0, int arg1) {
+		}
+
+		@Override
+		public void onGetDrivingRouteResult(MKDrivingRouteResult arg0, int arg1) {
+		}
+
+		@Override
+		public void onGetPoiDetailSearchResult(int arg0, int arg1) {
+		}
+
+		@Override
+		public void onGetPoiResult(MKPoiResult arg0, int arg1, int arg2) {
+		}
+
+		@Override
+		public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1, int arg2) {
+		}
+
+		@Override
+		public void onGetSuggestionResult(MKSuggestionResult arg0, int arg1) {
+
+		}
+
+		@Override
+		public void onGetTransitRouteResult(MKTransitRouteResult arg0, int arg1) {
+
+		}
+
+		@Override
+		public void onGetWalkingRouteResult(MKWalkingRouteResult arg0, int arg1) {
+
+		}
+
+	}
+	/**
+	 * 获得数据库操作对象
+	 * 
+	 * @return
+	 */
+	public DataBaseAdapter getDbAdapter() {
+		return this.dataBaseAdapter;
+	}
+	
+	public BDLocation getLastLocation() {
+		return lastLocation;
+	}
+	
+
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+
 	/**
 	 * 缓存activity对象索引
 	 */
@@ -89,11 +261,6 @@ public class CommonApplication extends Application {
 	public void addActivity(Activity mActivity) {
 		activities.add(mActivity);
 	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
+	
 	
 }

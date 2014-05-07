@@ -57,6 +57,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	 * 初始化控件
 	 */
 	private void findView() {
+		app.initBMapInfo();
+		
 		tvLeft = (TextView) findViewById(R.id.tvLeft);
 		tvLeft.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -111,7 +113,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 			finish();
 			break;
 		case R.id.btnLookNearby:
-
+             openActivity(ParkingListActivity.class);
+//             showShortToast("经度"+app.getLastLocation().getLongitude()+","+app.getLastLocation().getLatitude()+"纬度" );
 			break;
 
 		case R.id.btnVoice:
