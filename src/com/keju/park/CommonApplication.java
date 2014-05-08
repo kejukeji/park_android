@@ -115,7 +115,7 @@ public class CommonApplication extends Application {
 
         if (!mBMapManager.init(new MyGeneralListener())) {
             Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
-                    "BMapManager  初始化错误!", Toast.LENGTH_LONG).show();
+                    "BMapManager  初始化错误!", Toast.LENGTH_SHORT).show();
         }
 	}
 	// 常用事件监听，用来处理通常的网络错误，授权验证错误等
@@ -125,11 +125,11 @@ public class CommonApplication extends Application {
         public void onGetNetworkState(int iError) {
             if (iError == MKEvent.ERROR_NETWORK_CONNECT) {
                 Toast.makeText(CommonApplication.getInstance().getApplicationContext(), "您的网络出错啦！",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             }
             else if (iError == MKEvent.ERROR_NETWORK_DATA) {
                 Toast.makeText(CommonApplication.getInstance().getApplicationContext(), "输入正确的检索条件！",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
             // ...
         }
@@ -140,11 +140,11 @@ public class CommonApplication extends Application {
             if (iError != 0) {
                 //授权Key错误：
                 Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
-                        "请在 CommonApplication.java文件输入正确的授权Key,并检查您的网络连接是否正常！error: "+iError, Toast.LENGTH_LONG).show();
+                        "请在 CommonApplication.java文件输入正确的授权Key,并检查您的网络连接是否正常！error: "+iError, Toast.LENGTH_SHORT).show();
             }
             else{
             	Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
-                        "key认证成功", Toast.LENGTH_LONG).show();
+                        "key认证成功", Toast.LENGTH_SHORT).show();
             }
         }
     }

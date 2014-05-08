@@ -1,6 +1,5 @@
 package com.keju.park.ui.searchparking;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.baidu.mapapi.BMapManager;
@@ -19,34 +18,35 @@ import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
+import com.keju.park.Constants;
 import com.keju.park.R;
+import com.keju.park.bean.NearbyParkBean;
+import com.keju.park.ui.base.BaseActivity;
 
 /**
- * 类说明
+ * 
+ * 显示路线导航；
  * 
  * @author Zhoujun
  * @version 创建时间：2014-4-27 下午9:58:58
  */
-public class ShowRouteActivity extends Activity {
+public class ShowRouteActivity extends BaseActivity {
 	MapView mMapView = null; // 地图View
 	// 搜索相关
 	MKSearch mMKSearch = null; // 搜索模块，也可去掉地图模块独立使用
-	private int startLatitude,startLongtitude,endLatitude,endLongtitude;
+	private NearbyParkBean bean;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		startLatitude = getIntent().getIntExtra("startLatitude", 0);
-//		startLongtitude = getIntent().getIntExtra("startLongtitude",0);
-//		endLatitude = getIntent().getIntExtra("endLatitude",0);
-//		endLongtitude = getIntent().getIntExtra("endLongtitude",0);
-		CommonApplication app = (CommonApplication) this.getApplication();
+		CommonApplication app = (CommonApplication) getApplication();
+		bean = (NearbyParkBean) getIntent().getExtras().getSerializable(Constants.EXTRA_DATA);
 		if (app.mBMapManager == null) {
 			app.mBMapManager = new BMapManager(getApplicationContext());
 			/**
 			 * 如果BMapManager没有初始化则初始化BMapManager
 			 */
-			app.mBMapManager.init(new CommonApplication.MyGeneralListener() );
+			app.mBMapManager.init(new CommonApplication.MyGeneralListener());
 		}
 		setContentView(R.layout.activity_show_route);
 		// 初始化地图
@@ -54,18 +54,19 @@ public class ShowRouteActivity extends Activity {
 		mMapView.setBuiltInZoomControls(true);
 		mMapView.getController().setZoom(14);
 		mMapView.getController().enableClick(true);
-		mMapView.getController().setCenter(new GeoPoint((int) (31.217899 * 1E6), (int) (121.53427 * 1E6)));
-		
-		 // 初始化搜索模块，注册事件监听
+		mMapView.getController().setCenter(new GeoPoint((int) (app.getLastLocation().getLatitude() * 1E6), (int) (app.getLastLocation().getLongitude() * 1E6)));
+
+		// 初始化搜索模块，注册事件监听
 		mMKSearch = new MKSearch();
-		mMKSearch.init(((CommonApplication)getApplication()).mBMapManager, new MySearchListener());
+		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager, new MySearchListener());
 		MKPlanNode start = new MKPlanNode();
-//		start.pt = new GeoPoint(startLatitude, startLongtitude);
-//		MKPlanNode end = new MKPlanNode();
-//		end.pt = new GeoPoint(endLatitude, endLongtitude);
-		start.pt = new GeoPoint((int) (31.217899 * 1E6), (int) (121.53427 * 1E6));  
-		MKPlanNode end = new MKPlanNode();  
-		end.pt = new GeoPoint((int) (31.183644 * 1E6), (int) (121.529131 * 1E6));
+		// start.pt = new GeoPoint((int) (31.217899 * 1E6), (int) (121.53427 *
+		// 1E6));
+		start.pt = new GeoPoint((int) (app.getLastLocation().getLatitude() * 1E6), (int) (app.getLastLocation()
+				.getLongitude() * 1E6));
+		MKPlanNode end = new MKPlanNode();
+		end.pt = new GeoPoint((int) (bean.getLocationList().get(0).getLongitude() * 1E6), (int) (bean.getLocationList()
+				.get(0).getLatitude() * 1E6));
 		mMKSearch.setDrivingPolicy(MKSearch.ECAR_TIME_FIRST);// 设置驾车路线搜索策略，时间优先、费用最少或距离最短
 		mMKSearch.drivingSearch(null, start, null, end);
 

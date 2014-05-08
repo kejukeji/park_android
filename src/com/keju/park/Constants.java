@@ -36,5 +36,9 @@ public class Constants {
 	public static final String REQUEST_TOKEN_INVALID = "auth is no exist";
 	public static final String CONNECT_SERVER_FAILED = "服务器连接失败";
 	public static final String JSON_EXCEPTION = "json解析错误";
-	
+	/**
+	 * intent extra
+	 */
+	public static final String EXTRA_DATA = "extra_data";
+
 }

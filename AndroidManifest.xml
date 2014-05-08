@@ -50,13 +50,15 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 		<activity android:name="com.keju.park.ui.searchparking.ParkingListActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 		<!-- 定位服务 -->
 		<service android:name="com.baidu.location.f" android:enabled="true"
 			android:process=":remote">
 		</service>
 		<!-- 百度定位的key -->
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
-			android:value="ycd8wNnV09whbIyoGGGgDrp8" />
+			android:value="ZOatwHcx3iSNWy4VfQ0NhwxT" />
 	</application>
 
 </manifest>

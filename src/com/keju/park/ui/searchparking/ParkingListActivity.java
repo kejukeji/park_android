@@ -26,7 +26,12 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
+import com.baidu.mapapi.navi.BaiduMapNavigation;
+import com.baidu.mapapi.navi.NaviPara;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
+import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.base.BaseActivity;
@@ -173,7 +178,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
-			NearbyParkBean bean = nearbyLists.get(position);
+			final NearbyParkBean bean = nearbyLists.get(position);
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = getLayoutInflater().inflate(R.layout.park_item, null);
@@ -188,15 +193,15 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			}
 
 			holder.tvLocationPark.setText(bean.getName());
-			holder.tvAddress.setText(bean.getAddress());
-			holder.tvParkCost.setText(bean.getPrice() + "/" + "小时");
+			holder.tvAddress.setText("地址：" + bean.getAddress());
+			holder.tvParkCost.setText(bean.getPrice() + "元/" + "小时");
 			holder.tvDistance.setText("空车位" + bean.getCarbarnLast() + "个");
 
 			holder.btnNavigation.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-
+					showRoute(bean);
 				}
 			});
 
@@ -209,5 +214,46 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		private TextView tvLocationPark, tvAddress, tvParkCost, tvDistance;
 		private Button btnNavigation;
 	}
+	/**
+	 * 显示导航路线；
+	 * @param bean
+	 */
+	private void showRoute(NearbyParkBean bean){
+		double mLatStart = app.getLastLocation().getLatitude(); 
+		double mLonStart = app.getLastLocation().getLongitude(); 
+		 //服务器经纬度弄反了
+//		double mLatEnd = bean.getLocationList().get(0).getLatitude();
+//		double mLonEnd = bean.getLocationList().get(0).getLongitude();         
+		double mLatEnd = bean.getLocationList().get(0).getLongitude();
+		double mLonEnd = bean.getLocationList().get(0).getLatitude();
+		int lat = (int) (mLatStart *1E6);
+		int lon = (int) (mLonStart *1E6);           
+		GeoPoint pt1 = new GeoPoint(lat, lon);
+		lat = (int) (mLatEnd *1E6);
+		lon = (int) (mLonEnd *1E6);
+		GeoPoint pt2 = new GeoPoint(lat, lon);
+		/*
 
+		 * 导航参数
+
+		 * 导航起点和终点不能为空，当GPS可用时启动从用户位置到终点间的导航，
+
+		 * 当GPS不可用时，启动从起点到终点间的模拟导航。
+
+		 */
+		NaviPara para = new NaviPara();
+		para.startPoint = pt1;           //起点坐标
+		para.startName= "从这里开始";
+		para.endPoint  = pt2;            //终点坐标
+		para.endName   = "到这里结束";      
+		try {
+		   //调起百度地图客户端导航功能,参数this为Activity。 
+		        BaiduMapNavigation.openBaiduMapNavi(para, this);
+		} catch (BaiduMapAppNotSupportNaviException e) {
+			Bundle b = new Bundle();
+			b.putSerializable(Constants.EXTRA_DATA, bean);
+			openActivity(ShowRouteActivity.class, b);
+		}
+
+	}
 }

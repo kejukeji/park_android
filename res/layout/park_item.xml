@@ -10,24 +10,26 @@
 		android:layout_below="@+id/tvLocationPark" />
 	<TextView android:id="@+id/tvLocationPark"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:drawableLeft="@drawable/ic_orange_location" android:text="  任命广场" />
+		android:drawableLeft="@drawable/ic_orange_location" android:text="  任命广场" 
+		android:textSize="@dimen/basic_text_size" />
 
 	<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_alignParentLeft="true"
 		android:layout_below="@+id/tvLocationPark" android:drawableLeft="@drawable/ic_location_dot"
-		android:text="  地址：  浦东新区动车" android:layout_marginTop="6dp" />
+		android:text="  地址：  浦东新区动车" android:layout_marginTop="6dp" android:textSize="@dimen/small_text_size"/>
 
 	<TextView android:id="@+id/tvParkCost" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:drawableLeft="@drawable/ic_location_dot"
 		android:text="  10/小时" android:layout_below="@+id/tvAddress"
-		android:layout_marginTop="4dp" />
+		android:layout_marginTop="4dp" android:textSize="@dimen/small_text_size"/>
 
 
 
 	<TextView android:id="@+id/tvDistance" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_alignParentLeft="true"
 		android:layout_below="@+id/tvParkCost" android:drawableLeft="@drawable/ic_location_dot"
-		android:text="  距离200m  空车位5个" android:layout_marginTop="4dp" />
+		android:text="  距离200m  空车位5个" android:layout_marginTop="4dp" 
+		android:textSize="@dimen/large_text_size"/>
 
 
 
