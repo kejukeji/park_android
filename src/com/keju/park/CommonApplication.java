@@ -40,6 +40,8 @@ public class CommonApplication extends Application {
 	 * 定位的城市；
 	 */
 	private String city = "";
+	
+	private String userAddress;//用户当前位置
 	/**
 	 * Singleton pattern
 	 */
@@ -183,11 +185,11 @@ public class CommonApplication extends Application {
 		@Override
 		public void onGetAddrResult(MKAddrInfo result, int error) {
 			MKGeocoderAddressComponent kk = result.addressComponents;
-			city = kk.district + kk.street + kk.streetNumber;
-			if(city.equals("")){
-				setCity(null);
+			userAddress = kk.district + kk.street + kk.streetNumber;
+			if(userAddress.equals("")){
+				setUserAddress(null);
 			}else{
-				setCity(city);
+				setUserAddress(userAddress);
 			}
 
 		}
@@ -250,6 +252,16 @@ public class CommonApplication extends Application {
 		this.city = city;
 	}
 	
+	
+
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+
+
 
 	/**
 	 * 缓存activity对象索引

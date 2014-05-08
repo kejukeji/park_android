@@ -63,7 +63,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		tvTitle.setText("附近停车场");
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
-		tvLocation.setText(app.getCity());
+		tvLocation.setText(app.getUserAddress());
 
 		lvlocation = (ListView) findViewById(R.id.lvlocationList);
 		nearbyList = new ArrayList<NearbyParkBean>();

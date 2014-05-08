@@ -76,6 +76,11 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		
 		mMKSearch = new MKSearch();
 		mMKSearch.init(((CommonApplication)getApplication()).mBMapManager, new MySearchListener());//注意，MKSearchListener只支持一个，以最后一次设置为准
+	    if(voiceSearchStr != null){
+	    	mMKSearch.suggestionSearch(voiceSearchStr, app.getCity());
+	    }
+		
+	
 	}
 	
 	/**
@@ -100,6 +105,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 	            lvSearch.setAdapter(suggestionString);
 				return;
 			}
+		   
 			mMKSearch.suggestionSearch(s.toString(), app.getCity());
 		}
 	};
