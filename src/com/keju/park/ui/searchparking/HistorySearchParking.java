@@ -51,7 +51,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		app = (CommonApplication) getApplication();
-		voiceSearchStr = getIntent().getExtras().getString("voiceSearchStr");
+		voiceSearchStr = getIntent().getStringExtra("voiceSearchStr");
 		setContentView(R.layout.history_search_parking_list);
 		initBar();
 		findView();
@@ -76,7 +76,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		
 		mMKSearch = new MKSearch();
 		mMKSearch.init(((CommonApplication)getApplication()).mBMapManager, new MySearchListener());//注意，MKSearchListener只支持一个，以最后一次设置为准
-	    if(voiceSearchStr != null){
+	    if(!TextUtils.isEmpty(voiceSearchStr)){
 	    	mMKSearch.suggestionSearch(voiceSearchStr, app.getCity());
 	    }
 		
