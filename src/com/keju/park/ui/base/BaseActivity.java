@@ -28,8 +28,8 @@ public class BaseActivity extends Activity {
 	//公用的头标题栏  控件
 	protected TextView tvLeft,tvTitle;
     
-	private static final String TAG = "BaseActivity";
-
+	private static final String TAG = "BaseActivity";  
+     
 	protected AlertDialog mAlertDialog;
 	@SuppressWarnings("rawtypes")
 	protected AsyncTask mRunningTask;
