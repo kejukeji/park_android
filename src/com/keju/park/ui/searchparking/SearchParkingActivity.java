@@ -114,7 +114,6 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 			break;
 		case R.id.btnLookNearby:
              openActivity(ParkingListActivity.class);
-//             showShortToast("经度"+app.getLastLocation().getLongitude()+","+app.getLastLocation().getLatitude()+"纬度" );
 			break;
 
 		case R.id.btnVoice:

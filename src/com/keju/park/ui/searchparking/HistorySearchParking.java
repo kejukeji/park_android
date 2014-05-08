@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
 import com.baidu.mapapi.search.MKDrivingRouteResult;
-import com.baidu.mapapi.search.MKGeocoderAddressComponent;
 import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
@@ -46,10 +45,13 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 	private CommonApplication app;
 	private MKSearch mMKSearch;
+	
+	private String voiceSearchStr;//用户语音
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		app = (CommonApplication) getApplication();
+		voiceSearchStr = getIntent().getExtras().getString("voiceSearchStr");
 		setContentView(R.layout.history_search_parking_list);
 		initBar();
 		findView();
@@ -66,8 +68,8 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText(R.string.search_parking);
 		etSearch = (EditText) findViewById(R.id.etSearch);
+		etSearch.setText(voiceSearchStr);
 		etSearch.addTextChangedListener(textWatcher);
-
 		lvSearch = (ListView) findViewById(R.id.lvSearch);
 		adapter = new SearchHistoryAdapter();
 		lvSearch.setAdapter(adapter);

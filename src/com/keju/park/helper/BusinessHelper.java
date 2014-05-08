@@ -27,15 +27,14 @@ public class BusinessHelper {
 		this.context = context;
 	}
 
-	public JSONObject getHttpUrl(String url) {
-		JSONObject jsonObject = null;
+	public void getHttpUrl(String url, final httpCallback callback) {
 		RequestQueue mQueue = Volley.newRequestQueue(context);
 		mQueue.add(new JsonObjectRequest(Method.GET, BASE_URL + url, null, new Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject jObject) {
-				if (jObject != null) {
-					// jsonObject = jObject;
+				if (jObject != null && callback != null) {
+					callback.returnJson(jObject);
 				}
 			}
 
@@ -46,10 +45,10 @@ public class BusinessHelper {
 
 			}
 		}));
-
 		mQueue.start();
-
-		return jsonObject;
 	}
 
+	public interface httpCallback {
+		public void returnJson(JSONObject obj);
+	}
 }

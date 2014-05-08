@@ -1,5 +1,6 @@
 package com.keju.park.ui.searchparking;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,8 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	private RecognizerDialog iatDialog;
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 	private SharedPreferences mSharedPreferences;
+	
+	private String voiceStr;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		
 		btnError = (Button) findViewById(R.id.btnError);
 		btnError.setOnClickListener(this);
-		btnRight = (Button) findViewById(R.id.btnRight);
+		btnRight = (Button) findViewById(R.id.btnRight1);
 		btnRight.setOnClickListener(this); 
 		
 		
@@ -123,9 +126,17 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		 tvPosition.setText(R.string.position);
 		 rlErroeOrRight.setVisibility(View.GONE);
 			break;
-		case R.id.btnRight:
+		case R.id.btnRight1:
+//			Intent intent = new Intent();
+//			intent.putExtra("voiceSearchStr", voiceStr);
+//			intent.setClass(VoiceSearchActivity.this, HistorySearchParking.class);
+//			startActivity(intent);
 			
-			 break;
+			Bundle b = new Bundle();
+			b.putString("voiceSearchStr", voiceStr);
+			openActivity(HistorySearchParking.class, b);
+			
+			break;
 		default:
 			break;
 		}
@@ -263,8 +274,8 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	RecognizerDialogListener recognizerDialogListener = new RecognizerDialogListener() {
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
-			String text = JsonParser.parseIatResult(results.getResultString());
-			tvPosition.append("“"+text+"”");
+			voiceStr = JsonParser.parseIatResult(results.getResultString());
+			tvPosition.append("“"+voiceStr+"”");
 //			tvPosition.setSelection(tvPosition.length());
 		}
 
@@ -272,7 +283,7 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		 * 识别回调错误.
 		 */
 		public void onError(SpeechError error) {
-
+           
 		}
 
 	};

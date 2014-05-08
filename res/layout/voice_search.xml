@@ -36,15 +36,15 @@
 			android:layout_centerVertical="true" android:gravity="center"
 			android:src="@drawable/ic_error" />
 
-		<Button android:id="@+id/btnRight" android:layout_width="80dp"
+		<Button android:id="@+id/btnRight1" android:layout_width="80dp"
 			android:layout_height="80dp" android:layout_alignParentRight="true"
 			android:layout_alignParentTop="true" android:background="@drawable/bg_error_or_right"
 			android:layout_centerVertical="true" android:gravity="center"
 			android:layout_marginRight="20dp" />
 
 		<ImageView android:id="@+id/ivRight" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignLeft="@+id/btnRight"
-			android:layout_alignRight="@+id/btnRight"
+			android:layout_height="wrap_content" android:layout_alignLeft="@+id/btnRight1"
+			android:layout_alignRight="@+id/btnRight1"
 			android:layout_centerVertical="true" android:gravity="center"
 			android:src="@drawable/ic_right" />
 
