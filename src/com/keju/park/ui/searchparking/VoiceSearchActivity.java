@@ -127,10 +127,6 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		 rlErroeOrRight.setVisibility(View.GONE);
 			break;
 		case R.id.btnRight1:
-//			Intent intent = new Intent();
-//			intent.putExtra("voiceSearchStr", voiceStr);
-//			intent.setClass(VoiceSearchActivity.this, HistorySearchParking.class);
-//			startActivity(intent);
 			
 			Bundle b = new Bundle();
 			b.putString("voiceSearchStr", voiceStr);
