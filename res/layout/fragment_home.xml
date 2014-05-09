@@ -8,14 +8,17 @@
         android:id="@+id/viewPager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp" >
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPagerBanner"
             android:layout_width="fill_parent"
             android:layout_height="150dp"
             android:focusable="true"
-            android:focusableInTouchMode="true" />
+            android:focusableInTouchMode="true"/>
 
         <LinearLayout
             android:id="@+id/viewRound"
@@ -24,7 +27,26 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" />
+            android:orientation="horizontal" >
+            
+            <View
+                    android:id="@+id/v_dot0"
+                    style="@style/dot_style"
+                    android:background="@drawable/dot_focused" />
+
+                <View
+                    android:id="@+id/v_dot1"
+                    style="@style/dot_style" />
+
+                <View
+                    android:id="@+id/v_dot2"
+                    style="@style/dot_style" />
+
+                <View
+                    android:id="@+id/v_dot3"
+                    style="@style/dot_style" />
+                
+            </LinearLayout>
     </FrameLayout>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/viewPager"

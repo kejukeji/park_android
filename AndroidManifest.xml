@@ -58,7 +58,7 @@
 		</service>
 		<!-- 百度定位的key -->
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
-			android:value="ZOatwHcx3iSNWy4VfQ0NhwxT" />
+			android:value="9VIVbq1eLaebspsk79zRWgrk" />
 	</application>
 
 </manifest>
