@@ -1,98 +1,102 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+	xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+	android:layout_height="match_parent" tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/viewPager"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp" >
+	<FrameLayout android:id="@+id/viewPager"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentTop="true">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPagerBanner"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
+		<android.support.v4.view.ViewPager
+			android:id="@+id/viewPagerBanner" android:layout_width="fill_parent"
+			android:layout_height="150dp" android:focusable="true"
+			android:focusableInTouchMode="true" />
 
-        <LinearLayout
-            android:id="@+id/viewRound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
-            
-            <View
-                    android:id="@+id/v_dot0"
-                    style="@style/dot_style"
-                    android:background="@drawable/dot_focused" />
+		<LinearLayout android:id="@+id/viewRound"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_marginBottom="5dp" android:layout_marginTop="5dp"
+			android:orientation="horizontal">
 
-                <View
-                    android:id="@+id/v_dot1"
-                    style="@style/dot_style" />
+			<View android:id="@+id/v_dot0" style="@style/dot_style"
+				android:background="@drawable/dot_focused" />
 
-                <View
-                    android:id="@+id/v_dot2"
-                    style="@style/dot_style" />
+			<View android:id="@+id/v_dot1" style="@style/dot_style" />
 
-                <View
-                    android:id="@+id/v_dot3"
-                    style="@style/dot_style" />
-                
-            </LinearLayout>
-    </FrameLayout>
+			<View android:id="@+id/v_dot2" style="@style/dot_style" />
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/viewPager"
-        android:padding="5dp" android:orientation="horizontal">
-        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-            android:orientation="vertical" android:layout_marginRight="5dp">
-            <LinearLayout android:id="@+id/viewSearchPark" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="3" 
-                android:background="@drawable/bg_orange_selector" android:clickable="true" android:gravity="center">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="10dp"
-                android:text="找车位" android:drawableTop="@drawable/home_ic_search_park" android:gravity="center"
-                android:textColor="@color/white" android:textSize="@dimen/home_item_text_size"/>
-            </LinearLayout>
-            
-            <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2" 
-                android:background="@drawable/bg_blue_selector" android:clickable="true" android:gravity="center"
-                android:layout_marginTop="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="10dp"
-                android:text="我的" android:drawableTop="@drawable/home_ic_my" android:gravity="center"
-                android:textColor="@color/white" android:textSize="@dimen/home_item_text_size" android:layout_marginTop="5dp"/>
-            </LinearLayout>
-            
-        </LinearLayout>
-        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-            android:orientation="vertical">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="3" 
-                android:background="@drawable/bg_pink_selector" android:clickable="true" android:gravity="center">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="10dp"
-                android:text="找爱车" android:drawableTop="@drawable/home_ic_search_car" android:gravity="center"
-                android:textColor="@color/white"  android:textSize="@dimen/home_item_text_size"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2" 
-                android:background="@drawable/bg_green_selector" android:clickable="true" android:gravity="center"
-                android:layout_marginTop="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="10dp"
-                android:text="停车费" android:drawableRight="@drawable/home_ic_parking_fee" android:gravity="center" 
-                android:textColor="@color/white" android:textSize="@dimen/home_item_text_size" android:layout_marginTop="5dp"/>
-            </LinearLayout>
-            <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2" 
-                android:background="@drawable/bg_dark_blue_selector" android:clickable="true" android:gravity="center"
-                android:layout_marginTop="5dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawablePadding="10dp"
-                android:text="赚P币" android:drawableRight="@drawable/home_ic_earn_parking_money" android:gravity="center"
-                android:textColor="@color/white"  android:textSize="@dimen/home_item_text_size" android:layout_marginTop="5dp"/>
-            </LinearLayout>
-            
-        </LinearLayout>
-    </LinearLayout>
+			<View android:id="@+id/v_dot3" style="@style/dot_style" />
+
+		</LinearLayout>
+	</FrameLayout>
+
+	<LinearLayout android:layout_width="match_parent"
+		android:layout_height="match_parent" android:layout_below="@id/viewPager"
+		android:padding="5dp" android:orientation="horizontal">
+		<LinearLayout android:layout_width="0dp"
+			android:layout_height="match_parent" android:layout_weight="1"
+			android:orientation="vertical" android:layout_marginRight="5dp">
+			<LinearLayout android:id="@+id/viewSearchPark"
+				android:layout_width="match_parent" android:layout_height="0dp"
+				android:layout_weight="3" android:background="@drawable/bg_orange_selector"
+				android:clickable="true" android:gravity="center">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:drawablePadding="10dp"
+					android:text="找车位" android:drawableTop="@drawable/home_ic_search_park"
+					android:gravity="center" android:textColor="@color/white"
+					android:textSize="@dimen/home_item_text_size" />
+			</LinearLayout>
+
+			<LinearLayout android:layout_width="match_parent"
+				android:layout_height="0dp" android:layout_weight="2"
+				android:background="@drawable/bg_blue_selector" android:clickable="true"
+				android:gravity="center" android:layout_marginTop="5dp">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:drawablePadding="10dp"
+					android:text="我的" android:drawableTop="@drawable/home_ic_my"
+					android:gravity="center" android:textColor="@color/white"
+					android:textSize="@dimen/home_item_text_size"
+					android:layout_marginTop="5dp" />
+			</LinearLayout>
+
+		</LinearLayout>
+		<LinearLayout android:layout_width="0dp"
+			android:layout_height="match_parent" android:layout_weight="1"
+			android:orientation="vertical">
+			<LinearLayout android:layout_width="match_parent"
+				android:layout_height="0dp" android:layout_weight="3"
+				android:background="@drawable/bg_pink_selector" android:clickable="true"
+				android:gravity="center">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:drawablePadding="10dp"
+					android:text="找爱车" android:drawableTop="@drawable/home_ic_search_car"
+					android:gravity="center" android:textColor="@color/white"
+					android:textSize="@dimen/home_item_text_size" />
+			</LinearLayout>
+			<LinearLayout android:layout_width="match_parent"
+				android:layout_height="0dp" android:layout_weight="2"
+				android:background="@drawable/bg_green_selector" android:clickable="true"
+				android:gravity="center" android:layout_marginTop="5dp">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:drawablePadding="10dp"
+					android:text="停车费" android:drawableRight="@drawable/home_ic_parking_fee"
+					android:gravity="center" android:textColor="@color/white"
+					android:textSize="@dimen/home_item_text_size"
+					android:layout_marginTop="5dp" />
+			</LinearLayout>
+			<LinearLayout android:layout_width="match_parent"
+				android:layout_height="0dp" android:layout_weight="2"
+				android:background="@drawable/bg_dark_blue_selector"
+				android:clickable="true" android:gravity="center"
+				android:layout_marginTop="5dp">
+				<TextView android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:drawablePadding="10dp"
+					android:text="赚P币" android:drawableRight="@drawable/home_ic_earn_parking_money"
+					android:gravity="center" android:textColor="@color/white"
+					android:textSize="@dimen/home_item_text_size"
+					android:layout_marginTop="5dp" />
+			</LinearLayout>
+
+		</LinearLayout>
+	</LinearLayout>
 
 </RelativeLayout>

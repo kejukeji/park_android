@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ import com.keju.park.ui.base.BaseActivity;
  * @version 创建时间：2014-5-4 下午4:50:44
  */
 public class ParkingListActivity extends BaseActivity implements OnClickListener {
+	private final String TAG = "ParkingListActivity";
+	
 	private CommonApplication app;
 	private TextView tvLocation;
 
@@ -93,16 +96,15 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	private void getData(Double longitude, Double Latitude) {
 		RequestQueue mQueue = Volley.newRequestQueue(ParkingListActivity.this);
 		mQueue.add(new StringRequest(Method.GET, "http://park.kejukeji.com/ssbusy/carbarn/latitude-longitude?latitude="
-				+ longitude + "&longitude=" + Latitude, new Listener<String>() {
+				+ Latitude + "&longitude=" + longitude, new Listener<String>() {
 			@Override
 			public void onResponse(String arg0) {
 				try {
 					JSONObject jsonObject = new JSONObject(arg0);
-					
+					Log.i(TAG, "argo = "+ arg0) ;
 					JSONArray array =jsonObject.getJSONArray("data");
 					try {
 						List<NearbyParkBean> list = NearbyParkBean.constractList(array);
-						// nearbyList.addAll(list);
 						adapter = new NearbyParkAdapter(list);
 						lvlocation.setAdapter(adapter);
 					} catch (JsonParseException e) {
@@ -222,10 +224,10 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		double mLatStart = app.getLastLocation().getLatitude(); 
 		double mLonStart = app.getLastLocation().getLongitude(); 
 		 //服务器经纬度弄反了
-//		double mLatEnd = bean.getLocationList().get(0).getLatitude();
-//		double mLonEnd = bean.getLocationList().get(0).getLongitude();         
-		double mLatEnd = bean.getLocationList().get(0).getLongitude();
-		double mLonEnd = bean.getLocationList().get(0).getLatitude();
+		double mLatEnd = bean.getLocationList().get(0).getLatitude();
+		double mLonEnd = bean.getLocationList().get(0).getLongitude();         
+//		double mLatEnd = bean.getLocationList().get(0).getLongitude();
+//		double mLonEnd = bean.getLocationList().get(0).getLatitude();
 		int lat = (int) (mLatStart *1E6);
 		int lon = (int) (mLonStart *1E6);           
 		GeoPoint pt1 = new GeoPoint(lat, lon);

@@ -6,8 +6,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.codehaus.jackson.map.ser.std.ToStringSerializer;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -20,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 import com.keju.park.CommonApplication;

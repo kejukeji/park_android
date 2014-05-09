@@ -9,9 +9,8 @@
 		android:background="@color/common_bar" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
-		<EditText android:id="@+id/etSearch"
-			android:layout_width="match_parent" android:layout_height="47dp"
-			android:background="@drawable/bg_input_search_parking"
+		<EditText android:id="@+id/etSearch" android:layout_width="match_parent"
+			android:layout_height="47dp" android:background="@drawable/bg_input_search_parking"
 			android:layout_margin="5dp" android:hint="请输入目的地" />
 
 		<ImageView android:layout_width="wrap_content"
@@ -22,6 +21,6 @@
 
 	<ListView android:id="@+id/lvSearch" style="@style/listviewStyle"
 		android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:layout_below="@+id/llSearch"></ListView>
+		android:layout_below="@+id/llSearch" android:divider="@null"></ListView>
 
 </RelativeLayout>
