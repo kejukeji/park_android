@@ -20,6 +20,7 @@ import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.searchparking.ShowRouteActivity;
+import com.keju.park.util.StringUtil;
 
 /**
  * 停车场 适配器
@@ -79,7 +80,19 @@ public class NearbyParkAdapter extends BaseAdapter {
 		holder.tvLocationPark.setText(bean.getName());
 		holder.tvAddress.setText("地址：" + bean.getAddress());
 		holder.tvParkCost.setText(bean.getPrice() + "元/" + "小时");
-		holder.tvDistance.setText("空车位" + bean.getCarbarnLast() + "个");
+		
+		if (app.getLastLocation() != null) {
+			double distance = StringUtil.getDistance(app.getLastLocation().getLatitude(), app.getLastLocation()
+					.getLongitude(), bean.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude());
+			if (distance > 1000) {
+				distance = distance / 1000;
+				holder.tvDistance.setText("距离"+String.format("%.1f", distance) + "km"+"空车位" + bean.getCarbarnLast() + "个");
+			} else {
+				holder.tvDistance.setText("距离"+String.format("%.0f", distance) + "m"+"空车位" + bean.getCarbarnLast() + "个");
+			}
+		} else {
+			holder.tvDistance.setText("");
+		}
 
 		holder.btnNavigation.setOnClickListener(new OnClickListener() {
 
