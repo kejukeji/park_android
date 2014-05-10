@@ -14,9 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,13 +24,9 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
-import com.baidu.mapapi.navi.BaiduMapNavigation;
-import com.baidu.mapapi.navi.NaviPara;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
-import com.keju.park.Constants;
 import com.keju.park.R;
+import com.keju.park.adapter.NearbyParkAdapter;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.base.BaseActivity;
 
@@ -45,7 +38,7 @@ import com.keju.park.ui.base.BaseActivity;
  */
 public class ParkingListActivity extends BaseActivity implements OnClickListener {
 	private final String TAG = "ParkingListActivity";
-	
+
 	private CommonApplication app;
 	private TextView tvLocation;
 
@@ -53,11 +46,19 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	private NearbyParkAdapter adapter;
 	private ArrayList<NearbyParkBean> nearbyList;
 
+	private double Longitude;
+	private double Latitude;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.park_list);
 		app = (CommonApplication) getApplication();
+		
+		Longitude = getIntent().getExtras().getDouble("Longitude");
+		Latitude = getIntent().getExtras().getDouble("Latitude");
+		
+
 		initBar();
 		findView();
 		fillData();
@@ -82,14 +83,14 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 初始化数据
 	 */
 	private void fillData() {
-
-		getData(app.getLastLocation().getLongitude(), app.getLastLocation().getLatitude());
-
+		if (Longitude != 0.0 && Latitude != 0.0) {
+			getData(Longitude, Latitude);
+		} else {
+			getData(app.getLastLocation().getLongitude(), app.getLastLocation().getLatitude());// 用户当前的经纬度
+		}
 		// adapter = new NearbyParkAdapter();
 		// lvlocation.setAdapter(adapter);
-
 	}
-
 	/**
 	 * 
 	 */
@@ -101,11 +102,11 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			public void onResponse(String arg0) {
 				try {
 					JSONObject jsonObject = new JSONObject(arg0);
-					Log.i(TAG, "argo = "+ arg0) ;
-					JSONArray array =jsonObject.getJSONArray("data");
+					Log.i(TAG, "argo = " + arg0);
+					JSONArray array = jsonObject.getJSONArray("data");
 					try {
 						List<NearbyParkBean> list = NearbyParkBean.constractList(array);
-						adapter = new NearbyParkAdapter(list);
+						adapter = new NearbyParkAdapter(ParkingListActivity.this,list,app);
 						lvlocation.setAdapter(adapter);
 					} catch (JsonParseException e) {
 						e.printStackTrace();
@@ -114,7 +115,6 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-
 				} catch (JSONException e) {
 
 					e.printStackTrace();
@@ -143,119 +143,5 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			break;
 		}
 	}
-
-	/**
-	 * 附近停车场适配器
-	 * 
-	 * */
-
-	private class NearbyParkAdapter extends BaseAdapter {
-		private List<NearbyParkBean> nearbyLists;
-
-		/**
-		 * @param list
-		 */
-		public NearbyParkAdapter(List<NearbyParkBean> list) {
-			this.nearbyLists = list;
-		}
-
-		@Override
-		public int getCount() {
-
-			return nearbyLists.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-
-			return nearbyLists.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
-			final NearbyParkBean bean = nearbyLists.get(position);
-			if (convertView == null) {
-				holder = new ViewHolder();
-				convertView = getLayoutInflater().inflate(R.layout.park_item, null);
-				holder.tvLocationPark = (TextView) convertView.findViewById(R.id.tvLocationPark);
-				holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
-				holder.tvParkCost = (TextView) convertView.findViewById(R.id.tvParkCost);
-				holder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
-				holder.btnNavigation = (Button) convertView.findViewById(R.id.btnNavigation);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			holder.tvLocationPark.setText(bean.getName());
-			holder.tvAddress.setText("地址：" + bean.getAddress());
-			holder.tvParkCost.setText(bean.getPrice() + "元/" + "小时");
-			holder.tvDistance.setText("空车位" + bean.getCarbarnLast() + "个");
-
-			holder.btnNavigation.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					showRoute(bean);
-				}
-			});
-
-			return convertView;
-		}
-
-	}
-
-	class ViewHolder {
-		private TextView tvLocationPark, tvAddress, tvParkCost, tvDistance;
-		private Button btnNavigation;
-	}
-	/**
-	 * 显示导航路线；
-	 * @param bean
-	 */
-	private void showRoute(NearbyParkBean bean){
-		double mLatStart = app.getLastLocation().getLatitude(); 
-		double mLonStart = app.getLastLocation().getLongitude(); 
-		 //服务器经纬度弄反了
-		double mLatEnd = bean.getLocationList().get(0).getLatitude();
-		double mLonEnd = bean.getLocationList().get(0).getLongitude();         
-//		double mLatEnd = bean.getLocationList().get(0).getLongitude();
-//		double mLonEnd = bean.getLocationList().get(0).getLatitude();
-		int lat = (int) (mLatStart *1E6);
-		int lon = (int) (mLonStart *1E6);           
-		GeoPoint pt1 = new GeoPoint(lat, lon);
-		lat = (int) (mLatEnd *1E6);
-		lon = (int) (mLonEnd *1E6);
-		GeoPoint pt2 = new GeoPoint(lat, lon);
-		/*
-
-		 * 导航参数
-
-		 * 导航起点和终点不能为空，当GPS可用时启动从用户位置到终点间的导航，
-
-		 * 当GPS不可用时，启动从起点到终点间的模拟导航。
-
-		 */
-		NaviPara para = new NaviPara();
-		para.startPoint = pt1;           //起点坐标
-		para.startName= "从这里开始";
-		para.endPoint  = pt2;            //终点坐标
-		para.endName   = "到这里结束";      
-		try {
-		   //调起百度地图客户端导航功能,参数this为Activity。 
-		        BaiduMapNavigation.openBaiduMapNavi(para, this);
-		} catch (BaiduMapAppNotSupportNaviException e) {
-			Bundle b = new Bundle();
-			b.putSerializable(Constants.EXTRA_DATA, bean);
-			openActivity(ShowRouteActivity.class, b);
-		}
-
-	}
+	
 }

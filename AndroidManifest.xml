@@ -6,18 +6,18 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<!-- 这个权限用于访问GPS定位 -->
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<!-- 用于访问wifi网络信息,wifi信息会用于进行网络定位 -->
+	<!-- 用于访问wifi网络信息,wifi信息会用于进行网络定�?-->
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<!-- 这个权限用于获取wifi的获取权限,wifi信息会用来进行网络定位 -->
+	<!-- 这个权限用于获取wifi的获取权�?wifi信息会用来进行网络定�?-->
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-	<!-- 用于读取手机当前的状态 -->
+	<!-- 用于读取手机当前的状�?-->
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
-	<!-- 访问网络，网络定位需要上网 -->
+	<!-- 访问网络，网络定位需要上�?-->
 	<uses-permission android:name="android.permission.INTERNET" />
 	<!-- SD卡读取权限，用户写入离线定位数据 -->
 	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -41,7 +41,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<!-- 找车位 -->
+		<!-- 找车�?-->
 		<activity android:name="com.keju.park.ui.searchparking.VoiceSearchActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 		<activity android:name="com.keju.park.ui.searchparking.SearchParkingActivity"
@@ -50,8 +50,10 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 		<activity android:name="com.keju.park.ui.searchparking.ParkingListActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+
 		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
-			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+
 		<!-- 定位服务 -->
 		<service android:name="com.baidu.location.f" android:enabled="true"
 			android:process=":remote">
@@ -60,5 +62,6 @@
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
 			android:value="9VIVbq1eLaebspsk79zRWgrk" />
 	</application>
-
+	<!-- ycd8wNnV09whbIyoGGGgDrp8 周勇 -->
+  <!--9VIVbq1eLaebspsk79zRWgrk -->
 </manifest>

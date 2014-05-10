@@ -26,6 +26,7 @@ import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
+import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.NetUtil;
 
@@ -36,29 +37,35 @@ import com.keju.park.util.NetUtil;
  * @data 创建时间：2014-5-1 下午10:59:30
  */
 public class SearchParkingActivity extends BaseActivity implements OnClickListener {
-	private TextView tvLeft,tvTitle;
+	private TextView tvLeft, tvTitle;
 	private Button btnNearby, btnVoice;
 	private TextView tvSearch;
 	private CommonApplication app;
-	//定位；
+	// 定位；
 	private LocationClient mLocationClient = null;
 	private MyLocationListenner myListener = new MyLocationListenner();
-	private MKSearch mMKSearch = null ;
+	private MKSearch mMKSearch = null;
+	
+	private DataBaseAdapter daAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		app = (CommonApplication) getApplication();
+		
+		daAdapter  = ((CommonApplication) getApplication()).getDbAdapter();
 		setContentView(R.layout.activity_search_parking);
 		findView();
 		fillData();
 		app.addActivity(this);
 	}
+
 	/**
 	 * 初始化控件
 	 */
 	private void findView() {
 		app.initBMapInfo();
-		
+
 		tvLeft = (TextView) findViewById(R.id.tvLeft);
 		tvLeft.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -78,9 +85,10 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	 */
 	private void fillData() {
 		mMKSearch = new MKSearch();
-		mMKSearch.init(((CommonApplication)getApplication()).mBMapManager, new MySearchListener());
+		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager, new MySearchListener());
 		initLocation();
 	}
+
 	/**
 	 * 初始化定位
 	 */
@@ -92,7 +100,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		mLocationClient = new LocationClient(this);
 		mLocationClient.registerLocationListener(myListener);
 		LocationClientOption option = new LocationClientOption();
-		option.setLocationMode(LocationMode.Hight_Accuracy);//设置定位模式
+		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setPriority(LocationClientOption.NetWorkFirst);// 网络优先
 		option.setOpenGps(false);
 		option.setScanSpan(500);// 设置定位模式，小于1秒则一次定位;大于等于1秒则定时定位
@@ -106,6 +114,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		pd.setMessage("定位中...");
 		pd.show();
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -113,19 +122,24 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 			finish();
 			break;
 		case R.id.btnLookNearby:
-             openActivity(ParkingListActivity.class);
+			Bundle b = new Bundle();
+			b.putDouble("Longitude", 0.00);
+			b.putDouble("Latitude", 0.00);
+			openActivity(ParkingListActivity.class, b);
 			break;
 
 		case R.id.btnVoice:
 			openActivity(VoiceSearchActivity.class);
 			break;
 		case R.id.tvSearch:
+//			daAdapter.clearTableData("search_history");//清除表
 			openActivity(HistorySearchParking.class);
 			break;
 		default:
 			break;
 		}
 	}
+
 	private ProgressDialog pd;
 
 	/**
@@ -142,7 +156,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 				pd.dismiss();
 			}
 			mLocationClient.stop();
-			mMKSearch.reverseGeocode(new GeoPoint((int)(location.getLatitude()*1e6),(int)(location.getLongitude()*1e6)));
+			mMKSearch.reverseGeocode(new GeoPoint((int) (location.getLatitude() * 1e6),
+					(int) (location.getLongitude() * 1e6)));
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -152,50 +167,59 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 
 		}
 	}
+
 	/**
 	 * 搜索监听类
+	 * 
 	 * @author Zhoujun
-	 *
+	 * 
 	 */
-	public class MySearchListener implements MKSearchListener {  
-        @Override  
-        public void onGetAddrResult(MKAddrInfo result, int iError) {  
-               //返回地址信息搜索结果  
-        	MKGeocoderAddressComponent kk=result.addressComponents; 
-        	app.setCity(kk.city);
-        }  
-        @Override  
-        public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {  
-                //返回驾乘路线搜索结果  
-        }  
-        @Override  
-        public void onGetPoiResult(MKPoiResult result, int type, int iError) {  
-                //返回poi搜索结果  
-        }  
-        @Override  
-        public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {  
-                //返回公交搜索结果  
-        }  
-        @Override  
-        public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {  
-                //返回步行路线搜索结果  
-        }  
-        @Override      
-        public void onGetBusDetailResult(MKBusLineResult result, int iError) {  
-                //返回公交车详情信息搜索结果  
-        }  
-        @Override  
-        public void onGetSuggestionResult(MKSuggestionResult result, int iError) {  
-                //返回联想词信息搜索结果  
-        }
+	public class MySearchListener implements MKSearchListener {
+		@Override
+		public void onGetAddrResult(MKAddrInfo result, int iError) {
+			// 返回地址信息搜索结果
+			MKGeocoderAddressComponent kk = result.addressComponents;
+			app.setCity(kk.city);
+		}
 
-         @Override 
-         public void onGetShareUrlResult(MKShareUrlResult result , int type, int error) {
-               //在此处理短串请求返回结果. 
-        }
+		@Override
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
+			// 返回驾乘路线搜索结果
+		}
+
+		@Override
+		public void onGetPoiResult(MKPoiResult result, int type, int iError) {
+			// 返回poi搜索结果
+		}
+
+		@Override
+		public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
+			// 返回公交搜索结果
+		}
+
+		@Override
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
+			// 返回步行路线搜索结果
+		}
+
+		@Override
+		public void onGetBusDetailResult(MKBusLineResult result, int iError) {
+			// 返回公交车详情信息搜索结果
+		}
+
+		@Override
+		public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
+			// 返回联想词信息搜索结果
+		}
+
+		@Override
+		public void onGetShareUrlResult(MKShareUrlResult result, int type, int error) {
+			// 在此处理短串请求返回结果.
+		}
+
 		@Override
 		public void onGetPoiDetailSearchResult(int arg0, int arg1) {
-			
-		} 
-}
+
+		}
+	}
 }

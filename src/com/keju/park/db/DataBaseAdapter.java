@@ -3,11 +3,16 @@
  */
 package com.keju.park.db;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.keju.park.bean.FuzzyQueryBean;
 
 /**
  * 数据库操作类
@@ -80,46 +85,107 @@ public class DataBaseAdapter {
 	 * 
 	 */
 	public interface HISTORY_Columns {
-		public static final String NAME = "name";// 搜索历史名字
+		public static final String CITY = "city";// 搜索历史城市名或省名字
+		public static final String ADDRESS = "address";// 详细地址
+		public static final String FullNAME = "full_name";// 全称
 		public static final String LONGITUDE = "longitude";// 经度
-		public static final String LATITUDE = " latitude";// 纬度
+		public static final String LATITUDE = "latitude";// 纬度
 
 	}
 
 	/**
 	 * 搜索历史表查询列
 	 */
-	public static final String[] PROJECTION_SEARCH_HISTORY = new String[] { RECORD_ID, HISTORY_Columns.NAME,
-			HISTORY_Columns.LONGITUDE, HISTORY_Columns.LATITUDE };
+	public static final String[] PROJECTION_SEARCH_HISTORY = new String[] { RECORD_ID, HISTORY_Columns.CITY,
+			HISTORY_Columns.ADDRESS, HISTORY_Columns.FullNAME, HISTORY_Columns.LONGITUDE, HISTORY_Columns.LATITUDE };
 
 	/**
 	 * 搜索历史表的创建语句
 	 */
 	public static final String CREATE_SQL_SEARCH_HISTORY = "create table " + TABLE_NAME_SEARCH_HISTORY + " ("
-			+ RECORD_ID + " integer primary key autoincrement," + HISTORY_Columns.NAME + " text ,"
-			+ HISTORY_Columns.LONGITUDE + " text ," + HISTORY_Columns.LATITUDE + " text " + ");";
+			+ RECORD_ID + " integer primary key autoincrement," + HISTORY_Columns.CITY + " text ,"
+			+ HISTORY_Columns.ADDRESS + " text ," + HISTORY_Columns.FullNAME + " text ," + HISTORY_Columns.LONGITUDE
+			+ " text ," + HISTORY_Columns.LATITUDE + " text " + ");";
 
 	/**
-	 * 插入数据
+	 * 插入用户搜索的历史数据
 	 * 
 	 * @param list
 	 */
-	public synchronized Boolean inserData(String bean) {
+	public void inserData(String city, String address, String fullName, String Longitude, String Latitude) {
 		SQLiteDatabase localDb = db;
-		Boolean isInser = false;
 		try {
 			localDb.beginTransaction();
 			// localDb.delete(TABLE_NAME_FOLLOW_UP_RECORD, null, null);
 			// for (FollowUpRecordBean bean : list) {
-			String sql = "insert into " + TABLE_NAME_SEARCH_HISTORY + " (" + HISTORY_Columns.NAME + ","
-					+ HISTORY_Columns.LONGITUDE + "," + HISTORY_Columns.LATITUDE + "," + ") values(?,?,?)";
-			localDb.execSQL(sql, new Object[] {});
+			String sql = "insert into " + TABLE_NAME_SEARCH_HISTORY + " (" + HISTORY_Columns.CITY + ","
+					+ HISTORY_Columns.ADDRESS + "," + HISTORY_Columns.FullNAME + "," + HISTORY_Columns.LONGITUDE + ","
+					+ HISTORY_Columns.LATITUDE + ") values(?,?,?,?,?)";
+			localDb.execSQL(sql, new Object[] { city, address, fullName, Longitude, Latitude });
 			localDb.setTransactionSuccessful();
-			isInser = true;
 		} finally {
 			localDb.endTransaction();
 		}
-		return isInser;
+	}
+
+	/**
+	 * 查询用户输入的历史记录
+	 * 
+	 * @param list
+	 */
+	public ArrayList<FuzzyQueryBean> queryHistoryRecode() {
+		ArrayList<FuzzyQueryBean> list = new ArrayList<FuzzyQueryBean>();
+		Cursor c = db.query(TABLE_NAME_SEARCH_HISTORY, PROJECTION_SEARCH_HISTORY, null, null, null, null, RECORD_ID);
+		while (c.moveToNext()) {
+			FuzzyQueryBean bean = new FuzzyQueryBean();
+			bean.setCity(c.getString(c.getColumnIndex(HISTORY_Columns.CITY)));
+			bean.setAddress(c.getString(c.getColumnIndex(HISTORY_Columns.ADDRESS)));
+			bean.setCityFullName(c.getString(c.getColumnIndex(HISTORY_Columns.FullNAME)));
+			bean.setLongitude(c.getDouble(c.getColumnIndex(HISTORY_Columns.LONGITUDE)));
+			bean.setLatitude(c.getDouble(c.getColumnIndex(HISTORY_Columns.LATITUDE)));
+			list.add(bean);
+		}
+		return list;
+
+	}
+	
+	/**
+	 * 查询数据库是为有相同的数据
+	 * 
+	 **/
+	public boolean isAlikeData(String fullName){
+		boolean isAlikeData = false ;
+		SQLiteDatabase localDb = db;
+		try {
+			Cursor c = db.query(TABLE_NAME_SEARCH_HISTORY, PROJECTION_SEARCH_HISTORY, null, null, null, null, RECORD_ID);
+			while (c.moveToNext()) {
+				String full_name =c.getString(c.getColumnIndex(HISTORY_Columns.FullNAME));
+				if(fullName.equals(full_name)){
+					isAlikeData = true;
+				}else{
+					isAlikeData= false;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isAlikeData;
+		
+	}
+	
+	/**
+	 * 删除某一条历史记录
+	 * 
+	 * @param list
+	 */
+
+	public void delOneHistoryRecode(String fullName) {
+		SQLiteDatabase localDb = db;
+	    try {
+			db.execSQL("delete from search_history where full_name = " + "'" + fullName +"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

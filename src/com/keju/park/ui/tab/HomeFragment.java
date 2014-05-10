@@ -24,6 +24,7 @@ import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseFragment;
+import com.keju.park.ui.searchparking.ParkingListActivity;
 import com.keju.park.ui.searchparking.SearchParkingActivity;
 
 
