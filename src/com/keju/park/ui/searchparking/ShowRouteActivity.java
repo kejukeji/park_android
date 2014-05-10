@@ -65,8 +65,8 @@ public class ShowRouteActivity extends BaseActivity {
 		start.pt = new GeoPoint((int) (app.getLastLocation().getLatitude() * 1E6), (int) (app.getLastLocation()
 				.getLongitude() * 1E6));
 		MKPlanNode end = new MKPlanNode();
-		end.pt = new GeoPoint((int) (bean.getLocationList().get(0).getLongitude() * 1E6), (int) (bean.getLocationList()
-				.get(0).getLatitude() * 1E6));
+		end.pt = new GeoPoint((int) (bean.getLocationList().get(0).getLatitude() * 1E6), (int) (bean.getLocationList()
+				.get(0).getLongitude() * 1E6));
 		mMKSearch.setDrivingPolicy(MKSearch.ECAR_TIME_FIRST);// 设置驾车路线搜索策略，时间优先、费用最少或距离最短
 		mMKSearch.drivingSearch(null, start, null, end);
 

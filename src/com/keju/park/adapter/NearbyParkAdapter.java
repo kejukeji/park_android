@@ -122,8 +122,6 @@ public class NearbyParkAdapter extends BaseAdapter {
 		// 服务器经纬度弄反了
 		double mLatEnd = bean.getLocationList().get(0).getLatitude();
 		double mLonEnd = bean.getLocationList().get(0).getLongitude();
-//		 double mLatEnd = bean.getLocationList().get(0).getLongitude();
-//		 double mLonEnd = bean.getLocationList().get(0).getLatitude();
 		int lat = (int) (mLatStart * 1E6);
 		int lon = (int) (mLonStart * 1E6);
 		GeoPoint pt1 = new GeoPoint(lat, lon);
