@@ -5,20 +5,22 @@
 	android:padding="12dp">
 
 	<View android:id="@+id/noeDot" android:layout_width="2dp"
-		android:layout_height="fill_parent" android:background="@drawable/park_list_line_repeat"
+		android:layout_height="72dp" android:background="@drawable/park_list_line_repeat"
 		android:layout_alignParentLeft="true" android:layout_marginLeft="4.5dp"
-		android:layout_below="@+id/tvLocationPark" />
-	<TextView android:id="@+id/tvLocationPark"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:drawableLeft="@drawable/ic_orange_location" android:text="  任命广场" 
-		android:textSize="@dimen/basic_text_size" />
+		android:layout_below="@+id/tvLocationPark" android:layout_marginTop="-5dp"/>
+	<TextView android:id="@+id/tvLocationPark" android:drawablePadding="7dp"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+		android:drawableLeft="@drawable/ic_orange_location" android:text="人民广场" 
+		android:textSize="@dimen/basic_text_size" android:singleLine="true"
+		android:ellipsize="end" android:layout_toLeftOf="@+id/viewNavigation" android:layout_marginRight="10dp"/>
 
-	<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+	<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content" android:drawablePadding="5dp"
+		android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:singleLine="true"
+		android:ellipsize="end" android:layout_toLeftOf="@+id/viewNavigation" android:layout_marginRight="10dp"
 		android:layout_below="@+id/tvLocationPark" android:drawableLeft="@drawable/ic_location_dot"
 		android:text="  地址：  浦东新区动车" android:layout_marginTop="6dp" android:textSize="@dimen/small_text_size"/>
 
-	<TextView android:id="@+id/tvParkCost" android:layout_width="wrap_content"
+	<TextView android:id="@+id/tvParkCost" android:layout_width="wrap_content" android:drawablePadding="5dp"
 		android:layout_height="wrap_content" android:drawableLeft="@drawable/ic_location_dot"
 		android:text="  10/小时" android:layout_below="@+id/tvAddress"
 		android:layout_marginTop="4dp" android:textSize="@dimen/small_text_size"/>
@@ -29,24 +31,19 @@
 		android:layout_height="wrap_content" android:layout_alignParentLeft="true"
 		android:layout_below="@+id/tvParkCost" android:drawableLeft="@drawable/ic_location_dot"
 		android:text="  距离200m  空车位5个" android:layout_marginTop="4dp" 
-		android:textSize="@dimen/large_text_size"/>
+		android:textSize="@dimen/large_text_size" android:drawablePadding="5dp"/>
 
 
 
 
-	<Button android:id="@+id/btnNavigation" android:layout_width="wrap_content"
-		android:layout_height="90dp" android:layout_alignBottom="@+id/tvNavigation"
-		android:layout_alignParentRight="true" android:background="@drawable/bg_navigation_btn"
-		android:gravity="center_vertical" android:textColor="@color/white"
-		android:textSize="18sp" android:paddingTop="25dp" android:text="导航"
-		android:paddingLeft="20dp" android:paddingRight="20dp" />
-
-	<TextView android:id="@+id/tvNavigation" android:layout_width="wrap_content"
-		android:layout_height="29dp" android:layout_alignBaseline="@+id/tvParkCost"
-		android:layout_alignBottom="@+id/tvParkCost"
-		android:layout_alignRight="@+id/btnNavigation"
-		android:layout_marginRight="27dp" android:drawablePadding="5dp"
-		android:drawableTop="@drawable/ic_gps" android:gravity="center_horizontal"
-		android:textSize="18sp" android:layout_marginBottom="-14dp" />
+	<LinearLayout android:id="@+id/viewNavigation" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:background="@drawable/bg_navigation_btn" android:paddingLeft="20dp" android:paddingRight="20dp"
+	    android:layout_alignParentRight="true" android:paddingTop="10dp" android:paddingBottom="10dp" 
+	    android:clickable="true" android:layout_centerVertical="true">
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" 
+		android:drawablePadding="5dp" android:textColor="@color/white"
+		android:text="导航" android:drawableTop="@drawable/ic_gps" android:layout_gravity="center"
+		android:textSize="18sp" />
+	</LinearLayout>
 
 </RelativeLayout>

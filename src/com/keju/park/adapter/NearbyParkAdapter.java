@@ -4,11 +4,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
@@ -71,7 +71,7 @@ public class NearbyParkAdapter extends BaseAdapter {
 			holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
 			holder.tvParkCost = (TextView) convertView.findViewById(R.id.tvParkCost);
 			holder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
-			holder.btnNavigation = (Button) convertView.findViewById(R.id.btnNavigation);
+			holder.viewNavigation = convertView.findViewById(R.id.viewNavigation);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -84,17 +84,19 @@ public class NearbyParkAdapter extends BaseAdapter {
 		if (app.getLastLocation() != null) {
 			double distance = StringUtil.getDistance(app.getLastLocation().getLatitude(), app.getLastLocation()
 					.getLongitude(), bean.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude());
+			String distanceStr = null;
 			if (distance > 1000) {
 				distance = distance / 1000;
-				holder.tvDistance.setText("距离"+String.format("%.1f", distance) + "km"+"空车位" + bean.getCarbarnLast() + "个");
+				distanceStr = String.format("%.0f", distance) + "km";
 			} else {
-				holder.tvDistance.setText("距离"+String.format("%.0f", distance) + "m"+"空车位" + bean.getCarbarnLast() + "个");
+				distanceStr = String.format("%.0f", distance) + "m";
 			}
+			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#e76b2b'>"+distanceStr+"</a>  空车位" + "<a><font color='#e76b2b'>" +bean.getCarbarnLast() + "</a>个"));
 		} else {
 			holder.tvDistance.setText("");
 		}
 
-		holder.btnNavigation.setOnClickListener(new OnClickListener() {
+		holder.viewNavigation.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -107,7 +109,7 @@ public class NearbyParkAdapter extends BaseAdapter {
 	
 	class ViewHolder {
 		private TextView tvLocationPark, tvAddress, tvParkCost, tvDistance;
-		private Button btnNavigation;
+		private View viewNavigation;
 	}
 	
 	
