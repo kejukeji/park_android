@@ -9,7 +9,7 @@
 		android:background="@color/common_bar" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
-		<EditText android:id="@+id/etSearch" android:layout_width="match_parent"
+		<EditText android:id="@+id/etSearch" android:layout_width="270dp"
 			android:layout_height="47dp" android:background="@drawable/bg_input_search_parking"
 			android:layout_margin="5dp" android:hint="请输入目的地" />
 
@@ -17,6 +17,13 @@
 			android:layout_height="wrap_content" android:layout_alignRight="@+id/etSearch"
 			android:layout_alignTop="@+id/etSearch" android:src="@drawable/ic_search"
 			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
+		
+		<LinearLayout android:id="@+id/vo_Search" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"  android:layout_toRightOf="@+id/etSearch"
+			android:layout_alignTop="@+id/etSearch">
+		    <ImageView android:layout_width="30dp" android:layout_height="47dp" 
+			android:src="@drawable/vo_search" />
+		</LinearLayout>
 	</RelativeLayout>
 
 	<ListView android:id="@+id/lvSearch" style="@style/listviewStyle"

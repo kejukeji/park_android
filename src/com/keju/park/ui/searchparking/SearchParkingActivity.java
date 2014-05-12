@@ -2,9 +2,11 @@ package com.keju.park.ui.searchparking;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -41,6 +43,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	private Button btnNearby, btnVoice;
 	private TextView tvSearch;
 	private CommonApplication app;
+	private LinearLayout linearLayout;
 	// 定位；
 	private LocationClient mLocationClient = null;
 	private MyLocationListenner myListener = new MyLocationListenner();
@@ -66,8 +69,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	private void findView() {
 		app.initBMapInfo();
 
-		tvLeft = (TextView) findViewById(R.id.tvLeft);
-		tvLeft.setOnClickListener(this);
+//		tvLeft = (TextView) findViewById(R.id.tvLeft);
+//		tvLeft.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvTitle.setText(R.string.search_parking);
 
@@ -78,6 +81,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 
 		tvSearch = (TextView) findViewById(R.id.tvSearch);
 		tvSearch.setOnClickListener(this);
+		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
+		linearLayout.setOnClickListener(this);
 	}
 
 	/**
@@ -129,11 +134,14 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 			break;
 
 		case R.id.btnVoice:
-			openActivity(VoiceSearchActivity.class);
+//			openActivity(VoiceSearchActivity.class);
 			break;
 		case R.id.tvSearch:
 //			daAdapter.clearTableData("search_history");//清除表
 			openActivity(HistorySearchParking.class);
+			break;
+		case R.id.vo_Search:
+			openActivity(VoiceSearchActivity.class);
 			break;
 		default:
 			break;

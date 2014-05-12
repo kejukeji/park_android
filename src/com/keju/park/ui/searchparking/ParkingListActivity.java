@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,8 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 	private double Longitude;
 	private double Latitude;
+	
+	private ProgressDialog pDialog;//
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

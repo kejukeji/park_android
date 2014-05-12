@@ -3,6 +3,7 @@ package com.keju.park.ui.searchparking;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +47,7 @@ import com.keju.park.ui.base.BaseActivity;
  */
 public class HistorySearchParking extends BaseActivity implements OnClickListener {
 	private EditText etSearch;
+	private LinearLayout linearLayout;	//语音搜索相关组件
 	private ListView lvSearch;
 	private SearchHistoryAdapter adapter;
 
@@ -83,6 +86,8 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		tvTitle.setText(R.string.search_parking);
 		etSearch = (EditText) findViewById(R.id.etSearch);
 		etSearch.setText(voiceSearchStr);
+		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
+		linearLayout.setOnClickListener(this);
 		etSearch.addTextChangedListener(textWatcher);
 		lvSearch = (ListView) findViewById(R.id.lvSearch);
 		lvSearch.setOnItemClickListener(listener);
@@ -265,6 +270,10 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 			break;
 		case R.id.etSearch:
 
+			break;
+		case R.id.vo_Search:
+			Intent intent = new Intent(this,VoiceSearchActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;
