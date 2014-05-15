@@ -39,6 +39,7 @@ public class CommonApplication extends Application {
 	/**
 	 * 定位的城市；
 	 */
+	private String province;
 	private String city = "";
 	
 	private String userAddress;//用户当前位置
@@ -186,6 +187,8 @@ public class CommonApplication extends Application {
 		public void onGetAddrResult(MKAddrInfo result, int error) {
 			MKGeocoderAddressComponent kk = result.addressComponents;
 			userAddress = kk.district + kk.street + kk.streetNumber;
+			setProvince(kk.province);
+			setCity(kk.city);
 			if(userAddress.equals("")){
 				setUserAddress(null);
 			}else{
@@ -252,7 +255,12 @@ public class CommonApplication extends Application {
 		this.city = city;
 	}
 	
-	
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
 
 	public String getUserAddress() {
 		return userAddress;
@@ -273,6 +281,5 @@ public class CommonApplication extends Application {
 	public void addActivity(Activity mActivity) {
 		activities.add(mActivity);
 	}
-	
 	
 }

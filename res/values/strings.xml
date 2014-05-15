@@ -19,6 +19,7 @@
 	<string name="text_login_fail">登录失败</string>
 	<string name="title_isr_warning">警告</string>
 	<!-- iat -->
+	<string name="preference_key_poi_engine">poi_engine</string>
 	<string name="preference_key_iat_engine">iat_engine</string>
 	<string name="preference_default_iat_engine">iat</string>
 	<string name="preference_key_poi_province">poi_province</string>
