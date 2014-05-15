@@ -3,7 +3,7 @@
 	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:orientation="vertical" android:padding="5dp">
 	
-    <TextView android:id="@+id/tv_right_voice_dialogue"
+    <TextView android:id="@+id/tvVoice"
 	android:layout_width="wrap_content" android:layout_height="wrap_content"
 	android:background="@drawable/bg_voice_right" android:gravity="center_vertical"
 	android:text="欢迎来到停车宝，停车宝为你服务" android:textColor="@color/white" 

@@ -101,6 +101,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 			mMKSearch.suggestionSearch(voiceSearchStr, app.getCity());
 		} else {
 			ArrayList<FuzzyQueryBean> fuzzyList = dba.queryHistoryRecode();
+			list.clear();
 			list = fuzzyList;
 			adapter = new SearchHistoryAdapter(fuzzyList, true); // turn
 			lvSearch.setAdapter(adapter);
@@ -140,6 +141,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 		@Override
 		public void afterTextChanged(Editable s) {
+			list.clear();
 			if (TextUtils.isEmpty(s.toString())) {
 				ArrayList<FuzzyQueryBean> fuzzyList = dba.queryHistoryRecode();
 				list = fuzzyList;
