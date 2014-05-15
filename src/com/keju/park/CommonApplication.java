@@ -56,6 +56,8 @@ public class CommonApplication extends Application {
 	private MKSearch mSearch; // 搜索定位
 	private MKSearchListener mSearchListener;
 	
+	public boolean mIsEngineInitSuccess = false;
+	
 	/**
 	 * 数据库操作类
 	 * 
@@ -280,6 +282,12 @@ public class CommonApplication extends Application {
 	}
 	public void addActivity(Activity mActivity) {
 		activities.add(mActivity);
+	}
+	public boolean ismIsEngineInitSuccess() {
+		return mIsEngineInitSuccess;
+	}
+	public void setmIsEngineInitSuccess(boolean mIsEngineInitSuccess) {
+		this.mIsEngineInitSuccess = mIsEngineInitSuccess;
 	}
 	
 }

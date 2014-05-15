@@ -61,7 +61,6 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		Longitude = getIntent().getExtras().getDouble("Longitude");
 		Latitude = getIntent().getExtras().getDouble("Latitude");
 		
-
 		initBar();
 		findView();
 		fillData();
@@ -75,7 +74,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		tvTitle.setText("附近停车场");
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
-		tvLocation.setText(app.getUserAddress());
+		tvLocation.setText("您当前的位置：" + app.getUserAddress());
 
 		lvlocation = (ListView) findViewById(R.id.lvlocationList);
 		nearbyList = new ArrayList<NearbyParkBean>();
