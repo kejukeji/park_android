@@ -54,13 +54,16 @@
 		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 
+		<activity android:name="com.keju.park.ui.searchparking.VoiceDalogueActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+		
 		<!-- 定位服务 -->
 		<service android:name="com.baidu.location.f" android:enabled="true"
 			android:process=":remote">
 		</service>
 		<!-- 百度定位的key -->
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
-			android:value="9VIVbq1eLaebspsk79zRWgrk" />
+			android:value="ycd8wNnV09whbIyoGGGgDrp8" />
 	</application>
 	<!-- ycd8wNnV09whbIyoGGGgDrp8 周勇 -->
 	<!--9VIVbq1eLaebspsk79zRWgrk -->
