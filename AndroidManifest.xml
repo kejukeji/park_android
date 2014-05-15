@@ -61,7 +61,8 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 		
 		<activity android:name="com.keju.park.ui.more.MoreActivity"
-			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+		
 		<!-- 定位服务 -->
 		<service android:name="com.baidu.location.f" android:enabled="true"
 			android:process=":remote">
