@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.iflytek.cloud.speech.RecognizerListener;
 import com.iflytek.cloud.speech.RecognizerResult;
 import com.iflytek.cloud.speech.SpeechConstant;
 import com.iflytek.cloud.speech.SpeechError;
@@ -35,18 +34,20 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	private Button btnVoiceSearch;
 	private TextView tvSpeak, tvPosition;
 	private RelativeLayout rlErroeOrRight;
-	private Button btnError,btnRight;
+	private Button btnError, btnRight;
 	// 识别对象
 	private SpeechRecognizer iatRecognizer;
 	// 识别窗口
 	private RecognizerDialog iatDialog;
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 	private SharedPreferences mSharedPreferences;
-	//合成对象.
+	// 合成对象.
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private String voiceStr;
-	
+
 	private CommonApplication app;
+
+	// private int count =0; //记录用户点击的语音按钮的次数
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +73,12 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 
 		tvSpeak = (TextView) findViewById(R.id.tvSpeak);
 		tvPosition = (TextView) findViewById(R.id.tvPosition);
-		rlErroeOrRight = (RelativeLayout)findViewById(R.id.rlErroeOrRight);
-		
+		rlErroeOrRight = (RelativeLayout) findViewById(R.id.rlErroeOrRight);
+
 		btnError = (Button) findViewById(R.id.btnError);
 		btnError.setOnClickListener(this);
 		btnRight = (Button) findViewById(R.id.btnRight1);
-		btnRight.setOnClickListener(this); 
-		
-		
+		btnRight.setOnClickListener(this);
 
 	}
 
@@ -88,8 +87,7 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	 */
 	private void fillData() {
 		// 用户登录
-		SpeechUser.getUser().login(VoiceSearchActivity.this, null, null, "appid=" + getString(R.string.app_id),
-				listener);
+		SpeechUser.getUser().login(VoiceSearchActivity.this, null, null, "appid=" + getString(R.string.app_id), listener);
 		// 初始化缓存对象.
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 		// 创建听写对象,如果只使用无UI听写功能,不需要创建RecognizerDialog
@@ -98,8 +96,9 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		iatDialog = new RecognizerDialog(this);
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
-		
+
 	}
+
 	/**
 	 * 使用SpeechSynthesizer合成语音
 	 * 
@@ -126,9 +125,10 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		int pitch = 49;
 		// 设置语调
 		mSpeechSynthesizer.setParameter(SpeechConstant.PITCH, "" + pitch);
-		
+
 		mSpeechSynthesizer.startSpeaking(source, synthesizerListener);
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -136,21 +136,22 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 			finish();
 			break;
 		case R.id.btnVoiceSearch:
+			// count ++;
 			rlErroeOrRight.setVisibility(View.VISIBLE);
 			tvSpeak.setText("你是否说的是");
 			showIatDialog();
 			break;
 		case R.id.btnError:
-		 tvSpeak.setText(R.string.speak);
-		 tvPosition.setText(R.string.position);
-		 rlErroeOrRight.setVisibility(View.GONE);
+			// count = 0;
+			tvSpeak.setText(R.string.speak);
+			tvPosition.setText(R.string.position);
+			rlErroeOrRight.setVisibility(View.GONE);
 			break;
 		case R.id.btnRight1:
-			
+			// count = 0;
 			Bundle b = new Bundle();
-			b.putString("voiceSearchStr", voiceStr);
+			b.putString("voiceSearchStr", voiceStr.replace("。", ""));
 			openActivity(HistorySearchParking.class, b);
-			
 			break;
 		default:
 			break;
@@ -201,17 +202,47 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		showShortToast(getString(R.string.text_iat_begin));
 	}
 
-		/**
+	/**
 	 * 识别回调监听器
 	 */
 	RecognizerDialogListener recognizerDialogListener = new RecognizerDialogListener() {
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
+			// if(count==2){
+			// voiceYseOrOn =
+			// JsonParser.parseIatResult(results.getResultString());
+			// }else{
+			// voiceStr = JsonParser.parseIatResult(results.getResultString());
+			// tvPosition.append(" " + voiceStr + " ");
+			// }
+			//
+			// if(count==2){
+			// if(voiceYseOrOn.replace("。", "").equals("是")){
+			// Bundle b = new Bundle();
+			// b.putString("voiceSearchStr", voiceStr.replace("。", ""));
+			// openActivity(HistorySearchParking.class, b);
+			// tvPosition.append("");
+			// count = 0;
+			// tvSpeak.setText(R.string.speak);
+			// tvPosition.setText(R.string.position);
+			// rlErroeOrRight.setVisibility(View.GONE);
+			// }else if (voiceYseOrOn.equals("不是")){
+			// tvPosition.append("");
+			// tvSpeak.setText(R.string.speak);
+			// tvPosition.setText(R.string.position);
+			// rlErroeOrRight.setVisibility(View.GONE);
+			// } else{
+			// count = 0;
+			// tvPosition.append("");
+			// tvSpeak.setText(R.string.speak);
+			// tvPosition.setText(R.string.position);
+			// rlErroeOrRight.setVisibility(View.GONE);
+			// }
 			voiceStr = JsonParser.parseIatResult(results.getResultString());
-			tvPosition.append(" " + voiceStr + " ");
-//			tvPosition.setSelection(tvPosition.length());
-			if(isLast){
-				synthetizeInSilence("您是要去"+tvPosition.getText().toString().replace("。", "") + "吗");
+			tvPosition.append(" " + voiceStr.replace("。", "") + " ");
+			// tvPosition.setSelection(tvPosition.length());
+			if (isLast) {
+				synthetizeInSilence("您是要去" + tvPosition.getText().toString().replace("。", "") + "吗");
 			}
 		}
 
@@ -219,7 +250,7 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		 * 识别回调错误.
 		 */
 		public void onError(SpeechError error) {
-           
+
 		}
 
 	};
@@ -247,35 +278,35 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	 * 语音合成播放；
 	 */
 	private SynthesizerListener synthesizerListener = new SynthesizerListener() {
-		
+
 		@Override
 		public void onSpeakResumed() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakProgress(int arg0, int arg1, int arg2) {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakPaused() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakBegin() {
-			
+
 		}
-		
+
 		@Override
 		public void onCompleted(SpeechError arg0) {
-			
+
 		}
-		
+
 		@Override
 		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-			
+
 		}
 	};
 }
