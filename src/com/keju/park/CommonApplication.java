@@ -70,6 +70,7 @@ public class CommonApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		initEngineManager(this);
 		initBMapInfo();
 		dataBaseAdapter = new DataBaseAdapter(this);
 		dataBaseAdapter.open();
@@ -78,7 +79,6 @@ public class CommonApplication extends Application {
 //		CrashHandler crashHandler = CrashHandler.getInstance();
 //		crashHandler.init(getApplicationContext());
 		instance = this;
-		initEngineManager(this);
 	}
 	
 	

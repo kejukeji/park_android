@@ -1,6 +1,5 @@
 package com.keju.park.ui.searchparking;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,8 +55,9 @@ public class SearchParkingActivity extends BaseActivity implements
 	private MKSearch mMKSearch = null;
 
 	private DataBaseAdapter daAdapter;
-
-	
+	//语音合成；
+	//合成对象.
+	private SpeechSynthesizer mSpeechSynthesizer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +78,6 @@ public class SearchParkingActivity extends BaseActivity implements
 	
 		app.initBMapInfo();
 
-		// tvLeft = (TextView) findViewById(R.id.tvLeft);
-		// tvLeft.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvTitle.setText(R.string.search_parking);
 
@@ -102,8 +100,106 @@ public class SearchParkingActivity extends BaseActivity implements
 		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager,
 				new MySearchListener());
 		initLocation();
+		
+		// 用户登录
+		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id),
+						loginListener);
+		// 初始化合成对象.
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+		// 获取合成文本.
+		String source = "您好，我是您的停车小秘";
+		if(app.getUserAddress() != null){
+			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "");
+		}else{
+			source = source + "对不起，目前无法获取您当前的位置";
+		}
+		synthetizeInSilence(source);
+	}
+	/**
+	 * 用户登录回调监听器.
+	 */
+	private SpeechListener loginListener = new SpeechListener() {
+
+		@Override
+		public void onData(byte[] arg0) {
+		}
+
+		@Override
+		public void onCompleted(SpeechError error) {
+			if (error != null) {
+				showShortToast(R.string.text_login_fail);
+			}
+		}
+
+		@Override
+		public void onEvent(int arg0, Bundle arg1) {
+		}
+	};
+	/**
+	 * 使用SpeechSynthesizer合成语音
+	 * 
+	 * @param
+	 */
+	private void synthetizeInSilence(String source) {
+		if (null == mSpeechSynthesizer) {
+			// 创建合成对象.
+			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+		}
+		// 设置合成发音人.
+		String role = "xiaoyan";
+		// 设置发音人
+		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, role);
+		// 获取语速
+		int speed = 15;
+		// 设置语速
+		mSpeechSynthesizer.setParameter(SpeechConstant.SPEED, "" + speed);
+		// 获取音量.
+		int volume = 100;
+		// 设置音量
+		mSpeechSynthesizer.setParameter(SpeechConstant.VOLUME, "" + volume);
+		// 获取语调
+		int pitch = 49;
+		// 设置语调
+		mSpeechSynthesizer.setParameter(SpeechConstant.PITCH, "" + pitch);
+		
+		mSpeechSynthesizer.startSpeaking(source, synthesizerListener);
 	}
 
+	/**
+	 * 语音合成播放；
+	 */
+	private SynthesizerListener synthesizerListener = new SynthesizerListener() {
+		
+		@Override
+		public void onSpeakResumed() {
+			
+		}
+		
+		@Override
+		public void onSpeakProgress(int arg0, int arg1, int arg2) {
+			
+		}
+		
+		@Override
+		public void onSpeakPaused() {
+			
+		}
+		
+		@Override
+		public void onSpeakBegin() {
+			
+		}
+		
+		@Override
+		public void onCompleted(SpeechError arg0) {
+			
+		}
+		
+		@Override
+		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+			
+		}
+	};
 	/**
 	 * 初始化定位
 	 */
@@ -123,11 +219,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		mLocationClient.setLocOption(option);
 		mLocationClient.start();
-		if (pd == null) {
-			pd = new ProgressDialog(this);
-		}
-		pd.setMessage("定位中...");
-		pd.show();
+		
 	}
 
 	@Override
@@ -144,7 +236,8 @@ public class SearchParkingActivity extends BaseActivity implements
 			break;
 
 		case R.id.btnVoice:
-			openActivity(VoiceDialogueActivity.class);
+			openActivity(VoiceSearchActivity.class);
+//			openActivity(VoiceDialogueActivity.class);
 			break;
 		case R.id.tvSearch:
 			// daAdapter.clearTableData("search_history");//清除表
@@ -160,7 +253,6 @@ public class SearchParkingActivity extends BaseActivity implements
 
 
 
-	private ProgressDialog pd;
 
 	/**
 	 * 监听函数，有更新位置的时候
@@ -172,9 +264,7 @@ public class SearchParkingActivity extends BaseActivity implements
 				showShortToast("定位失败");
 				return;
 			}
-			if (pd != null) {
-				pd.dismiss();
-			}
+			
 			mLocationClient.stop();
 			mMKSearch.reverseGeocode(new GeoPoint(
 					(int) (location.getLatitude() * 1e6), (int) (location

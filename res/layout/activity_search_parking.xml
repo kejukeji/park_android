@@ -35,7 +35,7 @@
 			android:layout_alignTop="@+id/tvSearch" android:src="@drawable/ic_search"
 			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
 		
-		<LinearLayout android:id="@+id/vo_Search" android:layout_width="40dp"
+		<LinearLayout android:id="@+id/vo_Search" android:layout_width="40dp" android:visibility="gone"
 			android:layout_height="wrap_content"  android:layout_alignParentRight="true"
 			android:layout_alignTop="@+id/tvSearch" android:gravity="center_horizontal">
 		    <ImageView android:layout_width="30dp" android:layout_height="47dp"
