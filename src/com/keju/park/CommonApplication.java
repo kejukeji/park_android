@@ -139,8 +139,8 @@ public class CommonApplication extends Application {
         	//非零值表示key验证未通过
             if (iError != 0) {
                 //授权Key错误：
-//                Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
-//                        "请在 CommonApplication.java文件输入正确的授权Key,并检查您的网络连接是否正常！error: "+iError, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
+                        "请在 CommonApplication.java文件输入正确的授权Key,并检查您的网络连接是否正常！error: "+iError, Toast.LENGTH_SHORT).show();
             }
             else{
             	Toast.makeText(CommonApplication.getInstance().getApplicationContext(), 
