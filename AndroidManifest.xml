@@ -54,7 +54,7 @@
 		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 
-		<activity android:name="com.keju.park.ui.searchparking.VoiceDalogueActivity"
+		<activity android:name="com.keju.park.ui.searchparking.VoiceDialogueActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 		
 		<!-- 定位服务 -->

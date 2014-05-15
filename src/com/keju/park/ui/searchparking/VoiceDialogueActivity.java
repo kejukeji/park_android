@@ -20,7 +20,7 @@ import com.keju.park.ui.base.BaseActivity;
  * @author zhouyong
  * @data 创建时间：2014-5-15 下午10:25:56
  */
-public class VoiceDalogueActivity extends BaseActivity implements
+public class VoiceDialogueActivity extends BaseActivity implements
 		OnClickListener, SynthesizerListener {
 
 	private ListView vdList;
@@ -47,7 +47,7 @@ public class VoiceDalogueActivity extends BaseActivity implements
 
 	private void fillData() {
 		// 用户登录
-		SpeechUser.getUser().login(VoiceDalogueActivity.this, null, null,
+		SpeechUser.getUser().login(VoiceDialogueActivity.this, null, null,
 				"appid=" + getString(R.string.app_id), listener);
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
@@ -87,7 +87,7 @@ public class VoiceDalogueActivity extends BaseActivity implements
 			source = editable;
 		}
 		// 进行语音合成.
-		mSpeechSynthesizer.startSpeaking(source, VoiceDalogueActivity.this);
+		mSpeechSynthesizer.startSpeaking(source, VoiceDialogueActivity.this);
 	}
 
 	@Override

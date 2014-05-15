@@ -144,7 +144,7 @@ public class SearchParkingActivity extends BaseActivity implements
 			break;
 
 		case R.id.btnVoice:
-			openActivity(VoiceDalogueActivity.class);
+			openActivity(VoiceDialogueActivity.class);
 			break;
 		case R.id.tvSearch:
 			// daAdapter.clearTableData("search_history");//清除表
