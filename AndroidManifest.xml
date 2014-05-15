@@ -23,6 +23,18 @@
 	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 	<!-- 允许应用读取低级别的系统日志文件 -->
 	<uses-permission android:name="android.permission.READ_LOGS" />
+	<!--使用导航功能所需权限  -->
+    <uses-permission  android:name="android.permission.BAIDU_LOCATION_SERVICE" />    
+    <uses-permission  android:name="android.permission.ACCES_MOCK_LOCATION" />    
+    <uses-permission  android:name="com.android.launcher.permission.READ_SETTINGS" />    
+    <uses-permission  android:name="android.permission.WAKE_LOCK" />    
+    <uses-permission  android:name="android.permission.ACCESS_GPS" />      
+    <uses-permission  android:name="android.permission.GET_TASKS" />    
+    <uses-permission  android:name="android.permission.BROADCAST_STICKY" />    
+    <uses-permission  android:name="android.permission.PROCESS_OUTGOING_CALLS" />    
+    <uses-permission  android:name="android.permission.READ_PHONE_STATE" />    
+    <uses-permission  android:name="android.permission.MODIFY_AUDIO_SETTINGS" />    
+	
 	<!--科大讯飞 -->
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
 	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -55,7 +67,9 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 
 		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
-			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+			android:screenOrientation="portrait" android:configChanges="orientation|screenSize|keyboard|keyboardHidden"></activity>
+		<activity android:name="com.keju.park.ui.searchparking.BNavigatorActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|screenSize|keyboard|keyboardHidden"></activity>
 
 		<activity android:name="com.keju.park.ui.searchparking.VoiceDialogueActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
