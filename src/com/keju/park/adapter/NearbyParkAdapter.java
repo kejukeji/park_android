@@ -31,17 +31,17 @@ import com.keju.park.util.StringUtil;
  * 停车场 适配器
  * 
  * @author zhouyong
- * @data 创建时间：2014-5-10  下午2:35:08
+ * @data 创建时间：2014-5-10 下午2:35:08
  */
 public class NearbyParkAdapter extends BaseAdapter {
 	private List<NearbyParkBean> nearbyLists;
-	private Activity activity ;
+	private Activity activity;
 	private CommonApplication app;
 
 	/**
 	 * @param list
 	 */
-	public NearbyParkAdapter(Activity activity,List<NearbyParkBean> list,CommonApplication app) {
+	public NearbyParkAdapter(Activity activity, List<NearbyParkBean> list, CommonApplication app) {
 		this.nearbyLists = list;
 		this.activity = activity;
 		this.app = app;
@@ -84,11 +84,10 @@ public class NearbyParkAdapter extends BaseAdapter {
 
 		holder.tvLocationPark.setText(bean.getName());
 		holder.tvAddress.setText("地址：" + bean.getAddress());
-		holder.tvParkCost.setText(bean.getPrice() + "元/" + "小时");
-		
+
 		if (app.getLastLocation() != null) {
-			double distance = StringUtil.getDistance(app.getLastLocation().getLatitude(), app.getLastLocation()
-					.getLongitude(), bean.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude());
+			double distance = StringUtil.getDistance(app.getLastLocation().getLatitude(), app.getLastLocation().getLongitude(), bean
+					.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude());
 			String distanceStr = null;
 			if (distance > 1000) {
 				distance = distance / 1000;
@@ -96,7 +95,8 @@ public class NearbyParkAdapter extends BaseAdapter {
 			} else {
 				distanceStr = String.format("%.0f", distance) + "m";
 			}
-			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>"+distanceStr+"</a>    空车位" + "<a><font color='#fe0000'>" +bean.getCarbarnLast() + "</a>个"));
+			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr + "</a>    空车位"
+					+ "<a><font color='#fe0000'>" + bean.getLast() + "</a>个"));
 		} else {
 			holder.tvDistance.setText("");
 		}
@@ -105,41 +105,41 @@ public class NearbyParkAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-//				showRoute(bean);
+				// showRoute(bean);
 				showNavigation(bean);
 			}
 		});
 
 		return convertView;
 	}
-	
+
 	class ViewHolder {
 		private TextView tvLocationPark, tvAddress, tvParkCost, tvDistance;
 		private View viewNavigation;
 	}
-	private void showNavigation(NearbyParkBean bean){
-		BaiduNaviManager.getInstance().launchNavigator(activity, 
-	            app.getLastLocation().getLatitude(), app.getLastLocation().getLongitude(),app.getUserAddress(), 
-	            bean.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude(),bean.getAddress(),
-	            NE_RoutePlan_Mode.ROUTE_PLAN_MOD_MIN_TIME,       //算路方式
-	            true,                                            //真实导航
-	            BaiduNaviManager.STRATEGY_FORCE_ONLINE_PRIORITY, //在离线策略
-	            new OnStartNavigationListener() {                //跳转监听
-	                
-	                @Override
-	                public void onJumpToNavigator(Bundle configParams) {
-	                    Intent intent = new Intent(activity, BNavigatorActivity.class);
-	                    intent.putExtras(configParams);
-	                    activity.startActivity(intent);
-	                }
-	                
-	                @Override
-	                public void onJumpToDownloader() {
-	                }
-	            });
+
+	private void showNavigation(NearbyParkBean bean) {
+		BaiduNaviManager.getInstance().launchNavigator(activity, app.getLastLocation().getLatitude(), app.getLastLocation().getLongitude(),
+				app.getUserAddress(), bean.getLocationList().get(0).getLatitude(), bean.getLocationList().get(0).getLongitude(),
+				bean.getAddress(), NE_RoutePlan_Mode.ROUTE_PLAN_MOD_MIN_TIME, // 算路方式
+				true, // 真实导航
+				BaiduNaviManager.STRATEGY_FORCE_ONLINE_PRIORITY, // 在离线策略
+				new OnStartNavigationListener() { // 跳转监听
+
+					@Override
+					public void onJumpToNavigator(Bundle configParams) {
+						Intent intent = new Intent(activity, BNavigatorActivity.class);
+						intent.putExtras(configParams);
+						activity.startActivity(intent);
+					}
+
+					@Override
+					public void onJumpToDownloader() {
+					}
+				});
 
 	}
-	
+
 	/**
 	 * 显示导航路线；
 	 * 
@@ -174,9 +174,9 @@ public class NearbyParkAdapter extends BaseAdapter {
 			// 调起百度地图客户端导航功能,参数this为Activity。
 			BaiduMapNavigation.openBaiduMapNavi(para, activity);
 		} catch (BaiduMapAppNotSupportNaviException e) {
-//			Bundle b = new Bundle();
-//			b.putSerializable(Constants.EXTRA_DATA, bean);
-//			activity.openActivity(ShowRouteActivity.class, b);
+			// Bundle b = new Bundle();
+			// b.putSerializable(Constants.EXTRA_DATA, bean);
+			// activity.openActivity(ShowRouteActivity.class, b);
 			Intent intent = new Intent();
 			intent.putExtra(Constants.EXTRA_DATA, bean);
 			intent.setClass(activity, ShowRouteActivity.class);

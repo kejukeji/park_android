@@ -67,6 +67,9 @@
 		<activity android:name="com.keju.park.ui.searchparking.ParkingListActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 
+		<activity android:name="com.keju.park.ui.searchparking.ParkingDetailsActivity"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
+
 		<activity android:name="com.keju.park.ui.searchparking.ShowRouteActivity"
 			android:screenOrientation="portrait"
 			android:configChanges="orientation|screenSize|keyboard|keyboardHidden"></activity>
@@ -76,6 +79,8 @@
 
 		<activity android:name="com.keju.park.ui.searchparking.VoiceDialogueActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+
+
 		<!-- 更多界面 -->
 		<activity android:name="com.keju.park.ui.more.MoreActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
@@ -85,7 +90,7 @@
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
 		<activity android:name="com.keju.park.ui.more.IdeaFeedBackActivity"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
-		
+
 		<!-- 定位服务 -->
 		<service android:name="com.baidu.location.f" android:enabled="true"
 			android:process=":remote">

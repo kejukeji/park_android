@@ -20,9 +20,13 @@
 		android:layout_height="wrap_content" android:layout_below="@+id/tvWeb"
 		android:layout_marginLeft="37dp" android:text="电话：40080012000" />
 
-	<TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
+	<TextView android:id="@+id/tvBusinessEmail" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvPhone"
-		android:layout_marginLeft="37dp" android:text="邮箱：park@park.com" />
+		android:layout_marginLeft="37dp" android:text="商务合作专用邮箱：park@park.com" />
+	
+	<TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_below="@+id/tvBusinessEmail"
+		android:layout_marginLeft="37dp" android:text="用户反馈专用邮箱：park@park.com" />
 
 	<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvEmail"

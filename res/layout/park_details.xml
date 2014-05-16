@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:background="@color/bg_comment">
+
+	<include android:id="@+id/rlnearby" layout="@layout/common_title_bar" />
+
+	<TextView android:id="@+id/tvLocation" android:layout_width="match_parent"
+		android:layout_height="wrap_content" android:drawableLeft="@drawable/ic_while_location"
+		android:text="  您当前的位置：" android:textColor="@color/white"
+		android:layout_alignParentLeft="true" android:layout_below="@+id/rlnearby"
+		android:paddingLeft="10dp" android:textSize="14sp"
+		android:drawablePadding="5dp" android:paddingTop="10dp"
+		android:paddingBottom="10dp" android:singleLine="true"
+		android:ellipsize="end" android:background="@color/orange" />
+
+
+	<RelativeLayout android:id="@+id/rlDetails"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:layout_below="@+id/tvLocation" android:layout_marginTop="10dp">
+
+		<View android:id="@+id/noeDot" android:layout_width="2dp"
+			android:layout_height="72dp" android:background="@drawable/park_list_line_repeat"
+			android:layout_alignParentLeft="true" android:layout_marginLeft="14.5dp"
+			android:layout_below="@+id/tvLocationPark" android:layout_marginTop="-5dp" />
+		<TextView android:id="@+id/tvLocationPark"
+			android:drawablePadding="7dp" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+			android:drawableLeft="@drawable/ic_orange_location" android:text="人民广场"
+			android:textSize="@dimen/large_text_size" android:singleLine="true"
+			android:ellipsize="end" android:layout_toLeftOf="@+id/viewNavigation"
+			android:layout_marginRight="10dp" android:layout_marginLeft="10dp" />
+
+		<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content"
+			android:drawablePadding="5dp" android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true" android:singleLine="true"
+			android:ellipsize="end" android:layout_toLeftOf="@+id/viewNavigation"
+			android:layout_marginRight="10dp" android:layout_below="@+id/tvLocationPark"
+			android:drawableLeft="@drawable/ic_location_dot" android:text="地址：  浦东新区动车"
+			android:layout_marginTop="6dp" android:textSize="@dimen/large_text_size"
+			android:layout_marginLeft="10dp" />
+
+
+
+
+		<TextView android:id="@+id/tvDistance" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+			android:layout_below="@+id/tvAddress" android:drawableLeft="@drawable/ic_location_dot"
+			android:text="距离200m  空车位5个" android:layout_marginTop="4dp"
+			android:textSize="@dimen/large_text_size" android:drawablePadding="5dp"
+			android:layout_marginLeft="10dp" />
+
+
+
+
+		<LinearLayout android:id="@+id/viewNavigation"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/noeDot" android:layout_alignRight="@+id/line"
+			android:background="@drawable/bg_navigation_btn" android:clickable="true"
+			android:paddingBottom="10dp" android:paddingLeft="20dp"
+			android:paddingRight="20dp" android:paddingTop="10dp">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_gravity="center"
+				android:drawablePadding="5dp" android:drawableTop="@drawable/ic_gps"
+				android:text="导航" android:textColor="@color/white" android:textSize="18sp" />
+		</LinearLayout>
+		<TextView android:id="@+id/line" android:layout_width="match_parent"
+			android:layout_height="1dp" android:layout_below="@+id/viewNavigation"
+			android:background="#333333" android:layout_marginTop="20dp"
+			android:layout_marginLeft="15dp" android:layout_marginRight="15dp" />
+
+		<TextView android:id="@+id/details" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="详情"
+			android:textSize="@dimen/large_text_size" android:layout_below="@+id/line"
+			android:layout_marginTop="10dp" android:layout_marginLeft="30dp" />
+
+
+		<TextView android:id="@+id/daytime" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="白天"
+			android:textSize="@dimen/large_text_size" android:layout_below="@+id/details"
+			android:layout_marginTop="10dp" android:layout_marginLeft="30dp" />
+
+		<TextView android:id="@+id/tvDayTimePrice"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="首小时内2.5/15分钟" android:textSize="@dimen/large_text_size"
+			android:layout_below="@+id/daytime" android:layout_marginTop="10dp"
+			android:layout_marginLeft="30dp" />
+
+		<TextView android:id="@+id/night" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="晚上"
+			android:textSize="@dimen/large_text_size" android:layout_below="@+id/tvDayTimePrice"
+			android:layout_marginTop="10dp" android:layout_marginLeft="30dp" />
+
+
+		<TextView android:id="@+id/tvNightPrice"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="首小时内2.5/15分钟" android:textSize="@dimen/large_text_size"
+			android:layout_below="@+id/night" android:layout_marginTop="10dp"
+			android:layout_marginLeft="30dp" />
+	</RelativeLayout>
+
+</RelativeLayout>

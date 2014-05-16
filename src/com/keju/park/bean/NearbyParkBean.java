@@ -26,11 +26,13 @@ public class NearbyParkBean implements Serializable {
 	private static final long serialVersionUID = -6117719353386596258L;
 
 	private String address;
-	private int carbarnLast;// 剩余的车位
-	private int carbarnTotal;// 总车位
+	private int last;// 剩余的车位
+	private int total;// 总车位
 	private int id;// 车库id
 	private String name;
-	private int price;// 价格
+	private String type;// 类型
+	private String dayPrice;// 白天价格
+	private String nightPrice;// 晚上价格
 
 	private ArrayList<LocationBean> locationList;
 
@@ -39,20 +41,20 @@ public class NearbyParkBean implements Serializable {
 			this.address = obj.getString("address");
 		}
 
-		if (obj.has("carbarnLast")) {
-			this.carbarnLast = obj.getInt("carbarnLast");
+		if (obj.has("last")) {
+			this.last = obj.getInt("last");
 		}
 
-		if (obj.has("carbarnTotal")) {
-			this.carbarnTotal = obj.getInt("carbarnTotal");
+		if (obj.has("total")) {
+			this.total = obj.getInt("total");
 		}
 
 		if (obj.has("id")) {
 			this.id = obj.getInt("id");
 		}
 
-		if (obj.has("price")) {
-			this.price = obj.getInt("price");
+		if (obj.has("type")) {
+			this.type = obj.getString("type");
 		}
 
 		if (obj.has("name")) {
@@ -62,8 +64,8 @@ public class NearbyParkBean implements Serializable {
 		if (obj.has("cartEntrances") && !TextUtils.isEmpty(obj.getString("cartEntrances"))
 				&& !obj.getString("cartEntrances").equals("null")) {
 			ObjectMapper mapper = new ObjectMapper();
-			this.locationList = mapper.readValue(obj.getString("cartEntrances"), mapper.getTypeFactory()
-					.constructParametricType(ArrayList.class, LocationBean.class));
+			this.locationList = mapper.readValue(obj.getString("cartEntrances"),
+					mapper.getTypeFactory().constructParametricType(ArrayList.class, LocationBean.class));
 			if (locationList == null) {
 				locationList = new ArrayList<LocationBean>();
 			}
@@ -83,8 +85,8 @@ public class NearbyParkBean implements Serializable {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	public static List<NearbyParkBean> constractList(JSONArray array) throws JsonParseException, JsonMappingException,
-			JSONException, IOException {
+	public static List<NearbyParkBean> constractList(JSONArray array) throws JsonParseException, JsonMappingException, JSONException,
+			IOException {
 		List<NearbyParkBean> list = new ArrayList<NearbyParkBean>();
 		for (int i = 0; i < array.length(); i++) {
 			NearbyParkBean bean = new NearbyParkBean(array.getJSONObject(i));
@@ -101,20 +103,12 @@ public class NearbyParkBean implements Serializable {
 		this.address = address;
 	}
 
-	public int getCarbarnLast() {
-		return carbarnLast;
+	public int getLast() {
+		return last;
 	}
 
-	public void setCarbarnLast(int carbarnLast) {
-		this.carbarnLast = carbarnLast;
-	}
-
-	public int getCarbarnTotal() {
-		return carbarnTotal;
-	}
-
-	public void setCarbarnTotal(int carbarnTotal) {
-		this.carbarnTotal = carbarnTotal;
+	public void setLast(int last) {
+		this.last = last;
 	}
 
 	public int getId() {
@@ -133,12 +127,36 @@ public class NearbyParkBean implements Serializable {
 		this.name = name;
 	}
 
-	public int getPrice() {
-		return price;
+	public String getType() {
+		return type;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public String getDayPrice() {
+		return dayPrice;
+	}
+
+	public void setDayPrice(String dayPrice) {
+		this.dayPrice = dayPrice;
+	}
+
+	public String getNightPrice() {
+		return nightPrice;
+	}
+
+	public void setNightPrice(String nightPrice) {
+		this.nightPrice = nightPrice;
 	}
 
 	public ArrayList<LocationBean> getLocationList() {

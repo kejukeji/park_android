@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.keju.park.CommonApplication;
+import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.adapter.NearbyParkAdapter;
 import com.keju.park.bean.NearbyParkBean;
@@ -49,7 +52,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 	private double Longitude;
 	private double Latitude;
-	
+
 	private ProgressDialog pDialog;//
 
 	@Override
@@ -57,10 +60,10 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.park_list);
 		app = (CommonApplication) getApplication();
-		
+
 		Longitude = getIntent().getExtras().getDouble("Longitude");
 		Latitude = getIntent().getExtras().getDouble("Latitude");
-		
+
 		initBar();
 		findView();
 		fillData();
@@ -75,9 +78,10 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvLocation.setText("您当前的位置：" + app.getUserAddress());
+		nearbyList = new ArrayList<NearbyParkBean>();
 
 		lvlocation = (ListView) findViewById(R.id.lvlocationList);
-		nearbyList = new ArrayList<NearbyParkBean>();
+		lvlocation.setOnItemClickListener(itemListener);
 
 	}
 
@@ -85,6 +89,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 初始化数据
 	 */
 	private void fillData() {
+
 		if (Longitude != 0.0 && Latitude != 0.0) {
 			getData(Longitude, Latitude);
 		} else {
@@ -93,13 +98,32 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		// adapter = new NearbyParkAdapter();
 		// lvlocation.setAdapter(adapter);
 	}
+
+	/**
+	 * listView 点击事件
+	 * */
+	OnItemClickListener itemListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			if (position >= nearbyList.size()) {
+				return;
+			}
+			NearbyParkBean bean = nearbyList.get(position);
+			Bundle b = new Bundle();
+			b.putSerializable(Constants.EXTRA_DATA, bean);
+			openActivity(ParkingDetailsActivity.class, b);
+		}
+
+	};
+
 	/**
 	 * 
 	 */
 	private void getData(Double longitude, Double Latitude) {
 		RequestQueue mQueue = Volley.newRequestQueue(ParkingListActivity.this);
-		mQueue.add(new StringRequest(Method.GET, "http://park.kejukeji.com/ssbusy/carbarn/latitude-longitude?latitude="
-				+ Latitude + "&longitude=" + longitude, new Listener<String>() {
+		mQueue.add(new StringRequest(Method.GET, "http://park.kejukeji.com/ssbusy/carbarn/latitude-longitude?latitude=" + Latitude
+				+ "&longitude=" + longitude, new Listener<String>() {
 			@Override
 			public void onResponse(String arg0) {
 				try {
@@ -108,7 +132,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 					JSONArray array = jsonObject.getJSONArray("data");
 					try {
 						List<NearbyParkBean> list = NearbyParkBean.constractList(array);
-						adapter = new NearbyParkAdapter(ParkingListActivity.this,list,app);
+						adapter = new NearbyParkAdapter(ParkingListActivity.this, list, app);
 						lvlocation.setAdapter(adapter);
 					} catch (JsonParseException e) {
 						e.printStackTrace();
@@ -145,5 +169,5 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			break;
 		}
 	}
-	
+
 }
