@@ -230,8 +230,8 @@ public class SearchParkingActivity extends BaseActivity implements
 			break;
 		case R.id.btnLookNearby:
 			Bundle b = new Bundle();
-			b.putDouble("Longitude", 0.00);
-			b.putDouble("Latitude", 0.00);
+			b.putDouble("longtitude", app.getLastLocation().getLongitude());
+			b.putDouble("latitude", app.getLastLocation().getLatitude());
 			openActivity(ParkingListActivity.class, b);
 			break;
 

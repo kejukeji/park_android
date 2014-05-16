@@ -40,5 +40,8 @@ public class Constants {
 	 * intent extra
 	 */
 	public static final String EXTRA_DATA = "extra_data";
-
+	/**
+	 * 分页数据
+	 */
+	public static final int PAGE_SIZE = 10;
 }

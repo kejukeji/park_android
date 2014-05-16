@@ -3,6 +3,15 @@
 
 	<string name="app_name">Park</string>
 	<string name="NoSignalException">无法连接到网络，请检查网络配置</string>
+	<string name="json_exception">json解析错误</string>
+    <string name="connect_server_exception">服务器连接失败</string>
+    <!-- 上拉下拉 -->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">最后 更新：</string>
+    <string name="xlistview_footer_hint_normal">上拉看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
 	<string name="search_parking">寻找车位</string>
 	<string name="speak">请大声说出</string>
