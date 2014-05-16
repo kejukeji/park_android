@@ -25,6 +25,7 @@ import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
 import com.keju.park.R;
+import com.keju.park.Urls;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.StringUtil;
@@ -85,7 +86,7 @@ public class ParkingDetailsActivity extends BaseActivity implements OnClickListe
 	 */
 	private void getData(int parkId) {
 		RequestQueue mQueue = Volley.newRequestQueue(ParkingDetailsActivity.this);
-		mQueue.add(new StringRequest(Method.GET, "http://121.199.251.166/park/v1/carbarn/get/" + parkId, new Listener<String>() {
+		mQueue.add(new StringRequest(Method.GET, Urls.BASE_URL1 + parkId, new Listener<String>() {
 			@Override
 			public void onResponse(String arg0) {
 				Log.i(TAG, "argo = " + arg0);

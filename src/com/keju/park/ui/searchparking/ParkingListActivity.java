@@ -49,7 +49,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	private XListView lvParkding;
 	private NearbyParkAdapter adapter;
 	private ArrayList<NearbyParkBean> parkingList;
-	private int pageIndex;
+	private int pageIndex=1;
 	private boolean isLoad = false;// 是否正在加载数据
 	private boolean isComplete = false;// 是否加载完了；
 	private boolean isRefresh = false;// 是否刷新
@@ -115,13 +115,10 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			if (arg2 >= parkingList.size()) {
+			if (arg2 - 1 >= parkingList.size()) {
 				return;
 			}
-			if (arg2 >= parkingList.size()) {
-				return;
-			}
-			NearbyParkBean bean = parkingList.get(arg2);
+			NearbyParkBean bean = parkingList.get(arg2 - 1);
 			Bundle b = new Bundle();
 			b.putSerializable(Constants.EXTRA_DATA, bean);
 			openActivity(ParkingDetailsActivity.class, b);
@@ -132,7 +129,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 获取数据
 	 */
 	private void getData() {
-		mQueue.add(new StringRequest(Method.GET, Urls.URL_PARK_LIST + "latitude=" + latitude + "&longitude=" + longtitude + "&page_show"
+		mQueue.add(new StringRequest(Method.GET, Urls.URL_PARK_LIST + "latitude=" + latitude + "&longitude=" + longtitude + "&page_show="
 				+ pageIndex, new Listener<String>() {
 			@Override
 			public void onResponse(String arg0) {
