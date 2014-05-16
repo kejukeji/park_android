@@ -1,22 +1,17 @@
 package com.keju.park.ui.searchparking;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.comapi.mapcontrol.BNMapController;
-import com.baidu.navisdk.comapi.routeguide.RouteGuideParams.RGLocationMode;
 import com.baidu.navisdk.comapi.routeplan.BNRoutePlaner;
 import com.baidu.navisdk.comapi.tts.BNTTSPlayer;
 import com.baidu.navisdk.comapi.tts.BNavigatorTTSPlayer;
 import com.baidu.navisdk.comapi.tts.IBNTTSPlayerListener;
 import com.baidu.navisdk.model.datastruct.LocData;
-import com.baidu.navisdk.model.datastruct.RoutePlanNode;
 import com.baidu.navisdk.model.datastruct.SensorData;
-import com.baidu.navisdk.ui.routeguide.BNavConfig;
 import com.baidu.navisdk.ui.routeguide.BNavigator;
 import com.baidu.navisdk.ui.routeguide.IBNavigatorListener;
 import com.baidu.navisdk.ui.widget.RoutePlanObserver;

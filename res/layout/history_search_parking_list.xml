@@ -6,7 +6,7 @@
 	<include android:id="@+id/bar" layout="@layout/common_title_bar" />
 	<RelativeLayout android:id="@+id/llSearch"
 		android:layout_width="match_parent" android:layout_height="70dp"
-		android:background="@color/common_bar" android:layout_below="@+id/bar"
+		android:background="@color/orange" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
 		<EditText android:id="@+id/etSearch" android:layout_width="match_parent"

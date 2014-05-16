@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-	<!-- 使用的颜色 -->
-	<color name="common_bar">#e76b2b</color>
 	<color name="white">#ffffff</color>
-	<color name="orange">#e76b2b</color>
+	<color name="orange">#e76c2a</color>
 	<color name="bg_comment">#F2F2F2</color>
+	<!-- 正文字体颜色 -->
+	<color name="dark">#333333</color>
+	<color name="light_dark">#616060</color>
+	<color name="red">#fe0000</color>
+	<!-- 整体背景色 -->
+	<color name="bg_common">#f2f2f2</color>
 </resources>

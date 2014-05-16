@@ -18,7 +18,6 @@ import com.baidu.mapapi.navi.NaviPara;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.BaiduNaviManager.OnStartNavigationListener;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
-import com.baidu.navisdk.model.RoutePlanModel;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
@@ -38,7 +37,6 @@ public class NearbyParkAdapter extends BaseAdapter {
 	private List<NearbyParkBean> nearbyLists;
 	private Activity activity ;
 	private CommonApplication app;
-	private RoutePlanModel mRoutePlanModel = null;
 
 	/**
 	 * @param list
@@ -98,7 +96,7 @@ public class NearbyParkAdapter extends BaseAdapter {
 			} else {
 				distanceStr = String.format("%.0f", distance) + "m";
 			}
-			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#e76b2b'>"+distanceStr+"</a>  空车位" + "<a><font color='#e76b2b'>" +bean.getCarbarnLast() + "</a>个"));
+			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>"+distanceStr+"</a>    空车位" + "<a><font color='#fe0000'>" +bean.getCarbarnLast() + "</a>个"));
 		} else {
 			holder.tvDistance.setText("");
 		}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent" android:background="#F2F2F2">
+	android:layout_height="match_parent" android:background="@drawable/bg_common">
 
 	<include android:id="@+id/rlnearby" layout="@layout/common_title_bar" />
 
@@ -11,10 +11,11 @@
 			android:layout_alignParentLeft="true" android:layout_below="@+id/rlnearby"
 			android:paddingLeft="10dp" android:textSize="14sp" android:drawablePadding="5dp"
 			android:paddingTop="10dp" android:paddingBottom="10dp" android:singleLine="true"
-			android:ellipsize="end" android:background="@color/common_bar"/>
+			android:ellipsize="end" android:background="@color/orange"/>
 
 	<ListView android:id="@+id/lvlocationList"
 		android:layout_width="match_parent" android:layout_height="wrap_content"
-		android:layout_below="@+id/tvLocation" style="@style/listviewStyle" />
+		android:layout_below="@+id/tvLocation" style="@style/listviewStyle" 
+		android:divider="@null" android:dividerHeight="0dp"/>
 
 </RelativeLayout>

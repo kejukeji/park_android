@@ -8,13 +8,13 @@
 	<TextView android:id="@+id/tvSpeak" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/rlVoiceSearch"
 		android:layout_centerHorizontal="true" android:gravity="center_vertical"
-		android:text="@string/speak" android:textColor="@color/common_bar"
+		android:text="@string/speak" android:textColor="@color/orange"
 		android:textSize="18sp" android:layout_marginTop="35dp" />
 
 	<TextView android:id="@+id/tvPosition" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvSpeak"
 		android:layout_centerHorizontal="true" android:gravity="center_vertical"
-		android:text="@string/position" android:textColor="@color/common_bar"
+		android:text="@string/position" android:textColor="@color/orange"
 		android:layout_marginTop="10dp" android:textSize="18sp" />
 
 
