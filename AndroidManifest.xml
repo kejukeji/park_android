@@ -92,7 +92,7 @@
 		</service>
 		<!-- 百度定位的key -->
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
-			android:value="E3I6SxmOdPW9nEbpbYy8bd9B" />
+			android:value="ZOatwHcx3iSNWy4VfQ0NhwxT" />
 	</application>
 	<!-- E3I6SxmOdPW9nEbpbYy8bd9B 周勇 -->
 	<!--9VIVbq1eLaebspsk79zRWgrk -->
