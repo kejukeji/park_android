@@ -10,7 +10,7 @@
 	
 
 	<View android:id="@+id/noeDot" android:layout_width="2dp"
-		android:layout_height="47dp" android:background="@drawable/park_list_line_repeat"
+		android:layout_height="50dp" android:background="@drawable/park_list_line_repeat"
 		android:layout_alignParentLeft="true" android:layout_marginLeft="4.5dp"
 		android:layout_below="@+id/tvLocationPark" android:layout_marginTop="-5dp"/>
 

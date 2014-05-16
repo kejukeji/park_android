@@ -20,7 +20,7 @@
 		android:layout_below="@+id/tvLocation" android:layout_marginTop="10dp">
 
 		<View android:id="@+id/noeDot" android:layout_width="2dp"
-			android:layout_height="72dp" android:background="@drawable/park_list_line_repeat"
+			android:layout_height="52dp" android:background="@drawable/park_list_line_repeat"
 			android:layout_alignParentLeft="true" android:layout_marginLeft="14.5dp"
 			android:layout_below="@+id/tvLocationPark" android:layout_marginTop="-5dp" />
 		<TextView android:id="@+id/tvLocationPark"
@@ -58,15 +58,15 @@
 			android:layout_alignBottom="@+id/noeDot" android:layout_alignRight="@+id/line"
 			android:background="@drawable/bg_navigation_btn" android:clickable="true"
 			android:paddingBottom="10dp" android:paddingLeft="20dp"
-			android:paddingRight="20dp" android:paddingTop="10dp">
+			android:paddingRight="20dp" android:paddingTop="6dp">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:layout_gravity="center"
-				android:drawablePadding="5dp" android:drawableTop="@drawable/ic_gps"
+				android:drawablePadding="3dp" android:drawableTop="@drawable/ic_gps"
 				android:text="导航" android:textColor="@color/white" android:textSize="18sp" />
 		</LinearLayout>
 		<TextView android:id="@+id/line" android:layout_width="match_parent"
 			android:layout_height="1dp" android:layout_below="@+id/viewNavigation"
-			android:background="#333333" android:layout_marginTop="20dp"
+			android:background="#333333" android:layout_marginTop="10dp"
 			android:layout_marginLeft="15dp" android:layout_marginRight="15dp" />
 
 		<TextView android:id="@+id/details" android:layout_width="wrap_content"
