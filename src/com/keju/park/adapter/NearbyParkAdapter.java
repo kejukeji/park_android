@@ -74,7 +74,6 @@ public class NearbyParkAdapter extends BaseAdapter {
 			convertView = activity.getLayoutInflater().inflate(R.layout.park_item, null);
 			holder.tvLocationPark = (TextView) convertView.findViewById(R.id.tvLocationPark);
 			holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
-			holder.tvParkCost = (TextView) convertView.findViewById(R.id.tvParkCost);
 			holder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
 			holder.viewNavigation = convertView.findViewById(R.id.viewNavigation);
 			convertView.setTag(holder);
@@ -114,7 +113,7 @@ public class NearbyParkAdapter extends BaseAdapter {
 	}
 
 	class ViewHolder {
-		private TextView tvLocationPark, tvAddress, tvParkCost, tvDistance;
+		private TextView tvLocationPark, tvAddress, tvDistance;
 		private View viewNavigation;
 	}
 
