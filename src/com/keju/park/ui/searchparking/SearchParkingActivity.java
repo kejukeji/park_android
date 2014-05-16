@@ -150,7 +150,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		// 设置发音人
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, role);
 		// 获取语速
-		int speed = 15;
+		int speed = 50;
 		// 设置语速
 		mSpeechSynthesizer.setParameter(SpeechConstant.SPEED, "" + speed);
 		// 获取音量.
