@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:background="@color/bg_comment">
+
+	<include android:id="@+id/include" layout="@layout/common_title_bar" />
+
+	<TextView android:id="@+id/tvAboutMe"
+		android:layout_alignParentLeft="true" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="停车宝V1.0.1"
+		android:textSize="18sp" android:layout_below="@+id/include"
+		android:layout_marginTop="10dp" android:layout_marginLeft="15dp" />
+
+	<TextView android:id="@+id/tvContent" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们关于我们"
+		android:textSize="14dp" android:layout_below="@+id/tvAboutMe"
+		android:layout_marginTop="10dp" android:layout_marginLeft="15dp" />
+</RelativeLayout>

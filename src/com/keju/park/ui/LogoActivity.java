@@ -31,7 +31,7 @@ public class LogoActivity extends Activity {
 		app = (CommonApplication) getApplication();
 		viewLogo = findViewById(R.id.viewLogo);
 		// 初始化导航引擎
-		BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(), mNaviEngineInitListener, "ZOatwHcx3iSNWy4VfQ0NhwxT", null);
+		BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(), mNaviEngineInitListener, "E3I6SxmOdPW9nEbpbYy8bd9B", null);
 		animation();
 	}
 
