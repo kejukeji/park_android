@@ -13,6 +13,10 @@ import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
+<<<<<<< HEAD
+=======
+import com.keju.park.util.SharedPrefUtil;
+>>>>>>> FETCH_HEAD
 
 /**
  * 启动页
@@ -43,7 +47,12 @@ public class LogoActivity extends Activity {
 		viewLogo.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
 			public void onAnimationEnd(Animation arg0) {
-				startActivity(new Intent(LogoActivity.this, MainActivity.class));
+				if(SharedPrefUtil.isReadGuider(LogoActivity.this)){
+					startActivity(new Intent(LogoActivity.this, MainActivity.class));
+				}else{
+					startActivity(new Intent(LogoActivity.this, HelperActivity.class));
+					SharedPrefUtil.setGuiderRead(LogoActivity.this, true);
+				}
 				finish();
 			}
 

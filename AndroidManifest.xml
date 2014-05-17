@@ -56,6 +56,9 @@
 		</activity>
 
 		
+        <activity android:name="com.keju.park.ui.HelperActivity"
+			android:windowSoftInputMode="stateHidden|adjustPan"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
         <activity android:name="com.keju.park.ui.MainActivity"
 			android:windowSoftInputMode="stateHidden|adjustPan"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
