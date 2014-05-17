@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.keju.park.Constants;
 import com.keju.park.R;
@@ -15,6 +17,7 @@ import com.keju.park.ui.more.MoreFragment;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.ui.tab.FootFragment;
 import com.keju.park.ui.tab.SearchParkingFragment;
+import com.keju.park.util.AndroidUtil;
 import com.umeng.fb.FeedbackAgent;
 
 public class MainActivity extends FragmentActivity implements ActivityClickListener{
@@ -57,21 +60,7 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 			break;
 		}
 	}
-	/**
-	 * 隐藏底部菜单；
-	 */
-	private void hideFootLayout(){
-		footLayout.setVisibility(View.GONE);
-	}
-	/**
-	 * 跳转界面；
-	 */
-	private void toPager(Fragment fragment){
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction transaction = fm.beginTransaction();
-		transaction.replace(R.id.mainLayout, fragment);
-		transaction.commit();
-	}
+	
 	/**
 	 * 界面跳转
 	 * @param tab_id
@@ -106,5 +95,21 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 			break;
 		}
 		transaction.commit();
+	}
+	private long exitTime;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(this, "再按一次退出停车宝", Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				AndroidUtil.exitApp(this);
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
