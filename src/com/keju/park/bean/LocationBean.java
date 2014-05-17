@@ -12,9 +12,17 @@ public class LocationBean implements Serializable {
 	
 	private static final long serialVersionUID = -6117719353386596258L;
 	
+	private int distance;
 	private int id ;
 	private double latitude;
 	private double longitude;
+	
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 	public int getId() {
 		return id;
 	}

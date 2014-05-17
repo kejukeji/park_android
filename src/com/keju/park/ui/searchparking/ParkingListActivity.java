@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,10 +17,10 @@ import android.widget.TextView;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
 import com.keju.park.R;
-import com.keju.park.Urls;
 import com.keju.park.adapter.NearbyParkAdapter;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.bean.ResponseBean;
+import com.keju.park.helper.BusinessHerlper;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.DateUtil;
 import com.keju.park.util.NetUtil;
@@ -93,17 +89,23 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 初始化数据
 	 */
 	private void fillData() {
-//		getData();
-		if (NetUtil.checkNet(this)) {
-			new getParkListTask().execute();
-		} else {
-
-		}
+		refreshData();
 		lvParkding.setPullLoadEnable(true);
 		lvParkding.setXListViewListener(this);
 		lvParkding.setOnItemClickListener(itemListener);
 		adapter = new NearbyParkAdapter(ParkingListActivity.this, parkingList, app);
 		lvParkding.setAdapter(adapter);
+	}
+
+	/**
+	 * 更新数据
+	 */
+	private void refreshData() {
+		if (NetUtil.checkNet(ParkingListActivity.this)) {
+			new getParkListTask().execute();
+		} else {
+			showShortToast(R.string.NoSignalException);
+		}
 	}
 
 	/**
@@ -127,25 +129,76 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 获取停车list接口
 	 * 
 	 * */
+	private ProgressDialog pd;
+
 	private class getParkListTask extends AsyncTask<Void, Void, ResponseBean<NearbyParkBean>> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			if (!isRefresh && pageIndex == 1 && ParkingListActivity.this != null) {
+				if (pd == null) {
+					pd = new ProgressDialog(ParkingListActivity.this);
+				}
+				pd.setMessage(getString(R.string.xlistview_header_hint_loading));
+				pd.show();
+			}
 		}
 
 		@Override
 		protected ResponseBean<NearbyParkBean> doInBackground(Void... params) {
+			try {
+				return new BusinessHerlper().getParkList(latitude, longtitude, pageIndex);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(ResponseBean<NearbyParkBean> result) {
 			super.onPostExecute(result);
+			if (pd != null) {
+				pd.dismiss();
+			}
+			if (isRefresh) {
+				parkingList.clear();
+			}
+			if (result != null) {
+				List<NearbyParkBean> tempList = result.getObjList();
+				boolean isLastPage = false;
+				if (tempList.size() > 0) {
+					parkingList.addAll(tempList);
+					pageIndex++;
+				} else {
+					isLastPage = true;
+				}
+				if (isLastPage) {
+					isComplete = true;
+				} else {
+					if (tempList.size() > 0 && tempList.size() < Constants.PAGE_SIZE) {
+						isComplete = true;
+					}
+				}
+				if (isComplete) {
+					lvParkding.setFooterViewInvisible(true);
+				} else {
+					lvParkding.setFooterViewInvisible(false);
+				}
+				if (pageIndex == 1 && tempList.size() == 0) {
+					showShortToast("无数据");
+				}
+				if (pageIndex >= 2 && tempList.size() == 0) {
+					showShortToast("无更多数据");
+				}
+				adapter.notifyDataSetChanged();
+			}else{
+				showShortToast("数据解析错误");
+			}
+			isLoad = false;
+			isRefresh = false;
 
 		}
 	}
-
-	
 
 	@Override
 	public void onClick(View v) {
@@ -153,7 +206,6 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		case R.id.tvLeft:
 			finish();
 			break;
-
 		default:
 			break;
 		}
@@ -174,7 +226,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 				isRefresh = true;
 				pageIndex = 1;
 				onLoad();
-//				getData();
+				refreshData();
 			}
 		}, 2000);
 	}
@@ -186,7 +238,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			return;
 		}
 		if (!isLoad && !isComplete) {
-//			getData();
+			refreshData();
 		}
 	}
 

@@ -33,32 +33,13 @@ public class NearbyParkBean implements Serializable {
 	private String type;// 类型
 	private String dayPrice;// 白天价格
 	private String nightPrice;// 晚上价格
+	private String tel;// 电话
 
 	private ArrayList<LocationBean> locationList;
 
 	public NearbyParkBean(JSONObject obj) throws JSONException, JsonParseException, JsonMappingException, IOException {
 		if (obj.has("address")) {
 			this.address = obj.getString("address");
-		}
-
-		if (obj.has("last")) {
-			this.last = obj.getInt("last");
-		}
-
-		if (obj.has("total")) {
-			this.total = obj.getInt("total");
-		}
-
-		if (obj.has("id")) {
-			this.id = obj.getInt("id");
-		}
-
-		if (obj.has("type")) {
-			this.type = obj.getString("type");
-		}
-
-		if (obj.has("name")) {
-			this.name = obj.getString("name");
 		}
 
 		if (obj.has("cartEntrances") && !TextUtils.isEmpty(obj.getString("cartEntrances"))
@@ -71,6 +52,36 @@ public class NearbyParkBean implements Serializable {
 			}
 		} else {
 			this.locationList = new ArrayList<LocationBean>();
+		}
+
+		if (obj.has("dayPrice")) {
+			this.dayPrice = obj.getString("dayPrice");
+		}
+
+		if (obj.has("id")) {
+			this.id = obj.getInt("id");
+		}
+		if (obj.has("last")) {
+			this.last = obj.getInt("last");
+		}
+
+		if (obj.has("name")) {
+			this.name = obj.getString("name");
+		}
+
+		if (obj.has("nightPrice")) {
+			this.nightPrice = obj.getString("nightPrice");
+		}
+
+		if (obj.has("tel")) {
+			this.tel = obj.getString("tel");
+		}
+
+		if (obj.has("total")) {
+			this.total = obj.getInt("total");
+		}
+		if (obj.has("type")) {
+			this.type = obj.getString("type");
 		}
 
 	}
@@ -166,4 +177,13 @@ public class NearbyParkBean implements Serializable {
 	public void setLocationList(ArrayList<LocationBean> locationList) {
 		this.locationList = locationList;
 	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
 }

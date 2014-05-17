@@ -4,8 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -17,8 +19,11 @@ import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
 import com.keju.park.R;
+import com.keju.park.SystemException;
 import com.keju.park.bean.NearbyParkBean;
+import com.keju.park.helper.BusinessHerlper;
 import com.keju.park.ui.base.BaseActivity;
+import com.keju.park.util.NetUtil;
 import com.keju.park.util.StringUtil;
 
 /**
@@ -67,16 +72,48 @@ public class ParkingDetailsActivity extends BaseActivity implements OnClickListe
 	}
 
 	private void fillData() {
-		tvLocation.setText("您当前的位置：" + app.getUserAddress());
-
-		JSONObject jsonObject = new JSONObject();
-		JSONObject job = null;
-		try {
-			job = jsonObject.getJSONObject("data");
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (NetUtil.checkNet(ParkingDetailsActivity.this)) {
+			new getParkDetailsTask().execute();
+		} else {
+			showShortToast(R.string.NoSignalException);
 		}
-		setDetailData(job);
+
+		tvLocation.setText("您当前的位置：" + app.getUserAddress());
+	}
+
+	/**
+	 * 获取停车详情数据
+	 * 
+	 * */
+	private class getParkDetailsTask extends AsyncTask<Void, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Void... params) {
+			try {
+				return new BusinessHerlper().getParkDetailsTask(bean.getId());
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@SuppressWarnings("unused")
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			super.onPostExecute(result);
+			Log.i(TAG, result.toString());
+			if (result != null) {
+				if (result.has("data")) {
+					try {
+						setDetailData(result.getJSONObject("data"));
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				showShortToast(R.string.connect_server_exception);
+			}
+		}
 
 	}
 

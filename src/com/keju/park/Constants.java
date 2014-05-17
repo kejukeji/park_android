@@ -10,6 +10,7 @@ import android.os.Environment;
  * 		2、常量包括：一些类型的定义，在其他程序中不能够出现1 2 3之类的值。
  */
 public class Constants {
+	
 	/**
 	 * 应用文件存放目录
 	 */
@@ -31,8 +32,8 @@ public class Constants {
 	/**
 	 * 网络请求状态
 	 */
-	public static final String REQUEST_SUCCESS = "success";//表示成功
-	public static final String REQUEST_FAILED = "failed";//表示失败
+	public static final int REQUEST_SUCCESS = 0;//表示成功
+	public static final int REQUEST_FAILED = 400;//表示失败
 	public static final String REQUEST_TOKEN_INVALID = "auth is no exist";
 	public static final String CONNECT_SERVER_FAILED = "服务器连接失败";
 	public static final String JSON_EXCEPTION = "json解析错误";
