@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.keju.park.R;
 import com.keju.park.Urls;
 import com.keju.park.adapter.NearbyParkAdapter;
 import com.keju.park.bean.NearbyParkBean;
+import com.keju.park.bean.ResponseBean;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.DateUtil;
 import com.keju.park.util.NetUtil;
@@ -49,7 +51,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	private XListView lvParkding;
 	private NearbyParkAdapter adapter;
 	private ArrayList<NearbyParkBean> parkingList;
-	private int pageIndex=1;
+	private int pageIndex = 1;
 	private boolean isLoad = false;// 是否正在加载数据
 	private boolean isComplete = false;// 是否加载完了；
 	private boolean isRefresh = false;// 是否刷新
@@ -101,6 +103,11 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 */
 	private void fillData() {
 		getData();
+		if (NetUtil.checkNet(this)) {
+			new getParkListTask().execute();
+		} else {
+
+		}
 		lvParkding.setPullLoadEnable(true);
 		lvParkding.setXListViewListener(this);
 		lvParkding.setOnItemClickListener(itemListener);
@@ -124,6 +131,19 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			openActivity(ParkingDetailsActivity.class, b);
 		}
 	};
+	
+    /**
+     * 
+     * 
+     * */
+	private class getParkListTask extends AsyncTask<Void, Void, ResponseBean<NearbyParkBean>> {
+
+		@Override
+		protected ResponseBean<NearbyParkBean> doInBackground(Void... params) {
+			return null;
+		}
+
+	}
 
 	/**
 	 * 获取数据
