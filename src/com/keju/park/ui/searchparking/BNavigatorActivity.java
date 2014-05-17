@@ -3,6 +3,9 @@ package com.keju.park.ui.searchparking;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.comapi.mapcontrol.BNMapController;
@@ -17,6 +20,7 @@ import com.baidu.navisdk.ui.routeguide.IBNavigatorListener;
 import com.baidu.navisdk.ui.widget.RoutePlanObserver;
 import com.baidu.navisdk.ui.widget.RoutePlanObserver.IJumpToDownloadListener;
 import com.baidu.nplatform.comapi.map.MapGLSurfaceView;
+import com.keju.park.R;
 import com.keju.park.ui.base.BaseActivity;
 
 /**
@@ -26,17 +30,20 @@ import com.keju.park.ui.base.BaseActivity;
  * @version 创建时间：2014年5月15日 下午5:29:28
  */
 public class BNavigatorActivity extends BaseActivity {
+	private TextView tvNum;
+	private LinearLayout viewNavigator;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		// 填充视图
+		setContentView(R.layout.activity_navigator);
+		tvNum = (TextView) findViewById(R.id.tvNum);
+		viewNavigator = (LinearLayout) findViewById(R.id.viewNavigator);
 		// 创建NmapView
 		MapGLSurfaceView nMapView = BaiduNaviManager.getInstance().createNMapView(this);
 
 		// 创建导航视图
 		View navigatorView = BNavigator.getInstance().init(BNavigatorActivity.this, getIntent().getExtras(), nMapView);
-
-		// 填充视图
-		setContentView(navigatorView);
+		viewNavigator.addView(navigatorView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		BNavigator.getInstance().setListener(mBNavigatorListener);
 		BNavigator.getInstance().startNav();
 

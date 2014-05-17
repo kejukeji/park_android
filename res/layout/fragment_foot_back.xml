@@ -16,23 +16,31 @@
             android:id="@+id/rb_home"
             style="@style/tab_btn_style"
             android:drawableTop="@drawable/tab_home"
-            android:text="主页"
-            android:textColor="@color/white"/>
+            android:padding="6dp" />
 
-       
+        <RadioButton
+            android:id="@+id/rb_collection"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_collection"
+            android:padding="6dp" />
 
         <RadioButton
             style="@style/tab_btn_style"
             android:drawableTop="@drawable/tab_voice"
+            android:padding="6dp"
             android:visibility="invisible" />
 
+        <RadioButton
+            android:id="@+id/rb_store"
+            style="@style/tab_btn_style"
+            android:drawableTop="@drawable/tab_store"
+            android:padding="6dp" />
 
         <RadioButton
-            android:id="@+id/rb_more"
+            android:id="@+id/rb_personal_center"
             style="@style/tab_btn_style"
-            android:drawableTop="@drawable/tab_more"
-            android:text="更多"
-            android:textColor="@color/white" />
+            android:drawableTop="@drawable/tab_personal_center"
+            android:padding="6dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,16 +53,11 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom|center_horizontal"
-            android:layout_marginTop="3dp"
-            android:textColor="@color/orange"
-            android:drawableTop="@drawable/tab_voice"
-            android:drawablePadding="2dp"
-            android:textSize="12dp"
-            android:text="语音" />
+            android:layout_gravity="center"
+            android:src="@drawable/tab_voice" />
     </LinearLayout>
 
 </FrameLayout>

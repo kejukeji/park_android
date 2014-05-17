@@ -142,4 +142,7 @@
     <!-- E3I6SxmOdPW9nEbpbYy8bd9B 周勇 -->
     <!-- 9VIVbq1eLaebspsk79zRWgrk -->
 
+		<activity android:name="com.keju.park.ui.MainActivity"
+			android:windowSoftInputMode="stateHidden|adjustPan"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 </manifest>
