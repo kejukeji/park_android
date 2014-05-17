@@ -18,7 +18,7 @@ public class IdeaFeedBackActivity extends BaseActivity implements OnClickListene
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about_me);
+		setContentView(R.layout.idea_feedback);
 		initBar();
 		findView();
 		fillData();
