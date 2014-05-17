@@ -6,6 +6,7 @@ import android.view.View.OnClickListener;
 
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 联系我们
@@ -15,6 +16,7 @@ import com.keju.park.ui.base.BaseActivity;
  * @version 1.0
  */
 public class ContactMeActivity extends BaseActivity implements OnClickListener {
+	private final  String mPageName = "ContactMeActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,5 +45,17 @@ public class ContactMeActivity extends BaseActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
 	}
 }

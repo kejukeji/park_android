@@ -22,6 +22,7 @@ import com.baidu.navisdk.ui.widget.RoutePlanObserver.IJumpToDownloadListener;
 import com.baidu.nplatform.comapi.map.MapGLSurfaceView;
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 导航界面；
@@ -30,6 +31,7 @@ import com.keju.park.ui.base.BaseActivity;
  * @version 创建时间：2014年5月15日 下午5:29:28
  */
 public class BNavigatorActivity extends BaseActivity {
+	private final  String mPageName = "BNavigatorActivity";
 	private TextView tvNum;
 	private LinearLayout viewNavigator;
 	public void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,8 @@ public class BNavigatorActivity extends BaseActivity {
 		BNavigator.getInstance().resume();
 		super.onResume();
 		BNMapController.getInstance().onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
 	};
 
 	@Override
@@ -160,6 +164,8 @@ public class BNavigatorActivity extends BaseActivity {
 		BNavigator.getInstance().pause();
 		super.onPause();
 		BNMapController.getInstance().onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
 	}
 
 	@Override

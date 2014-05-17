@@ -18,6 +18,7 @@ import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.ui.tab.FootFragment;
 import com.keju.park.ui.tab.SearchParkingFragment;
 import com.keju.park.util.AndroidUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 
 public class MainActivity extends FragmentActivity implements ActivityClickListener{
@@ -111,5 +112,15 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);       //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

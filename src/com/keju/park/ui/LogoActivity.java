@@ -13,10 +13,7 @@ import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
-<<<<<<< HEAD
-=======
 import com.keju.park.util.SharedPrefUtil;
->>>>>>> FETCH_HEAD
 
 /**
  * 启动页

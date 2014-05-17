@@ -26,6 +26,7 @@ import com.keju.park.util.DateUtil;
 import com.keju.park.util.NetUtil;
 import com.keju.park.view.XListView;
 import com.keju.park.view.XListView.IXListViewListener;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 停车场列表
@@ -34,7 +35,7 @@ import com.keju.park.view.XListView.IXListViewListener;
  * @version 创建时间：2014-5-4 下午4:50:44
  */
 public class ParkingListActivity extends BaseActivity implements OnClickListener, IXListViewListener {
-
+	private final  String mPageName = "ParkingListActivity";
 	private CommonApplication app;
 	private TextView tvLocation;
 
@@ -241,5 +242,16 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			refreshData();
 		}
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
+	}
 }

@@ -23,6 +23,7 @@ import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.JsonParser;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 语音搜索界面
@@ -31,6 +32,7 @@ import com.keju.park.util.JsonParser;
  * @data 创建时间：2014-5-2 下午12:46:56
  */
 public class VoiceSearchActivity extends BaseActivity implements OnClickListener {
+	private final  String mPageName = "VoiceSearchActivity";
 	private Button btnVoiceSearch;
 	private TextView tvSpeak, tvPosition;
 	private RelativeLayout rlErroeOrRight;
@@ -310,4 +312,16 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 
 		}
 	};
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
+	}
 }
