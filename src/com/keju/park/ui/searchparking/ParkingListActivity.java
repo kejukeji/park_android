@@ -129,7 +129,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 获取数据
 	 */
 	private void getData() {
-		mQueue.add(new StringRequest(Method.GET, Urls.URL_PARK_LIST + "latitude=" + latitude + "&longitude=" + longtitude + "&page_show="
+		mQueue.add(new StringRequest(Method.GET, Urls.URL_PARK_LIST1 + "latitude=" + latitude + "&longitude=" + longtitude + "&page_show="
 				+ pageIndex, new Listener<String>() {
 			@Override
 			public void onResponse(String arg0) {

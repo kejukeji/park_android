@@ -22,7 +22,7 @@
 		android:layout_marginLeft="12dp" android:layout_marginRight="12dp">
 
 		<View android:id="@+id/noeDot" android:layout_width="2dp"
-			android:layout_height="52dp" android:background="@drawable/park_list_line_repeat"
+			android:layout_height="47dp" android:background="@drawable/park_list_line_repeat"
 			android:layout_alignParentLeft="true" android:layout_marginLeft="14.5dp"
 			android:layout_below="@+id/tvLocationPark" android:layout_marginTop="-5dp" />
 		<TextView android:id="@+id/tvLocationPark"

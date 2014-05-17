@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Park</string>
+	<string name="app_name">停车宝</string>
 	<string name="NoSignalException">无法连接到网络，请检查网络配置</string>
 	<string name="json_exception">json解析错误</string>
     <string name="connect_server_exception">服务器连接失败</string>
@@ -13,7 +13,7 @@
     <string name="xlistview_footer_hint_normal">上拉看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
-	<string name="search_parking">寻找车位</string>
+	<string name="search_parking">寻车位</string>
 	<string name="speak">请大声说出</string>
  	<string name="position">你要查找的位置</string>
 

@@ -107,7 +107,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
 		// 获取合成文本.
-		String source = "您好，我是您的停车小秘  ";
+		String source = "您好，我是您的停车小秘书";
 		if(app.getUserAddress() != null){
 			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "")+  "请说出您要去的停车场";
 		}else{
