@@ -30,6 +30,7 @@ public class Constants {
 	public static final int FRAGMENT_VOICE = 3;// 语音界面
 	public static final int FRAGMENT_STORE = 4;// 商店界面
 	public static final int FRAGMENT_PERSONAL_CENTER = 5;// 个人中心
+	public static final int FRAGMENT_MORE = 6;//更多
 	/**
 	 * 网络请求状态
 	 */

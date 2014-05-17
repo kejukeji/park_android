@@ -11,12 +11,15 @@ import android.view.View;
 import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.listener.ActivityClickListener;
+import com.keju.park.ui.more.MoreFragment;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.ui.tab.FootFragment;
-import com.keju.park.ui.tab.HomeFragment;
+import com.keju.park.ui.tab.SearchParkingFragment;
 
 public class MainActivity extends FragmentActivity implements ActivityClickListener{
 	private View footLayout;
+	private final static int HOME_TAB_ID = 1;// 职位
+	private final static int MORE_TAB_ID = 2;// 更多
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -28,7 +31,7 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 		//
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
-		transaction.replace(R.id.mainLayout, new HomeFragment());
+		transaction.add(R.id.mainLayout, new SearchParkingFragment(),HOME_TAB_ID + "");
 		transaction.replace(R.id.footLayout, new FootFragment());
 		transaction.commit();
 	}
@@ -40,7 +43,12 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 			Intent intent = new Intent(this, VoiceSearchActivity.class);
 			startActivity(intent);
 			break;
-
+		case Constants.FRAGMENT_HOME:
+			showPager(HOME_TAB_ID);
+			break;
+		case Constants.FRAGMENT_MORE:
+			showPager(MORE_TAB_ID);
+			break;
 		default:
 			break;
 		}
@@ -58,6 +66,41 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.replace(R.id.mainLayout, fragment);
+		transaction.commit();
+	}
+	/**
+	 * 界面跳转
+	 * @param tab_id
+	 */
+	private void showPager(int tab_id){
+		FragmentManager fm = getSupportFragmentManager();
+		SearchParkingFragment homeFragment = (SearchParkingFragment) fm.findFragmentByTag(HOME_TAB_ID + "");
+		MoreFragment moreFragment = (MoreFragment) fm.findFragmentByTag(MORE_TAB_ID + "");
+		FragmentTransaction transaction = fm.beginTransaction();
+		switch (tab_id) {
+		case HOME_TAB_ID:
+			if(homeFragment == null){
+				transaction.add(R.id.mainLayout,new SearchParkingFragment(), HOME_TAB_ID + "");
+			}else{
+				transaction.show(homeFragment);
+			}
+			if(moreFragment != null){
+				transaction.hide(moreFragment);
+			}
+			break;
+		case MORE_TAB_ID:
+			if(moreFragment == null){
+				transaction.add(R.id.mainLayout,new MoreFragment(), MORE_TAB_ID + "");
+			}else{
+				transaction.show(moreFragment);
+			}
+			if(homeFragment != null){
+				transaction.hide(homeFragment);
+			}
+			break;
+		default:
+			break;
+		}
 		transaction.commit();
 	}
 }

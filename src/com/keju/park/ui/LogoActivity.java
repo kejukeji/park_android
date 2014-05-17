@@ -31,7 +31,7 @@ public class LogoActivity extends Activity {
 		app = (CommonApplication) getApplication();
 		viewLogo = findViewById(R.id.viewLogo);
 		// 初始化导航引擎
-		BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(), mNaviEngineInitListener, "E3I6SxmOdPW9nEbpbYy8bd9B", null);
+		BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(), mNaviEngineInitListener, "ZOatwHcx3iSNWy4VfQ0NhwxT", null);
 		animation();
 	}
 
@@ -44,7 +44,7 @@ public class LogoActivity extends Activity {
 		viewLogo.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
 			public void onAnimationEnd(Animation arg0) {
-				startActivity(new Intent(LogoActivity.this, SearchParkingActivity.class));
+				startActivity(new Intent(LogoActivity.this, MainActivity.class));
 				finish();
 			}
 

@@ -1,8 +1,11 @@
-package com.keju.park.ui.searchparking;
+package com.keju.park.ui.tab;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,18 +36,21 @@ import com.iflytek.cloud.speech.SynthesizerListener;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.db.DataBaseAdapter;
-import com.keju.park.ui.base.BaseActivity;
-import com.keju.park.ui.more.MoreFragment;
+import com.keju.park.ui.base.BaseFragment;
+import com.keju.park.ui.searchparking.HistorySearchParking;
+import com.keju.park.ui.searchparking.ParkingListActivity;
+import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.util.NetUtil;
 
 /**
- * 找车位界面
+ * 找车位界面(第一版：放在首页里)
  * 
  * @author zhouyong
  * @data 创建时间：2014-5-1 下午10:59:30
  */
-public class SearchParkingActivity extends BaseActivity implements OnClickListener {
-	private TextView tvLeft, tvTitle;
+public class SearchParkingFragment extends BaseFragment implements
+		OnClickListener{
+	private TextView  tvTitle;
 	private Button btnNearby, btnVoice;
 	private TextView tvSearch;
 	private CommonApplication app;
@@ -55,40 +61,40 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	private MKSearch mMKSearch = null;
 
 	private DataBaseAdapter daAdapter;
-	// 语音合成；
-	// 合成对象.
+	//语音合成；
+	//合成对象.
 	private SpeechSynthesizer mSpeechSynthesizer;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		app = (CommonApplication) getApplication();
-
-		daAdapter = ((CommonApplication) getApplication()).getDbAdapter();
-		setContentView(R.layout.activity_search_parking);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.activity_search_parking, container, false);
+	}
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		app = (CommonApplication) getActivity().getApplication();
+		daAdapter = app.getDbAdapter();
 		findView();
 		fillData();
-		app.addActivity(this);
 	}
-
 	/**
 	 * 初始化控件
 	 */
 	private void findView() {
-
+	
 		app.initBMapInfo();
 
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		tvTitle.setText(R.string.search_parking);
+		tvTitle = (TextView) getActivity().findViewById(R.id.tvTitle);
+		tvTitle.setText("主页");
 
-		btnNearby = (Button) findViewById(R.id.btnLookNearby);
+		btnNearby = (Button) getActivity().findViewById(R.id.btnLookNearby);
 		btnNearby.setOnClickListener(this);
-		btnVoice = (Button) findViewById(R.id.btnVoice);
+		btnVoice = (Button) getActivity().findViewById(R.id.btnVoice);
 		btnVoice.setOnClickListener(this);
 
-		tvSearch = (TextView) findViewById(R.id.tvSearch);
+		tvSearch = (TextView) getActivity().findViewById(R.id.tvSearch);
 		tvSearch.setOnClickListener(this);
-		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
+		linearLayout = (LinearLayout) getActivity().findViewById(R.id.vo_Search);
 		linearLayout.setOnClickListener(this);
 	}
 
@@ -97,23 +103,24 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	 */
 	private void fillData() {
 		mMKSearch = new MKSearch();
-		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager, new MySearchListener());
+		mMKSearch.init(app.mBMapManager,
+				new MySearchListener());
 		initLocation();
-
+		
 		// 用户登录
-		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id), loginListener);
+		SpeechUser.getUser().login(getActivity(), null, null, "appid=" + getString(R.string.app_id),
+						loginListener);
 		// 初始化合成对象.
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		// 获取合成文本.
 		String source = "您好，我是您的停车小秘书";
-		if (app.getUserAddress() != null) {
-			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "") + "请说出您要去的停车场";
-		} else {
+		if(app.getUserAddress() != null){
+			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "")+  "请说出您要去的停车场";
+		}else{
 			source = source + "对不起，目前无法获取您当前的位置";
 		}
 		synthetizeInSilence(source);
 	}
-
 	/**
 	 * 用户登录回调监听器.
 	 */
@@ -134,7 +141,6 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		public void onEvent(int arg0, Bundle arg1) {
 		}
 	};
-
 	/**
 	 * 使用SpeechSynthesizer合成语音
 	 * 
@@ -143,7 +149,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	private void synthetizeInSilence(String source) {
 		if (null == mSpeechSynthesizer) {
 			// 创建合成对象.
-			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		}
 		// 设置合成发音人.
 		String role = "xiaoyan";
@@ -161,7 +167,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		int pitch = 49;
 		// 设置语调
 		mSpeechSynthesizer.setParameter(SpeechConstant.PITCH, "" + pitch);
-
+		
 		mSpeechSynthesizer.startSpeaking(source, synthesizerListener);
 	}
 
@@ -169,47 +175,46 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 	 * 语音合成播放；
 	 */
 	private SynthesizerListener synthesizerListener = new SynthesizerListener() {
-
+		
 		@Override
 		public void onSpeakResumed() {
-
+			
 		}
-
+		
 		@Override
 		public void onSpeakProgress(int arg0, int arg1, int arg2) {
-
+			
 		}
-
+		
 		@Override
 		public void onSpeakPaused() {
-
+			
 		}
-
+		
 		@Override
 		public void onSpeakBegin() {
-
+			
 		}
-
+		
 		@Override
 		public void onCompleted(SpeechError arg0) {
-
+			
 		}
-
+		
 		@Override
 		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-
+			
 		}
 	};
-
 	/**
 	 * 初始化定位
 	 */
 	private void initLocation() {
-		if (!NetUtil.checkNet(this)) {
+		if (!NetUtil.checkNet(getActivity())) {
 			showShortToast(R.string.NoSignalException);
 			return;
 		}
-		mLocationClient = new LocationClient(this);
+		mLocationClient = new LocationClient(getActivity());
 		mLocationClient.registerLocationListener(myListener);
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
@@ -220,7 +225,7 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		mLocationClient.setLocOption(option);
 		mLocationClient.start();
-
+		
 	}
 
 	@Override
@@ -237,8 +242,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 			break;
 
 		case R.id.btnVoice:
-			 openActivity(VoiceSearchActivity.class);
-			// openActivity(VoiceDialogueActivity.class);
+			openActivity(VoiceSearchActivity.class);
+//			openActivity(VoiceDialogueActivity.class);
 			break;
 		case R.id.tvSearch:
 			// daAdapter.clearTableData("search_history");//清除表
@@ -252,6 +257,9 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		}
 	}
 
+
+
+
 	/**
 	 * 监听函数，有更新位置的时候
 	 */
@@ -262,9 +270,11 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 				showShortToast("定位失败");
 				return;
 			}
-
+			
 			mLocationClient.stop();
-			mMKSearch.reverseGeocode(new GeoPoint((int) (location.getLatitude() * 1e6), (int) (location.getLongitude() * 1e6)));
+			mMKSearch.reverseGeocode(new GeoPoint(
+					(int) (location.getLatitude() * 1e6), (int) (location
+							.getLongitude() * 1e6)));
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -290,7 +300,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		}
 
 		@Override
-		public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result,
+				int iError) {
 			// 返回驾乘路线搜索结果
 		}
 
@@ -300,12 +311,14 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		}
 
 		@Override
-		public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
+		public void onGetTransitRouteResult(MKTransitRouteResult result,
+				int iError) {
 			// 返回公交搜索结果
 		}
 
 		@Override
-		public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result,
+				int iError) {
 			// 返回步行路线搜索结果
 		}
 
@@ -320,7 +333,8 @@ public class SearchParkingActivity extends BaseActivity implements OnClickListen
 		}
 
 		@Override
-		public void onGetShareUrlResult(MKShareUrlResult result, int type, int error) {
+		public void onGetShareUrlResult(MKShareUrlResult result, int type,
+				int error) {
 			// 在此处理短串请求返回结果.
 		}
 
