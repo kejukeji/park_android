@@ -13,27 +13,28 @@
 
 	<TextView android:id="@+id/tvWeb" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvAboutMe"
-		android:layout_marginLeft="37dp" android:text="官网：www.tingchebao.com"
-		android:layout_marginTop="10dp" />
+		android:layout_marginLeft="20dp" android:text="官网：www.tingchebao.com"
+		android:layout_marginTop="10dp" android:textSize="14sp"/>
 
 	<TextView android:id="@+id/tvPhone" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvWeb"
-		android:layout_marginLeft="37dp" android:text="电话：021-80120080"
-		android:layout_marginTop="3dp" />
+		android:layout_marginLeft="20dp" android:text="电话：021-80120080"
+		android:layout_marginTop="3dp" android:textSize="14sp"/>
 
 	<TextView android:id="@+id/tvBusinessEmail"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_below="@+id/tvPhone" android:layout_marginLeft="37dp"
-		android:text="意见反馈：support@parkmecn.com" android:layout_marginTop="3dp" />
+		android:layout_below="@+id/tvPhone" android:layout_marginLeft="20dp"
+		android:text="意见反馈：support@parkmecn.com" android:layout_marginTop="3dp" 
+		android:textSize="14sp"/>
 
 	<TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvBusinessEmail"
-		android:layout_marginLeft="37dp" android:text="商务合作：partner@parkmecn.com"
-		android:layout_marginTop="3dp" />
+		android:layout_marginLeft="20dp" android:text="商务合作：partner@parkmecn.com"
+		android:layout_marginTop="3dp" android:textSize="14sp"/>
 
 	<TextView android:id="@+id/tvAddress" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_below="@+id/tvEmail"
-		android:layout_marginLeft="37dp" android:text="地址：普通新区金牛大厦加禾607"
-		android:layout_marginTop="3dp" />
+		android:layout_marginLeft="20dp" android:text="地址：普通新区金牛大厦加禾607"
+		android:layout_marginTop="3dp" android:textSize="14sp"/>
 
 </RelativeLayout>
