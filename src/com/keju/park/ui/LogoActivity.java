@@ -13,7 +13,6 @@ import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.keju.park.CommonApplication;
 import com.keju.park.R;
-import com.keju.park.ui.searchparking.SearchParkingActivity;
 
 /**
  * 启动页

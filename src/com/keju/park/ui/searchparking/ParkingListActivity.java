@@ -56,8 +56,8 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		setContentView(R.layout.park_list);
 		app = (CommonApplication) getApplication();
 
-		longtitude = getIntent().getExtras().getDouble("longtitude");
-		latitude = getIntent().getExtras().getDouble("latitude");
+		longtitude = getIntent().getExtras().getDouble("Longitude");
+		latitude = getIntent().getExtras().getDouble("Latitude");
 
 		initBar();
 		findView();

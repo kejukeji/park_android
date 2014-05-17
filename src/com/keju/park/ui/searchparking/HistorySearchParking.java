@@ -84,8 +84,10 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText(R.string.search_parking);
-		etSearch = (EditText) findViewById(R.id.etSearch);
-		etSearch.setText(voiceSearchStr);
+		etSearch = (EditText) findViewById(R.id.tvSearch);
+		if (!TextUtils.isEmpty(voiceSearchStr)){
+			etSearch.setText(voiceSearchStr);
+		}
 		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
 		linearLayout.setOnClickListener(this);
 		etSearch.addTextChangedListener(textWatcher);

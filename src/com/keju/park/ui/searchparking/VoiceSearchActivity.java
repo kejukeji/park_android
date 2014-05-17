@@ -142,16 +142,17 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 			showIatDialog();
 			break;
 		case R.id.btnError:
-			// count = 0;
 			tvSpeak.setText(R.string.speak);
 			tvPosition.setText(R.string.position);
 			rlErroeOrRight.setVisibility(View.GONE);
 			break;
 		case R.id.btnRight1:
-			// count = 0;
 			Bundle b = new Bundle();
 			b.putString("voiceSearchStr", voiceStr.replace("。", ""));
 			openActivity(HistorySearchParking.class, b);
+			tvSpeak.setText(R.string.speak);
+			tvPosition.setText(R.string.position);
+			rlErroeOrRight.setVisibility(View.GONE);
 			break;
 		default:
 			break;
