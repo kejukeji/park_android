@@ -131,8 +131,12 @@ public class ParkingDetailsActivity extends BaseActivity implements OnClickListe
 				} else {
 					distanceStr = String.format("%.0f", distance) + "m";
 				}
-				tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr + "</a>    空车位" + "<a><font color='#fe0000'>"
-						+ bean.getLast() + "</a>个"));
+				if (bean.getLast() != -1) {
+					tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr + "</a>    空车位"
+							+ "<a><font color='#fe0000'>" + bean.getLast() + "</a>个"));
+				} else {
+					tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr));
+				}
 			} else {
 				tvDistance.setText("");
 			}

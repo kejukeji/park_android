@@ -94,8 +94,13 @@ public class NearbyParkAdapter extends BaseAdapter {
 			} else {
 				distanceStr = String.format("%.0f", distance) + "m";
 			}
-			holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr + "</a>    空车位"
-					+ "<a><font color='#fe0000'>" + bean.getLast() + "</a>个"));
+			if (bean.getLast() != -1) {
+				holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr + "</a>    空车位"
+						+ "<a><font color='#fe0000'>" + bean.getLast() + "</a>个"));
+			} else {
+				holder.tvDistance.setText(Html.fromHtml("<a>距离<font color='#fe0000'>" + distanceStr));
+			}
+
 		} else {
 			holder.tvDistance.setText("");
 		}
