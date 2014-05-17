@@ -34,6 +34,7 @@ import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseActivity;
+import com.keju.park.ui.more.MoreActivity;
 import com.keju.park.util.NetUtil;
 
 /**
@@ -42,8 +43,7 @@ import com.keju.park.util.NetUtil;
  * @author zhouyong
  * @data 创建时间：2014-5-1 下午10:59:30
  */
-public class SearchParkingActivity extends BaseActivity implements
-		OnClickListener{
+public class SearchParkingActivity extends BaseActivity implements OnClickListener {
 	private TextView tvLeft, tvTitle;
 	private Button btnNearby, btnVoice;
 	private TextView tvSearch;
@@ -55,8 +55,8 @@ public class SearchParkingActivity extends BaseActivity implements
 	private MKSearch mMKSearch = null;
 
 	private DataBaseAdapter daAdapter;
-	//语音合成；
-	//合成对象.
+	// 语音合成；
+	// 合成对象.
 	private SpeechSynthesizer mSpeechSynthesizer;
 
 	@Override
@@ -75,7 +75,7 @@ public class SearchParkingActivity extends BaseActivity implements
 	 * 初始化控件
 	 */
 	private void findView() {
-	
+
 		app.initBMapInfo();
 
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -97,24 +97,23 @@ public class SearchParkingActivity extends BaseActivity implements
 	 */
 	private void fillData() {
 		mMKSearch = new MKSearch();
-		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager,
-				new MySearchListener());
+		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager, new MySearchListener());
 		initLocation();
-		
+
 		// 用户登录
-		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id),
-						loginListener);
+		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id), loginListener);
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
 		// 获取合成文本.
 		String source = "您好，我是您的停车小秘书";
-		if(app.getUserAddress() != null){
-			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "")+  "请说出您要去的停车场";
-		}else{
+		if (app.getUserAddress() != null) {
+			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "") + "请说出您要去的停车场";
+		} else {
 			source = source + "对不起，目前无法获取您当前的位置";
 		}
 		synthetizeInSilence(source);
 	}
+
 	/**
 	 * 用户登录回调监听器.
 	 */
@@ -135,6 +134,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		public void onEvent(int arg0, Bundle arg1) {
 		}
 	};
+
 	/**
 	 * 使用SpeechSynthesizer合成语音
 	 * 
@@ -161,7 +161,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		int pitch = 49;
 		// 设置语调
 		mSpeechSynthesizer.setParameter(SpeechConstant.PITCH, "" + pitch);
-		
+
 		mSpeechSynthesizer.startSpeaking(source, synthesizerListener);
 	}
 
@@ -169,37 +169,38 @@ public class SearchParkingActivity extends BaseActivity implements
 	 * 语音合成播放；
 	 */
 	private SynthesizerListener synthesizerListener = new SynthesizerListener() {
-		
+
 		@Override
 		public void onSpeakResumed() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakProgress(int arg0, int arg1, int arg2) {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakPaused() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakBegin() {
-			
+
 		}
-		
+
 		@Override
 		public void onCompleted(SpeechError arg0) {
-			
+
 		}
-		
+
 		@Override
 		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-			
+
 		}
 	};
+
 	/**
 	 * 初始化定位
 	 */
@@ -219,7 +220,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		mLocationClient.setLocOption(option);
 		mLocationClient.start();
-		
+
 	}
 
 	@Override
@@ -236,8 +237,8 @@ public class SearchParkingActivity extends BaseActivity implements
 			break;
 
 		case R.id.btnVoice:
-			openActivity(VoiceSearchActivity.class);
-//			openActivity(VoiceDialogueActivity.class);
+			 openActivity(VoiceSearchActivity.class);
+			// openActivity(VoiceDialogueActivity.class);
 			break;
 		case R.id.tvSearch:
 			// daAdapter.clearTableData("search_history");//清除表
@@ -251,9 +252,6 @@ public class SearchParkingActivity extends BaseActivity implements
 		}
 	}
 
-
-
-
 	/**
 	 * 监听函数，有更新位置的时候
 	 */
@@ -264,11 +262,9 @@ public class SearchParkingActivity extends BaseActivity implements
 				showShortToast("定位失败");
 				return;
 			}
-			
+
 			mLocationClient.stop();
-			mMKSearch.reverseGeocode(new GeoPoint(
-					(int) (location.getLatitude() * 1e6), (int) (location
-							.getLongitude() * 1e6)));
+			mMKSearch.reverseGeocode(new GeoPoint((int) (location.getLatitude() * 1e6), (int) (location.getLongitude() * 1e6)));
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -294,8 +290,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		}
 
 		@Override
-		public void onGetDrivingRouteResult(MKDrivingRouteResult result,
-				int iError) {
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 			// 返回驾乘路线搜索结果
 		}
 
@@ -305,14 +300,12 @@ public class SearchParkingActivity extends BaseActivity implements
 		}
 
 		@Override
-		public void onGetTransitRouteResult(MKTransitRouteResult result,
-				int iError) {
+		public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
 			// 返回公交搜索结果
 		}
 
 		@Override
-		public void onGetWalkingRouteResult(MKWalkingRouteResult result,
-				int iError) {
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 			// 返回步行路线搜索结果
 		}
 
@@ -327,8 +320,7 @@ public class SearchParkingActivity extends BaseActivity implements
 		}
 
 		@Override
-		public void onGetShareUrlResult(MKShareUrlResult result, int type,
-				int error) {
+		public void onGetShareUrlResult(MKShareUrlResult result, int type, int error) {
 			// 在此处理短串请求返回结果.
 		}
 

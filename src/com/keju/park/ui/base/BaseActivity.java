@@ -378,6 +378,21 @@ public class BaseActivity extends Activity {
 		}
 	}
 
+	
+	/**
+	 * 推荐给好友（系统自带的分享方式）
+	 * @param url
+	 * @param shareTitle
+	 */
+	public void recommandToYourFriend(String url, String shareTitle) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_TEXT, shareTitle + "   " + url);
+
+		Intent itn = Intent.createChooser(intent, "分享");
+		startActivity(itn);
+	}
+	
 //	// 处理back键无动画效果问题
 //	@Override
 //	public boolean onKeyDown(int keyCode, KeyEvent event) {
