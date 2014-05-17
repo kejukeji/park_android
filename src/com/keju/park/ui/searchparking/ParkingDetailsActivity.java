@@ -6,26 +6,17 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.BaiduNaviManager.OnStartNavigationListener;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
 import com.keju.park.R;
-import com.keju.park.Urls;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.StringUtil;
@@ -77,37 +68,16 @@ public class ParkingDetailsActivity extends BaseActivity implements OnClickListe
 
 	private void fillData() {
 		tvLocation.setText("您当前的位置：" + app.getUserAddress());
-		getData(bean.getId());
 
-	}
+		JSONObject jsonObject = new JSONObject();
+		JSONObject job = null;
+		try {
+			job = jsonObject.getJSONObject("data");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		setDetailData(job);
 
-	/**
-	 * 
-	 */
-	private void getData(int parkId) {
-		RequestQueue mQueue = Volley.newRequestQueue(ParkingDetailsActivity.this);
-		mQueue.add(new StringRequest(Method.GET, Urls.BASE_URL1 + parkId, new Listener<String>() {
-			@Override
-			public void onResponse(String arg0) {
-				Log.i(TAG, "argo = " + arg0);
-				try {
-					JSONObject jsonObject = new JSONObject(arg0);
-					JSONObject job = jsonObject.getJSONObject("data");
-					setDetailData(job);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}, new ErrorListener() {
-
-			@Override
-			public void onErrorResponse(VolleyError arg0) {
-
-			}
-		}));
-
-		mQueue.start();
 	}
 
 	protected void setDetailData(JSONObject job) {

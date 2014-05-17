@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,13 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.keju.park.CommonApplication;
 import com.keju.park.Constants;
 import com.keju.park.R;
@@ -60,8 +54,6 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	private double longtitude;
 	private double latitude;
 
-	private RequestQueue mQueue;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,7 +81,6 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		lvParkding = (XListView) findViewById(R.id.lvlocationList);
 		parkingList = new ArrayList<NearbyParkBean>();
 
-		mQueue = Volley.newRequestQueue(ParkingListActivity.this);
 	}
 
 	private void onLoad() {
@@ -102,7 +93,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 	 * 初始化数据
 	 */
 	private void fillData() {
-		getData();
+//		getData();
 		if (NetUtil.checkNet(this)) {
 			new getParkListTask().execute();
 		} else {
@@ -131,89 +122,30 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			openActivity(ParkingDetailsActivity.class, b);
 		}
 	};
-	
-    /**
-     * 
-     * 
-     * */
+
+	/**
+	 * 获取停车list接口
+	 * 
+	 * */
 	private class getParkListTask extends AsyncTask<Void, Void, ResponseBean<NearbyParkBean>> {
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
 
 		@Override
 		protected ResponseBean<NearbyParkBean> doInBackground(Void... params) {
 			return null;
 		}
 
-	}
+		@Override
+		protected void onPostExecute(ResponseBean<NearbyParkBean> result) {
+			super.onPostExecute(result);
 
-	/**
-	 * 获取数据
-	 */
-	private void getData() {
-		mQueue.add(new StringRequest(Method.GET, Urls.URL_PARK_LIST1 + "latitude=" + latitude + "&longitude=" + longtitude + "&page_show="
-				+ pageIndex, new Listener<String>() {
-			@Override
-			public void onResponse(String arg0) {
-				try {
-					if (isRefresh) {
-						parkingList.clear();
-					}
-					JSONObject jsonObject = new JSONObject(arg0);
-					JSONArray array = jsonObject.getJSONArray("data");
-					List<NearbyParkBean> tempList = NearbyParkBean.constractList(array);
-					boolean isLastPage = false;
-					if (tempList.size() > 0) {
-						parkingList.addAll(tempList);
-						pageIndex++;
-					} else {
-						isLastPage = true;
-					}
-					if (isLastPage) {
-						isComplete = true;
-					} else {
-						if (tempList.size() > 0 && tempList.size() < Constants.PAGE_SIZE) {
-							isComplete = true;
-						}
-					}
-					if (isComplete) {
-						lvParkding.setFooterViewInvisible(true);
-					} else {
-						lvParkding.setFooterViewInvisible(false);
-					}
-					if (pageIndex == 1 && tempList.size() == 0) {
-						showShortToast("无数据");
-					}
-					if (pageIndex >= 2 && tempList.size() == 0) {
-						showShortToast("无更多数据");
-					}
-					adapter.notifyDataSetChanged();
-				} catch (JSONException e) {
-					showShortToast(R.string.connect_server_exception);
-				} catch (Exception e) {
-					showShortToast(R.string.connect_server_exception);
-				}
-				isLoad = false;
-				isRefresh = false;
-			}
-		}, new ErrorListener() {
-
-			@Override
-			public void onErrorResponse(VolleyError arg0) {
-				showShortToast(R.string.connect_server_exception);
-				isLoad = false;
-				isRefresh = false;
-			}
-		}));
-
-		mQueue.start();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (mQueue != null) {
-			mQueue.cancelAll(this);
 		}
 	}
+
+	
 
 	@Override
 	public void onClick(View v) {
@@ -242,7 +174,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 				isRefresh = true;
 				pageIndex = 1;
 				onLoad();
-				getData();
+//				getData();
 			}
 		}, 2000);
 	}
@@ -254,7 +186,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			return;
 		}
 		if (!isLoad && !isComplete) {
-			getData();
+//			getData();
 		}
 	}
 
