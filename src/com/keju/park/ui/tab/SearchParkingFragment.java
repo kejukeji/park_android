@@ -41,6 +41,7 @@ import com.keju.park.ui.searchparking.HistorySearchParking;
 import com.keju.park.ui.searchparking.ParkingListActivity;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.util.NetUtil;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 找车位界面(第一版：放在首页里)
@@ -72,6 +73,7 @@ public class SearchParkingFragment extends BaseFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		UmengUpdateAgent.update(getActivity());
 		app = (CommonApplication) getActivity().getApplication();
 		daAdapter = app.getDbAdapter();
 		findView();

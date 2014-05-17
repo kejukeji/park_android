@@ -106,6 +106,9 @@
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <!-- 反馈 -->
+        <activity android:name="com.umeng.fb.ConversationActivity"/>
+        <activity android:name="com.umeng.fb.ContactActivity"/>
         <!-- 友盟APP KEY -->
         <meta-data
             android:name="UMENG_APPKEY"

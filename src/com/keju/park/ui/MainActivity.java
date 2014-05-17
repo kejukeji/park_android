@@ -15,6 +15,7 @@ import com.keju.park.ui.more.MoreFragment;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.ui.tab.FootFragment;
 import com.keju.park.ui.tab.SearchParkingFragment;
+import com.umeng.fb.FeedbackAgent;
 
 public class MainActivity extends FragmentActivity implements ActivityClickListener{
 	private View footLayout;
@@ -34,6 +35,9 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 		transaction.add(R.id.mainLayout, new SearchParkingFragment(),HOME_TAB_ID + "");
 		transaction.replace(R.id.footLayout, new FootFragment());
 		transaction.commit();
+		
+		FeedbackAgent agent = new FeedbackAgent(this);
+		agent.sync();
 	}
 	@Override
 	public void OnSetActivityListener(int activityId) {

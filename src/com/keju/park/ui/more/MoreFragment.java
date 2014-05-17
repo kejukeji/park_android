@@ -12,6 +12,7 @@ import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseFragment;
 import com.keju.park.util.NetUtil;
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
@@ -58,7 +59,7 @@ public class MoreFragment extends BaseFragment implements OnClickListener {
 			openActivity(AboutMeActivity.class);
 			break;
 		case R.id.rlcontactWe:
-			openActivity(ContactMeActivity.class);
+			 openActivity(ContactMeActivity.class);
 			break;
 		case R.id.rlversionUpdate:
 			if (NetUtil.checkNet(getActivity())) {
@@ -91,7 +92,8 @@ public class MoreFragment extends BaseFragment implements OnClickListener {
 			}
 			break;
 		case R.id.rlIdea:
-			openActivity(IdeaFeedBackActivity.class);
+			FeedbackAgent agent = new FeedbackAgent(getActivity());
+			agent.startFeedbackActivity();
 			break;
 		case R.id.rlShare:
 			recommandToYourFriend(Constants.APP_DOWNLOAD_URL, "我发现一个很好的 找创业园区的APP，下载地址：");

@@ -15,7 +15,7 @@
         <RadioButton
             android:id="@+id/rb_home"
             style="@style/tab_btn_style"
-            android:drawableTop="@drawable/tab_home"
+            android:drawableTop="@drawable/tab_home_sel"
             android:text="主页"
             android:textColor="@color/white"/>
 
