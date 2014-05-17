@@ -11,6 +11,7 @@ import android.view.View;
 import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.listener.ActivityClickListener;
+import com.keju.park.ui.more.MoreFragment;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.ui.tab.FootFragment;
 import com.keju.park.ui.tab.SearchParkingFragment;
@@ -74,21 +75,27 @@ public class MainActivity extends FragmentActivity implements ActivityClickListe
 	private void showPager(int tab_id){
 		FragmentManager fm = getSupportFragmentManager();
 		SearchParkingFragment homeFragment = (SearchParkingFragment) fm.findFragmentByTag(HOME_TAB_ID + "");
-		SearchParkingFragment moreFragment = (SearchParkingFragment) fm.findFragmentByTag(MORE_TAB_ID + "");
+		MoreFragment moreFragment = (MoreFragment) fm.findFragmentByTag(MORE_TAB_ID + "");
 		FragmentTransaction transaction = fm.beginTransaction();
 		switch (tab_id) {
 		case HOME_TAB_ID:
 			if(homeFragment == null){
-				transaction.add(new SearchParkingFragment(), HOME_TAB_ID + "");
+				transaction.add(R.id.mainLayout,new SearchParkingFragment(), HOME_TAB_ID + "");
 			}else{
 				transaction.show(homeFragment);
+			}
+			if(moreFragment != null){
+				transaction.hide(moreFragment);
 			}
 			break;
 		case MORE_TAB_ID:
 			if(moreFragment == null){
-				transaction.add(new SearchParkingFragment(), MORE_TAB_ID + "");
+				transaction.add(R.id.mainLayout,new MoreFragment(), MORE_TAB_ID + "");
 			}else{
 				transaction.show(moreFragment);
+			}
+			if(homeFragment != null){
+				transaction.hide(homeFragment);
 			}
 			break;
 		default:

@@ -34,7 +34,7 @@ import com.keju.park.CommonApplication;
 import com.keju.park.R;
 import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseActivity;
-import com.keju.park.ui.more.MoreActivity;
+import com.keju.park.ui.more.MoreFragment;
 import com.keju.park.util.NetUtil;
 
 /**

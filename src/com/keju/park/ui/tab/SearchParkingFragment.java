@@ -84,8 +84,8 @@ public class SearchParkingFragment extends BaseFragment implements
 	
 		app.initBMapInfo();
 
-//		tvTitle = (TextView) getActivity().findViewById(R.id.tvTitle);
-//		tvTitle.setText(R.string.search_parking);
+		tvTitle = (TextView) getActivity().findViewById(R.id.tvTitle);
+		tvTitle.setText("主页");
 
 		btnNearby = (Button) getActivity().findViewById(R.id.btnLookNearby);
 		btnNearby.setOnClickListener(this);

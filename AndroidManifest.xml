@@ -62,6 +62,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.keju.park.ui.MainActivity"
+			android:windowSoftInputMode="stateHidden|adjustPan"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name="com.keju.park.ui.searchparking.SearchParkingActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -101,11 +104,6 @@
 
         <!-- 更多界面 -->
         <activity
-            android:name="com.keju.park.ui.more.MoreActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.keju.park.ui.more.AboutMeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
@@ -123,8 +121,7 @@
 
         <!-- 百度定位的key -->
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="9VIVbq1eLaebspsk79zRWgrk" />
+            android:name="com.baidu.lbsapi.API_KEY"/>
         <!-- 友盟提供的服务 -->
         <service
             android:name="com.umeng.common.net.DownloadingService"
@@ -148,7 +145,4 @@
     <!-- E3I6SxmOdPW9nEbpbYy8bd9B 周勇 -->
     <!-- 9VIVbq1eLaebspsk79zRWgrk -->
 
-		<activity android:name="com.keju.park.ui.MainActivity"
-			android:windowSoftInputMode="stateHidden|adjustPan"
-			android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" />
 </manifest>
