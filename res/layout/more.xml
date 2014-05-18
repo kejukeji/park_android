@@ -25,9 +25,7 @@
 				android:background="@drawable/bg_more_btn" android:padding="20dp">
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:layout_centerVertical="true"
-					android:layout_toRightOf="@+id/ivAboutWe" android:layout_weight="2"
-					android:gravity="center" android:text="  关于我们" android:textSize="16sp"
-					android:layout_marginLeft="10dp" />
+					android:gravity="center" android:text="  关于我们" android:textSize="16sp" />
 
 				<ImageView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -43,9 +41,7 @@
 
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:layout_centerVertical="true"
-					android:layout_toRightOf="@+id/ivContent" android:layout_weight="2"
-					android:gravity="center" android:text="  联系我们" android:textSize="16sp"
-					android:layout_marginLeft="10dp" />
+					android:gravity="center" android:text="  联系我们" android:textSize="16sp" />
 				<ImageView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentRight="true"
@@ -61,10 +57,9 @@
 
 
 				<TextView android:layout_width="wrap_content"
-					android:gravity="center" android:layout_weight="2"
-					android:layout_height="wrap_content" android:layout_toRightOf="@+id/ivVersionUpdate"
+					android:gravity="center" android:layout_height="wrap_content"
 					android:text="  版本更新" android:textSize="16sp"
-					android:layout_marginLeft="10dp" android:layout_centerVertical="true" />
+					android:layout_centerVertical="true" />
 
 				<ImageView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -83,8 +78,8 @@
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentLeft="true"
-					android:layout_alignParentTop="true" android:layout_marginLeft="10dp"
-					android:gravity="center" android:text="  意见反馈" android:textSize="16sp" />
+					android:layout_alignParentTop="true" android:gravity="center"
+					android:text="  意见反馈" android:textSize="16sp" />
 
 				<ImageView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -100,8 +95,8 @@
 				<TextView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentLeft="true"
-					android:layout_alignParentTop="true" android:layout_marginLeft="10dp"
-					android:gravity="center" android:text="  告诉朋友" android:textSize="16sp" />
+					android:layout_alignParentTop="true" android:gravity="center"
+					android:text="  告诉朋友" android:textSize="16sp" />
 
 				<ImageView android:layout_width="wrap_content"
 					android:layout_height="wrap_content"

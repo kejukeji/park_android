@@ -12,7 +12,9 @@
 		<EditText android:id="@+id/tvSearch" android:layout_width="match_parent"
 			android:layout_height="43dp" android:background="@drawable/bg_input_search_parkings"
 			android:layout_margin="5dp" android:hint="   请输入目的地" android:gravity="center_vertical"
-			android:layout_toLeftOf="@+id/vo_Search"  android:paddingLeft="13dp"/>
+			android:layout_toLeftOf="@+id/vo_Search"  android:paddingLeft="4dp"
+			
+			/>
 
 		<ImageView android:id="@+id/ivSearch" android:layout_width="40dp"
 			android:layout_height="37dp" android:layout_alignRight="@+id/tvSearch"

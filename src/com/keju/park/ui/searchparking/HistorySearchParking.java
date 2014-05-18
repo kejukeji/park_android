@@ -38,6 +38,7 @@ import com.keju.park.bean.FuzzyQueryBean;
 import com.keju.park.bean.LocationBean;
 import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseActivity;
+import com.keju.park.util.AndroidUtil;
 
 /**
  * 历史搜索界面
@@ -47,7 +48,7 @@ import com.keju.park.ui.base.BaseActivity;
  */
 public class HistorySearchParking extends BaseActivity implements OnClickListener {
 	private EditText etSearch;
-	private LinearLayout linearLayout;	//语音搜索相关组件
+	private LinearLayout linearLayout; // 语音搜索相关组件
 	private ListView lvSearch;
 	private SearchHistoryAdapter adapter;
 
@@ -85,7 +86,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText(R.string.search_parking);
 		etSearch = (EditText) findViewById(R.id.tvSearch);
-		if (!TextUtils.isEmpty(voiceSearchStr)){
+		if (!TextUtils.isEmpty(voiceSearchStr)) {
 			etSearch.setText(voiceSearchStr);
 		}
 		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
@@ -176,15 +177,15 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 				Bundle b = new Bundle();
 				b.putDouble("Longitude", fuzzyQueryBean.getLongitude());
 				b.putDouble("Latitude", fuzzyQueryBean.getLatitude());
-                boolean isAlikeFullName = dba.isAlikeData(fuzzyQueryBean.getCity()+fuzzyQueryBean.getAddress());
-				
-                Log.i("isAlikeFullName", "isAlikeFullName= "+ isAlikeFullName);
-				
-                if(!isAlikeFullName){
-					 dba.inserData(fuzzyQueryBean.getCity(), fuzzyQueryBean.getAddress(), fuzzyQueryBean.getCity()
-								+ fuzzyQueryBean.getAddress(), Longitude + "", Latitude + "");
-				 }
-                
+				boolean isAlikeFullName = dba.isAlikeData(fuzzyQueryBean.getCity() + fuzzyQueryBean.getAddress());
+
+				Log.i("isAlikeFullName", "isAlikeFullName= " + isAlikeFullName);
+
+				if (!isAlikeFullName) {
+					dba.inserData(fuzzyQueryBean.getCity(), fuzzyQueryBean.getAddress(),
+							fuzzyQueryBean.getCity() + fuzzyQueryBean.getAddress(), Longitude + "", Latitude + "");
+				}
+
 				openActivity(ParkingListActivity.class, b);
 
 			}
@@ -270,13 +271,14 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tvLeft:
+			AndroidUtil.hideInputKeyboard(HistorySearchParking.this);
 			finish();
 			break;
 		case R.id.etSearch:
 
 			break;
 		case R.id.vo_Search:
-			Intent intent = new Intent(this,VoiceSearchActivity.class);
+			Intent intent = new Intent(this, VoiceSearchActivity.class);
 			startActivity(intent);
 			break;
 		default:
