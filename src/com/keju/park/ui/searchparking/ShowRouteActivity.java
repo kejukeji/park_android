@@ -22,6 +22,7 @@ import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.bean.NearbyParkBean;
 import com.keju.park.ui.base.BaseActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 
@@ -31,6 +32,7 @@ import com.keju.park.ui.base.BaseActivity;
  * @version 创建时间：2014-4-27 下午9:58:58
  */
 public class ShowRouteActivity extends BaseActivity {
+	private final  String mPageName = "ShowRouteActivity";
 	MapView mMapView = null; // 地图View
 	// 搜索相关
 	MKSearch mMKSearch = null; // 搜索模块，也可去掉地图模块独立使用
@@ -130,5 +132,17 @@ public class ShowRouteActivity extends BaseActivity {
 		public void onGetPoiDetailSearchResult(int arg0, int arg1) {
 
 		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
 	}
 }

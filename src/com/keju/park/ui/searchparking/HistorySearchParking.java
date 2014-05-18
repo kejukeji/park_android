@@ -38,6 +38,7 @@ import com.keju.park.bean.FuzzyQueryBean;
 import com.keju.park.bean.LocationBean;
 import com.keju.park.db.DataBaseAdapter;
 import com.keju.park.ui.base.BaseActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 历史搜索界面
@@ -46,6 +47,7 @@ import com.keju.park.ui.base.BaseActivity;
  * @data 创建时间：2014-5-2 下午2:56:35
  */
 public class HistorySearchParking extends BaseActivity implements OnClickListener {
+	private final  String mPageName = "HistorySearchParking";
 	private EditText etSearch;
 	private LinearLayout linearLayout;	//语音搜索相关组件
 	private ListView lvSearch;
@@ -84,8 +86,10 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText(R.string.search_parking);
-		etSearch = (EditText) findViewById(R.id.etSearch);
-		etSearch.setText(voiceSearchStr);
+		etSearch = (EditText) findViewById(R.id.tvSearch);
+		if (!TextUtils.isEmpty(voiceSearchStr)){
+			etSearch.setText(voiceSearchStr);
+		}
 		linearLayout = (LinearLayout) findViewById(R.id.vo_Search);
 		linearLayout.setOnClickListener(this);
 		etSearch.addTextChangedListener(textWatcher);
@@ -355,5 +359,16 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		private TextView tvAddress;
 		private ImageView ivHisotoySerarch;
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
+	}
 }

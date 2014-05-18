@@ -41,6 +41,7 @@ import com.keju.park.ui.searchparking.HistorySearchParking;
 import com.keju.park.ui.searchparking.ParkingListActivity;
 import com.keju.park.ui.searchparking.VoiceSearchActivity;
 import com.keju.park.util.NetUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -74,6 +75,8 @@ public class SearchParkingFragment extends BaseFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		UmengUpdateAgent.update(getActivity());
+		//禁止默认的页面统计方式,这样将不会再自动统计Activity
+		MobclickAgent.openActivityDurationTrack(false);
 		app = (CommonApplication) getActivity().getApplication();
 		daAdapter = app.getDbAdapter();
 		findView();
@@ -115,7 +118,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		// 获取合成文本.
-		String source = "您好，我是您的停车小秘书";
+		String source = "您好，我是您的停车小秘";
 		if(app.getUserAddress() != null){
 			source = source + "您现在的位置是" + app.getUserAddress().replace("-", "")+  "请说出您要去的停车场";
 		}else{
@@ -344,6 +347,16 @@ public class SearchParkingFragment extends BaseFragment implements
 		public void onGetPoiDetailSearchResult(int arg0, int arg1) {
 
 		}
+	}
+	@Override
+	public void onResume() {
+		super.onResume();
+		 MobclickAgent.onPageStart(this.getClass().getSimpleName()); //统计页面
+	}
+	@Override
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(this.getClass().getSimpleName());
 	}
 
 }

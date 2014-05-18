@@ -5,25 +5,29 @@
 
 	<include android:id="@+id/bar" layout="@layout/common_title_bar" />
 	<RelativeLayout android:id="@+id/llSearch"
-		android:layout_width="match_parent" android:layout_height="70dp"
+		android:layout_width="match_parent" android:layout_height="55dp"
 		android:background="@color/orange" android:layout_below="@+id/bar"
 		android:gravity="center_vertical">
 
-		<EditText android:id="@+id/etSearch" android:layout_width="match_parent"
-			android:layout_height="47dp" android:background="@drawable/bg_input_search_parking"
-			android:layout_margin="5dp" android:hint="请输入目的地" android:layout_toLeftOf="@+id/vo_Search"/>
+		<EditText android:id="@+id/tvSearch" android:layout_width="match_parent"
+			android:layout_height="43dp" android:background="@drawable/bg_input_search_parkings"
+			android:layout_margin="5dp" android:hint="   请输入目的地" android:gravity="center_vertical"
+			android:layout_toLeftOf="@+id/vo_Search"  android:paddingLeft="13dp"/>
 
-		<ImageView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_alignRight="@+id/etSearch"
-			android:layout_alignTop="@+id/etSearch" android:src="@drawable/ic_search"
-			android:layout_marginRight="5dp" android:layout_marginTop="2dp" />
-		
-		<LinearLayout android:id="@+id/vo_Search" android:layout_width="40dp"
-			android:layout_height="wrap_content"  android:layout_alignParentRight="true"
-			android:layout_marginTop="5dp" android:gravity="center_horizontal">
-		    <ImageView android:layout_width="30dp" android:layout_height="47dp"
-		         android:src="@drawable/vo_search" />
+		<ImageView android:id="@+id/ivSearch" android:layout_width="40dp"
+			android:layout_height="37dp" android:layout_alignRight="@+id/tvSearch"
+			android:layout_alignTop="@+id/tvSearch" android:src="@drawable/ic_search"
+			android:layout_marginRight="6dp" android:layout_marginTop="1dp"
+			 />
+
+		<LinearLayout android:id="@+id/vo_Search"
+			android:layout_width="40dp" android:visibility="gone"
+			android:layout_height="wrap_content" android:layout_alignParentRight="true"
+			android:layout_alignTop="@+id/tvSearch" android:gravity="center_horizontal">
+			<ImageView android:layout_width="30dp"
+				android:layout_height="47dp" android:src="@drawable/vo_search" />
 		</LinearLayout>
+
 	</RelativeLayout>
 
 	<ListView android:id="@+id/lvSearch" style="@style/listviewStyle"

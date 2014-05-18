@@ -12,6 +12,7 @@ import com.keju.park.Constants;
 import com.keju.park.R;
 import com.keju.park.ui.base.BaseFragment;
 import com.keju.park.util.NetUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
@@ -102,5 +103,14 @@ public class MoreFragment extends BaseFragment implements OnClickListener {
 			break;
 		}
 	}
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		 MobclickAgent.onPageStart(this.getClass().getSimpleName()); //统计页面
+	}
+	@Override
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(this.getClass().getSimpleName());
+	}
 }
