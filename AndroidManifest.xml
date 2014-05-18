@@ -98,7 +98,7 @@
 		</service>
 		<!-- 百度定位的key -->
 		<meta-data android:name="com.baidu.lbsapi.API_KEY"
-			android:value="9HzZZm7kAQDgxNOBkzqMSV8L" />
+			android:value="QY3PhfGffuzUQhT5SP9qgKFz" />
 		<!-- 友盟提供的服务 -->
         <service
             android:name="com.umeng.common.net.DownloadingService"
