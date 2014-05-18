@@ -241,7 +241,7 @@ public class SearchParkingFragment extends BaseFragment implements
 			break;
 		case R.id.btnLookNearby:
 			Bundle b = new Bundle();
-			b.putDouble("longtitude", app.getLastLocation().getLongitude());
+			b.putDouble("Longitude", app.getLastLocation().getLongitude());
 			b.putDouble("latitude", app.getLastLocation().getLatitude());
 			openActivity(ParkingListActivity.class, b);
 			break;

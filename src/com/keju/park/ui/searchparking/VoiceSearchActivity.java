@@ -32,7 +32,7 @@ import com.umeng.analytics.MobclickAgent;
  * @data 创建时间：2014-5-2 下午12:46:56
  */
 public class VoiceSearchActivity extends BaseActivity implements OnClickListener {
-	private final  String mPageName = "VoiceSearchActivity";
+	private final String mPageName = "VoiceSearchActivity";
 	private Button btnVoiceSearch;
 	private TextView tvSpeak, tvPosition;
 	private RelativeLayout rlErroeOrRight;
@@ -67,6 +67,7 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 	 * 控件初始化
 	 */
 	private void findView() {
+
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText("语音搜索");
 
@@ -98,6 +99,10 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 		iatDialog = new RecognizerDialog(this);
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+
+		rlErroeOrRight.setVisibility(View.VISIBLE);
+		tvSpeak.setText("你是否说的是");
+		showIatDialog();
 
 	}
 
@@ -312,16 +317,19 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 
 		}
 	};
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart(mPageName); //统计页面
-		MobclickAgent.onResume(this);          //统计时长
+		MobclickAgent.onPageStart(mPageName); // 统计页面
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为
+											// onPause 中会保存信息
 		MobclickAgent.onPause(this);
 	}
 }

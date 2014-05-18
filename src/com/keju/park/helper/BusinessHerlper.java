@@ -61,6 +61,7 @@ public class BusinessHerlper {
 			p.add(new PostParameter("longitude", longtitude));
 		}
 		p.add(new PostParameter("page_show", pageIndex));
+		p.add(new PostParameter("sortBy", "sortBy"));
 		ResponseBean<NearbyParkBean> response = null;
 		try {
 			JSONObject obj = null;

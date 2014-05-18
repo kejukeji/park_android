@@ -177,7 +177,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 				fuzzyQueryBean.setLatitude(Latitude);
 				Bundle b = new Bundle();
 				b.putDouble("Longitude", fuzzyQueryBean.getLongitude());
-				b.putDouble("Latitude", fuzzyQueryBean.getLatitude());
+				b.putDouble("latitude", fuzzyQueryBean.getLatitude());
 				boolean isAlikeFullName = dba.isAlikeData(fuzzyQueryBean.getCity() + fuzzyQueryBean.getAddress());
 
 				Log.i("isAlikeFullName", "isAlikeFullName= " + isAlikeFullName);
