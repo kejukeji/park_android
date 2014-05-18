@@ -97,7 +97,7 @@ public class MoreFragment extends BaseFragment implements OnClickListener {
 			agent.startFeedbackActivity();
 			break;
 		case R.id.rlShare:
-			recommandToYourFriend(Constants.APP_DOWNLOAD_URL, "我发现一个很好的 找创业园区的APP，下载地址：");
+			recommandToYourFriend(Constants.APP_DOWNLOAD_URL, "想停车不再难么，猛戳这里：");
 			break;
 		default:
 			break;
