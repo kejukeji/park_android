@@ -17,7 +17,7 @@
             android:layout_marginBottom="25dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/umeng_fb_logo"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +26,6 @@
             android:layout_marginRight="-30dp"
             android:layout_toLeftOf="@id/umeng_fb_conversation_umeng_logo"
             android:paddingBottom="0dp"
-            android:text="@string/umeng_fb_powered_by"
             android:textColor="#888888"
             android:textSize="12sp" />
     </RelativeLayout>
