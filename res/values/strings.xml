@@ -18,7 +18,7 @@
 	<string name="position">你要查找的位置</string>
 
 	<!-- 科大讯飞的 后续修改 -->
-	<string name="app_id">53785f30</string>
+	<string name="app_id">53591207</string>
 	<string name="text_iat">开始</string>
 	<string name="text_isr">识别</string>
 	<string name="text_iat_begin">请开始说话...</string>

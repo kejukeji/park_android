@@ -20,7 +20,7 @@ public class Constants {
 	// 文件目录
 	public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/" + APP_DIR_NAME + "/file/";
 	// 分享的Url
-	public static final String APP_DOWNLOAD_URL = "http://www.i-chuangye.com/download/app/ichuangye.apk";
+	public static final String APP_DOWNLOAD_URL = "http://121.199.251.166/package/Park.apk ";
 
 	/**
 	 * activity 定义的id,fragment间切换;

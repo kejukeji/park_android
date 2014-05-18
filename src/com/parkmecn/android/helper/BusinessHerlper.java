@@ -35,9 +35,10 @@ public class BusinessHerlper {
 	 * 网络访问路径
 	 */
 
-	 public static final String BASE_URL ="http://121.199.251.166//park/v1/carbarn/";// 生产服务器
-	 
-//	public static final String BASE_URL = "http://192.168.1.103:8080/v1/carbarn/";
+	public static final String BASE_URL = "http://121.199.251.166//park/v1/carbarn/";// 生产服务器
+
+	// public static final String BASE_URL =
+	// "http://192.168.1.103:8080/v1/carbarn/";
 	HttpClient httpClient = new HttpClient();
 
 	/**
@@ -54,7 +55,7 @@ public class BusinessHerlper {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	public ResponseBean<NearbyParkBean> getParkList(double latitude, double longtitude, String address,int pageIndex)
+	public ResponseBean<NearbyParkBean> getParkList(double latitude, double longtitude, String address, int pageIndex)
 			throws SystemException, JsonParseException, JsonMappingException, IOException {
 		List<PostParameter> p = new ArrayList<PostParameter>();
 		if (latitude != 0.0) {
@@ -63,9 +64,9 @@ public class BusinessHerlper {
 		if (longtitude != 0.0) {
 			p.add(new PostParameter("longitude", longtitude));
 		}
-		 if (!TextUtils.isEmpty(address)) {
-		 p.add(new PostParameter("carbarn_name", address));
-		 }
+		if (!TextUtils.isEmpty(address)) {
+			// p.add(new PostParameter("carbarn_name", address));
+		}
 		p.add(new PostParameter("page_show", pageIndex));
 		p.add(new PostParameter("sortBy", "sortBy"));
 		ResponseBean<NearbyParkBean> response = null;
@@ -107,6 +108,5 @@ public class BusinessHerlper {
 	public JSONObject getParkDetailsTask(int id) throws SystemException {
 		return httpClient.get(BASE_URL + "get/" + id).asJSONObject();
 	}
-
 
 }
