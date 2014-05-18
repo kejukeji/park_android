@@ -13,7 +13,7 @@
 			android:paddingTop="10dp" android:paddingBottom="10dp" android:singleLine="true"
 			android:ellipsize="end" android:background="@color/orange"/>
 
-	<com.keju.park.view.XListView android:id="@+id/lvlocationList"
+	<com.parkmecn.android.view.XListView android:id="@+id/lvlocationList"
 		android:layout_width="match_parent" android:layout_height="wrap_content"
 		android:layout_below="@+id/tvLocation" style="@style/listviewStyle" 
 		android:divider="@null" android:dividerHeight="0dp"/>
