@@ -36,6 +36,7 @@ import com.keju.park.R;
 import com.keju.park.bean.FuzzyQueryBean;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.JsonParser;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 语音对话界面
@@ -44,7 +45,7 @@ import com.keju.park.util.JsonParser;
  * @data 创建时间：2014-5-15 下午10:25:56
  */
 public class VoiceDialogueActivity extends BaseActivity implements OnClickListener, SynthesizerListener {
-
+	private final  String mPageName = "VoiceDialogueActivity";
 	private ListView vdList;
 	private Button btn;
 	// Tip
@@ -375,5 +376,16 @@ public class VoiceDialogueActivity extends BaseActivity implements OnClickListen
 
 		}
 	}
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
+	}
 }

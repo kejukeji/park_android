@@ -25,6 +25,7 @@ import com.keju.park.helper.BusinessHerlper;
 import com.keju.park.ui.base.BaseActivity;
 import com.keju.park.util.NetUtil;
 import com.keju.park.util.StringUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 停车列表详情界面
@@ -34,6 +35,7 @@ import com.keju.park.util.StringUtil;
  * @version 1.0
  */
 public class ParkingDetailsActivity extends BaseActivity implements OnClickListener {
+	private final  String mPageName = "ParkingDetailsActivity";
 	private final String TAG = "ParkingDetailsActivity";
 
 	private CommonApplication app;
@@ -177,5 +179,17 @@ public class ParkingDetailsActivity extends BaseActivity implements OnClickListe
 		default:
 			break;
 		}
+	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart(mPageName); //统计页面
+		MobclickAgent.onResume(this);          //统计时长
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPause(this);
 	}
 }
