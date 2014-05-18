@@ -155,7 +155,11 @@ public class VoiceSearchActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.btnRight1:
 			Bundle b = new Bundle();
-			b.putString("voiceSearchStr", voiceStr.replace("。", ""));
+			if(TextUtils.isEmpty(voiceStr)){
+				b.putString("voiceSearchStr", voiceStr);
+			}else{
+				b.putString("voiceSearchStr", voiceStr.replace("。", ""));
+			}
 			openActivity(HistorySearchParking.class, b);
 			tvSpeak.setText(R.string.speak);
 			tvPosition.setText(R.string.position);

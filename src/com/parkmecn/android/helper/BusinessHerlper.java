@@ -35,15 +35,18 @@ public class BusinessHerlper {
 	 * 网络访问路径
 	 */
 
-	public static final String BASE_URL = "http://121.199.251.166//park/v1/carbarn/";// 生产服务器
+	 public static final String BASE_URL ="http://121.199.251.166//park/v1/carbarn/";// 生产服务器
+	 
+//	public static final String BASE_URL = "http://192.168.1.103:8080/v1/carbarn/";
 	HttpClient httpClient = new HttpClient();
 
 	/**
-	 * 获得停车数据
+	 * 定位附件停车场数据或者某个名字附近获得停车数据
 	 * 
 	 * @param latitude
 	 * @param longtitude
 	 *            pageIndex
+	 * @param address
 	 * @param pageIndex
 	 * @return
 	 * @throws SystemException
@@ -51,8 +54,8 @@ public class BusinessHerlper {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	public ResponseBean<NearbyParkBean> getParkList(double latitude, double longtitude, int pageIndex) throws SystemException,
-			JsonParseException, JsonMappingException, IOException {
+	public ResponseBean<NearbyParkBean> getParkList(double latitude, double longtitude, String address,int pageIndex)
+			throws SystemException, JsonParseException, JsonMappingException, IOException {
 		List<PostParameter> p = new ArrayList<PostParameter>();
 		if (latitude != 0.0) {
 			p.add(new PostParameter("latitude", latitude));
@@ -60,6 +63,9 @@ public class BusinessHerlper {
 		if (longtitude != 0.0) {
 			p.add(new PostParameter("longitude", longtitude));
 		}
+		 if (!TextUtils.isEmpty(address)) {
+		 p.add(new PostParameter("carbarn_name", address));
+		 }
 		p.add(new PostParameter("page_show", pageIndex));
 		p.add(new PostParameter("sortBy", "sortBy"));
 		ResponseBean<NearbyParkBean> response = null;
@@ -67,11 +73,13 @@ public class BusinessHerlper {
 			JSONObject obj = null;
 			obj = httpClient.get(BASE_URL + "latitude-longitude", p.toArray(new PostParameter[p.size()])).asJSONObject();
 			int status = obj.getInt("status");
+			response = new ResponseBean<NearbyParkBean>(obj);
+			response.setStatus(status);
 			if (status == Constants.REQUEST_SUCCESS) {
-				response = new ResponseBean<NearbyParkBean>(obj);
+				// response = new ResponseBean<NearbyParkBean>(obj);
 				List<NearbyParkBean> list = null;
 				if (!TextUtils.isEmpty(obj.getString("data"))) {
-					JSONArray array =  obj.getJSONArray("data");
+					JSONArray array = obj.getJSONArray("data");
 					list = NearbyParkBean.constractList(array);// 停车列表
 				} else {
 					list = new ArrayList<NearbyParkBean>();
@@ -99,5 +107,6 @@ public class BusinessHerlper {
 	public JSONObject getParkDetailsTask(int id) throws SystemException {
 		return httpClient.get(BASE_URL + "get/" + id).asJSONObject();
 	}
+
 
 }

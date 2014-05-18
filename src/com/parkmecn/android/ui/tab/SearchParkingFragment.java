@@ -1,6 +1,5 @@
 package com.parkmecn.android.ui.tab;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,9 +49,8 @@ import com.umeng.update.UmengUpdateAgent;
  * @author zhouyong
  * @data 创建时间：2014-5-1 下午10:59:30
  */
-public class SearchParkingFragment extends BaseFragment implements
-		OnClickListener{
-	private TextView  tvTitle;
+public class SearchParkingFragment extends BaseFragment implements OnClickListener {
+	private TextView tvTitle;
 	private Button btnNearby, btnVoice;
 	private TextView tvSearch;
 	private CommonApplication app;
@@ -63,30 +61,32 @@ public class SearchParkingFragment extends BaseFragment implements
 	private MKSearch mMKSearch = null;
 
 	private DataBaseAdapter daAdapter;
-	//语音合成；
-	//合成对象.
+	// 语音合成；
+	// 合成对象.
 	private SpeechSynthesizer mSpeechSynthesizer;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.activity_search_parking, container, false);
 	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		UmengUpdateAgent.update(getActivity());
-		//禁止默认的页面统计方式,这样将不会再自动统计Activity
+		// 禁止默认的页面统计方式,这样将不会再自动统计Activity
 		MobclickAgent.openActivityDurationTrack(false);
 		app = (CommonApplication) getActivity().getApplication();
 		daAdapter = app.getDbAdapter();
 		findView();
 		fillData();
 	}
+
 	/**
 	 * 初始化控件
 	 */
 	private void findView() {
-	
+
 		app.initBMapInfo();
 
 		tvTitle = (TextView) getActivity().findViewById(R.id.tvTitle);
@@ -108,24 +108,23 @@ public class SearchParkingFragment extends BaseFragment implements
 	 */
 	private void fillData() {
 		mMKSearch = new MKSearch();
-		mMKSearch.init(app.mBMapManager,
-				new MySearchListener());
+		mMKSearch.init(app.mBMapManager, new MySearchListener());
 		initLocation();
-		
+
 		// 用户登录
-		SpeechUser.getUser().login(getActivity(), null, null, "appid=" + getString(R.string.app_id),
-						loginListener);
+		SpeechUser.getUser().login(getActivity(), null, null, "appid=" + getString(R.string.app_id), loginListener);
 		// 初始化合成对象.
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		// 获取合成文本.
 		String source = "您好、我是您的停车小秘、";
-		if(app.getUserAddress() != null){
-			source = source + "您现在的位置是、" + app.getUserAddress().replace("-", "")+  "请告诉我您要去哪里";
-		}else{
+		if (app.getUserAddress() != null) {
+			source = source + "您现在的位置是、" + app.getUserAddress().replace("-", "") + "请告诉我您要去哪里";
+		} else {
 			source = source + "对不起，目前无法获取您当前的位置";
 		}
 		synthetizeInSilence(source);
 	}
+
 	/**
 	 * 用户登录回调监听器.
 	 */
@@ -146,6 +145,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		public void onEvent(int arg0, Bundle arg1) {
 		}
 	};
+
 	/**
 	 * 使用SpeechSynthesizer合成语音
 	 * 
@@ -172,7 +172,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		int pitch = 49;
 		// 设置语调
 		mSpeechSynthesizer.setParameter(SpeechConstant.PITCH, "" + pitch);
-		
+
 		mSpeechSynthesizer.startSpeaking(source, synthesizerListener);
 	}
 
@@ -180,37 +180,38 @@ public class SearchParkingFragment extends BaseFragment implements
 	 * 语音合成播放；
 	 */
 	private SynthesizerListener synthesizerListener = new SynthesizerListener() {
-		
+
 		@Override
 		public void onSpeakResumed() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakProgress(int arg0, int arg1, int arg2) {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakPaused() {
-			
+
 		}
-		
+
 		@Override
 		public void onSpeakBegin() {
-			
+
 		}
-		
+
 		@Override
 		public void onCompleted(SpeechError arg0) {
-			
+
 		}
-		
+
 		@Override
 		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-			
+
 		}
 	};
+
 	/**
 	 * 初始化定位
 	 */
@@ -230,7 +231,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		mLocationClient.setLocOption(option);
 		mLocationClient.start();
-		
+
 	}
 
 	@Override
@@ -243,12 +244,13 @@ public class SearchParkingFragment extends BaseFragment implements
 			Bundle b = new Bundle();
 			b.putDouble("Longitude", app.getLastLocation().getLongitude());
 			b.putDouble("latitude", app.getLastLocation().getLatitude());
+			b.putString("address", "");
 			openActivity(ParkingListActivity.class, b);
 			break;
 
 		case R.id.btnVoice:
 			openActivity(VoiceSearchActivity.class);
-//			openActivity(VoiceDialogueActivity.class);
+			// openActivity(VoiceDialogueActivity.class);
 			break;
 		case R.id.tvSearch:
 			// daAdapter.clearTableData("search_history");//清除表
@@ -262,9 +264,6 @@ public class SearchParkingFragment extends BaseFragment implements
 		}
 	}
 
-
-
-
 	/**
 	 * 监听函数，有更新位置的时候
 	 */
@@ -275,11 +274,9 @@ public class SearchParkingFragment extends BaseFragment implements
 				showShortToast("定位失败");
 				return;
 			}
-			
+
 			mLocationClient.stop();
-			mMKSearch.reverseGeocode(new GeoPoint(
-					(int) (location.getLatitude() * 1e6), (int) (location
-							.getLongitude() * 1e6)));
+			mMKSearch.reverseGeocode(new GeoPoint((int) (location.getLatitude() * 1e6), (int) (location.getLongitude() * 1e6)));
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -305,8 +302,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		}
 
 		@Override
-		public void onGetDrivingRouteResult(MKDrivingRouteResult result,
-				int iError) {
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 			// 返回驾乘路线搜索结果
 		}
 
@@ -316,14 +312,12 @@ public class SearchParkingFragment extends BaseFragment implements
 		}
 
 		@Override
-		public void onGetTransitRouteResult(MKTransitRouteResult result,
-				int iError) {
+		public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
 			// 返回公交搜索结果
 		}
 
 		@Override
-		public void onGetWalkingRouteResult(MKWalkingRouteResult result,
-				int iError) {
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 			// 返回步行路线搜索结果
 		}
 
@@ -338,8 +332,7 @@ public class SearchParkingFragment extends BaseFragment implements
 		}
 
 		@Override
-		public void onGetShareUrlResult(MKShareUrlResult result, int type,
-				int error) {
+		public void onGetShareUrlResult(MKShareUrlResult result, int type, int error) {
 			// 在此处理短串请求返回结果.
 		}
 
@@ -348,11 +341,13 @@ public class SearchParkingFragment extends BaseFragment implements
 
 		}
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		 MobclickAgent.onPageStart(this.getClass().getSimpleName()); //统计页面
+		MobclickAgent.onPageStart(this.getClass().getSimpleName()); // 统计页面
 	}
+
 	@Override
 	public void onPause() {
 		super.onPause();

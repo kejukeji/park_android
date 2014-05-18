@@ -35,7 +35,7 @@ import com.umeng.analytics.MobclickAgent;
  * @version 创建时间：2014-5-4 下午4:50:44
  */
 public class ParkingListActivity extends BaseActivity implements OnClickListener, IXListViewListener {
-	private final  String mPageName = "ParkingListActivity";
+	private final String mPageName = "ParkingListActivity";
 	private CommonApplication app;
 	private TextView tvLocation;
 
@@ -50,6 +50,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 	private double longtitude;
 	private double latitude;
+	private String address;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 
 		longtitude = getIntent().getExtras().getDouble("Longitude");
 		latitude = getIntent().getExtras().getDouble("latitude");
-
+		address = getIntent().getExtras().getString("address");
 		initBar();
 		findView();
 		fillData();
@@ -73,7 +74,11 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		tvTitle.setText("附近停车场");
 
 		tvLocation = (TextView) findViewById(R.id.tvLocation);
-		tvLocation.setText("您当前的位置：" + app.getUserAddress());
+		if (app.getUserAddress() == null) {
+			tvLocation.setText("您当前的位置：");
+		} else {
+			tvLocation.setText("您当前的位置：" + app.getUserAddress());
+		}
 
 		lvParkding = (XListView) findViewById(R.id.lvlocationList);
 		parkingList = new ArrayList<NearbyParkBean>();
@@ -148,7 +153,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 		@Override
 		protected ResponseBean<NearbyParkBean> doInBackground(Void... params) {
 			try {
-				return new BusinessHerlper().getParkList(latitude, longtitude, pageIndex);
+				return new BusinessHerlper().getParkList(latitude, longtitude, address, pageIndex);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -164,7 +169,7 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			if (isRefresh) {
 				parkingList.clear();
 			}
-			if (result != null) {
+			if (result.getStatus() == 0) {
 				List<NearbyParkBean> tempList = result.getObjList();
 				boolean isLastPage = false;
 				if (tempList.size() > 0) {
@@ -192,8 +197,8 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 					showShortToast("无更多数据");
 				}
 				adapter.notifyDataSetChanged();
-			}else{
-				showShortToast("数据解析错误");
+			} else {
+				showShortToast("您查询的位置没有数据");
 			}
 			isLoad = false;
 			isRefresh = false;
@@ -242,16 +247,19 @@ public class ParkingListActivity extends BaseActivity implements OnClickListener
 			refreshData();
 		}
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart(mPageName); //统计页面
-		MobclickAgent.onResume(this);          //统计时长
+		MobclickAgent.onPageStart(mPageName); // 统计页面
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为
+											// onPause 中会保存信息
 		MobclickAgent.onPause(this);
 	}
 }

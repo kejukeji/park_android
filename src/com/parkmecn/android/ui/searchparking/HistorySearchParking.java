@@ -32,12 +32,14 @@ import com.baidu.mapapi.search.MKShareUrlResult;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.parkmecn.android.CommonApplication;
 import com.parkmecn.android.R;
 import com.parkmecn.android.bean.FuzzyQueryBean;
 import com.parkmecn.android.db.DataBaseAdapter;
 import com.parkmecn.android.ui.base.BaseActivity;
 import com.parkmecn.android.util.AndroidUtil;
+import com.parkmecn.android.util.NetUtil;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -47,7 +49,7 @@ import com.umeng.analytics.MobclickAgent;
  * @data 创建时间：2014-5-2 下午2:56:35
  */
 public class HistorySearchParking extends BaseActivity implements OnClickListener {
-	private final  String mPageName = "HistorySearchParking";
+	private final String mPageName = "HistorySearchParking";
 	private EditText etSearch;
 	private LinearLayout linearLayout; // 语音搜索相关组件
 	private ListView lvSearch;
@@ -83,7 +85,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 	 * 
 	 */
 	private void findView() {
-
+		app.initBMapInfo();
 		tvLeft.setOnClickListener(this);
 		tvTitle.setText(R.string.search_parking);
 		etSearch = (EditText) findViewById(R.id.tvSearch);
@@ -101,14 +103,18 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 		mMKSearch = new MKSearch();
 		mMKSearch.init(((CommonApplication) getApplication()).mBMapManager, new MySearchListener());// 注意，MKSearchListener只支持一个，以最后一次设置为准
+		// mMKSearch.poiSearchNearBy("停车场", new GeoPoint((int)
+		// (app.getLastLocation().getLongitude() * 1E6), (int)
+		// (app.getLastLocation().getLatitude() * 1E6)), 5000);
 		if (!TextUtils.isEmpty(voiceSearchStr)) {
 			mMKSearch.suggestionSearch(voiceSearchStr, app.getCity());
 		} else {
-			ArrayList<FuzzyQueryBean> fuzzyList = dba.queryHistoryRecode();
 			list.clear();
+			ArrayList<FuzzyQueryBean> fuzzyList = dba.queryHistoryRecode();
 			list = fuzzyList;
 			adapter = new SearchHistoryAdapter(fuzzyList, true); // turn
 			lvSearch.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 
 	}
@@ -121,9 +127,17 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			clickItemPositn = position;
-			FuzzyQueryBean itemBean = list.get(position);
-			getSearchAreaLongitudeAndlatitude(itemBean);
+			if (NetUtil.checkNet(HistorySearchParking.this)) {
+				clickItemPositn = position;
+				FuzzyQueryBean itemBean = list.get(position);
+				getSearchAreaLongitudeAndlatitude(itemBean);
+			} else {
+				Bundle b = new Bundle();
+				b.putDouble("Longitude", 0.0);
+				b.putDouble("latitude", 0.0);
+				b.putString("address", null);
+				openActivity(ParkingListActivity.class, b);
+			}
 
 		}
 
@@ -151,9 +165,9 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 				list = fuzzyList;
 				adapter = new SearchHistoryAdapter(fuzzyList, true); // turn
 				lvSearch.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
 				return;
 			}
-
 			mMKSearch.suggestionSearch(s.toString(), app.getCity());
 		}
 	};
@@ -178,6 +192,7 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 				Bundle b = new Bundle();
 				b.putDouble("Longitude", fuzzyQueryBean.getLongitude());
 				b.putDouble("latitude", fuzzyQueryBean.getLatitude());
+				b.putString("address", fuzzyQueryBean.getAddress());
 				boolean isAlikeFullName = dba.isAlikeData(fuzzyQueryBean.getCity() + fuzzyQueryBean.getAddress());
 
 				Log.i("isAlikeFullName", "isAlikeFullName= " + isAlikeFullName);
@@ -360,16 +375,19 @@ public class HistorySearchParking extends BaseActivity implements OnClickListene
 		private TextView tvAddress;
 		private ImageView ivHisotoySerarch;
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onPageStart(mPageName); //统计页面
-		MobclickAgent.onResume(this);          //统计时长
+		MobclickAgent.onPageStart(mPageName); // 统计页面
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+		MobclickAgent.onPageEnd(mPageName); // 保证 onPageEnd 在onPause 之前调用,因为
+											// onPause 中会保存信息
 		MobclickAgent.onPause(this);
 	}
 }

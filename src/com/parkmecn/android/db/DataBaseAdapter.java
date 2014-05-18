@@ -162,8 +162,7 @@ public class DataBaseAdapter {
 				String full_name =c.getString(c.getColumnIndex(HISTORY_Columns.FullNAME));
 				if(fullName.equals(full_name)){
 					isAlikeData = true;
-				}else{
-					isAlikeData= false;
+					break;
 				}
 			}
 		} catch (Exception e) {
